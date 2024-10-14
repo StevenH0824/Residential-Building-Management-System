@@ -1,13 +1,10 @@
 package com.example.buildingmanagement.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.HashMap;
-// git check comment
+
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +15,12 @@ public class AccessControl {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private Long cardScannerId;
+  @ManyToOne
+  @JoinColumn(name = "card_scanner_id", nullable = false)
+  private CardScan cardScan;
+  @ElementCollection
+  @MapKeyJoinColumn(name = "floor_id")
+  @Column(name = "has_access")
   private HashMap<Long, Boolean> floorAccess;
 
 }

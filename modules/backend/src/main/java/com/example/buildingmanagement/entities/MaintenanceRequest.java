@@ -1,9 +1,6 @@
 package com.example.buildingmanagement.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -20,6 +17,10 @@ public class MaintenanceRequest {
   private Long id;
   private Boolean status;
   private String IssueDescription;
-  private Long apartmentId;
-  private LocalDateTime date;
+
+  @ManyToOne
+  @JoinColumn(name = "apartment_id", nullable = false)
+  private Apartment apartment;
+  private LocalDateTime requestDate;
+  private LocalDateTime resolvedDate;
 }

@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 @Getter
 @Setter
-public class Floors {
+public class Floor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

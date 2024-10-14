@@ -16,6 +16,10 @@ public class ControlGroup {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private LocalDateTime date;
-  private Long personId;
-  private Long floorId;
+  @ManyToOne
+  @JoinColumn(name = "person_id", nullable = false)
+  private Person person;
+  @ManyToOne
+  @JoinColumn(name = "floor_id", nullable = false)
+  private Floor floor;
 }

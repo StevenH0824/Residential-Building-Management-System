@@ -1,9 +1,6 @@
 package com.example.buildingmanagement.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -12,9 +9,11 @@ import lombok.*;
 @ToString
 @Getter
 @Setter
-public class Apartments {
+public class Apartment {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private Long floorId;
+  @ManyToOne
+  @JoinColumn(name = "floor_id", nullable = false)
+  private Floor floor;
 }

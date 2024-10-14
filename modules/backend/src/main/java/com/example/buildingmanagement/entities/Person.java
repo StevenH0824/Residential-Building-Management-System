@@ -16,5 +16,8 @@ public class Person {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String full_name;
+  @ManyToOne
+  @JoinColumn(name = "control_group_id")
+  private Long controlGroupId;
 
 }
