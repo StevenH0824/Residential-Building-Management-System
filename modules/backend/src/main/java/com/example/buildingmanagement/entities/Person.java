@@ -18,6 +18,6 @@ public class Person {
   private String full_name;
   @ManyToOne
   @JoinColumn(name = "control_group_id")
-  private Long controlGroupId;
+  private ControlGroup controlGroupId;
 
 }
