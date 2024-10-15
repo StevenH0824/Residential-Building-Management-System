@@ -6,7 +6,7 @@ import lombok.*;
 @ToString
 @Getter
 @Setter
-public class CreatePersonDto {
+public class PersonDto {
   private Long id;
   private String full_name;
   private Long controlGroupId;
