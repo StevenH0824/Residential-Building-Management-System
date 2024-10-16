@@ -1,5 +1,5 @@
 -- Insert data into Floors
-INSERT INTO BuildingComponent (type) VALUES
+INSERT INTO Floor (type) VALUES
 ( 'Lobby'),
 ( '1st Floor'),
 ( '2nd Floor'),

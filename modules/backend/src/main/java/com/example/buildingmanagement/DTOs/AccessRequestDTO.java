@@ -1,5 +1,6 @@
 package com.example.buildingmanagement.DTOs;
 
+import com.example.buildingmanagement.entities.StatusType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ public class AccessRequestDTO {
     private Long id;
     private Long personId;
     private Long controlGroupId;
-    private enum status;
+    private StatusType status;
     private LocalDateTime RequestDate;
     private LocalDateTime DecisionDate;
     private String reason;
