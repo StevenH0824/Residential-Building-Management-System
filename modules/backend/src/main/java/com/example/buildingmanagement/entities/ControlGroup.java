@@ -21,5 +21,5 @@ public class ControlGroup {
   private Person person;
   @ManyToOne
   @JoinColumn(name = "floor_id", nullable = false)
-  private Floor floor;
+  private BuildingComponent buildingComponent;
 }

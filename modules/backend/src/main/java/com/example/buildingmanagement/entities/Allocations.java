@@ -17,14 +17,14 @@ public class Allocations {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-//  private List<Long> personId;
-@ManyToMany
-@JoinTable(
-  name = "allocation_person",
-  joinColumns = @JoinColumn(name = "allocation_id"),
-  inverseJoinColumns = @JoinColumn(name = "person_id")
-)
-private Set<Person> persons;
+  //  private List<Long> personId;
+  @ManyToMany
+  @JoinTable(
+    name = "allocation_person",
+    joinColumns = @JoinColumn(name = "allocation_id"),
+    inverseJoinColumns = @JoinColumn(name = "person_id")
+  )
+  private Set<Person> persons;
   @ManyToOne
   @JoinColumn(name = "apartment_id", nullable = false)
   private Apartment apartment;

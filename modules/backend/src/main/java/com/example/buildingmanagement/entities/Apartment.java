@@ -15,5 +15,5 @@ public class Apartment {
   private Long id;
   @ManyToOne
   @JoinColumn(name = "floor_id", nullable = false)
-  private Floor floor;
+  private BuildingComponent buildingComponent;
 }

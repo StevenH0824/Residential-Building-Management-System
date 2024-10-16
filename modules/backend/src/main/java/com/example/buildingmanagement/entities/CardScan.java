@@ -16,5 +16,5 @@ public class CardScan {
   //  private Long personId;
   @ManyToOne
   @JoinColumn(name = "floor_id", nullable = false)
-  private Floor floor;
+  private BuildingComponent buildingComponent;
 }

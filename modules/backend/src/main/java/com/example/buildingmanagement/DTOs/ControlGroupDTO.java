@@ -1,5 +1,5 @@
 package com.example.buildingmanagement.DTOs;
-import com.example.buildingmanagement.entities.Floor;
+import com.example.buildingmanagement.entities.BuildingComponent;
 import com.example.buildingmanagement.entities.Person;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -13,5 +13,5 @@ public class ControlGroupDTO {
   private Long id;
   private LocalDateTime date;
   private Person person;
-  private Floor floor;
+  private BuildingComponent buildingComponent;
 }
