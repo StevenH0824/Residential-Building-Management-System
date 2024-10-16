@@ -13,6 +13,6 @@ public class Floor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long floorId;
-//    private Building building;
+    private Building building;
     private String description;
 }
