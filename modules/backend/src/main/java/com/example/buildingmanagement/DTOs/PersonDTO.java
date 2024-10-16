@@ -6,8 +6,10 @@ import lombok.*;
 @ToString
 @Getter
 @Setter
-public class PersonDto {
+public class PersonDTO {
   private Long id;
-  private String full_name;
-  private Long controlGroupId;
+  private String first_name;
+  private String last_name;
+  private String phone_number;
+  private String email;
 }
