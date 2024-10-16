@@ -13,6 +13,6 @@ import lombok.Setter;
 public class FloorDTO {
   private Long id;
   private Long buildingId;
-  private Long floor_number;
+  private String description;
 
 }

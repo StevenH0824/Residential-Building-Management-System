@@ -18,10 +18,10 @@ public class AccessRequestDTO {
     private Long personId;
     private Long controlGroupId;
     private StatusType status;
-    private LocalDateTime RequestDate;
-    private LocalDateTime DecisionDate;
+    private LocalDateTime requestDate;
+    private LocalDateTime decisionDate;
     private String reason;
-    private String proccessed_by;
+    private String processedBy;
     private Long floorId;
 
 

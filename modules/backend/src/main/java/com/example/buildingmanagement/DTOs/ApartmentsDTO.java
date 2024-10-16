@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ApartmentsDTO {
-
     private Long id;
     private Long floorId;
 }

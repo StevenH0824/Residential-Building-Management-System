@@ -17,10 +17,7 @@ public class Person {
   private Long personId;
   private String first_name;
   private String last_name;
-  private String phone;
+  private String phone_number;
   private String email;
-  @ManyToOne
-  @JoinColumn(name = "control_group_id")
-  private ControlGroup controlGroupId;
 }
 
