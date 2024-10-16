@@ -14,10 +14,13 @@ import lombok.*;
 public class Person {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-  private String full_name;
+  private Long personId;
+  private String first_name;
+  private String last_name;
+  private String phone;
+  private String email;
   @ManyToOne
   @JoinColumn(name = "control_group_id")
   private ControlGroup controlGroupId;
-
 }
+
