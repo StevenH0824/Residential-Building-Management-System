@@ -9,11 +9,10 @@ import lombok.*;
 @ToString
 @Getter
 @Setter
-public class BuildingComponent {
+public class Floor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long floorId;
+    private Building building;
     private String description;
-
-
 }

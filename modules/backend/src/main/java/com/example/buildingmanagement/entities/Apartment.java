@@ -12,8 +12,8 @@ import lombok.*;
 public class Apartment {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Long apartmentId;
   @ManyToOne
   @JoinColumn(name = "floor_id", nullable = false)
-  private BuildingComponent buildingComponent;
+  private Floor floor;
 }
