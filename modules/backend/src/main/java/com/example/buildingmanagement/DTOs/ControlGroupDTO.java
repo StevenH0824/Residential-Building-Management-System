@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 public class ControlGroupDTO {
   private Long id;
-  private LocalDateTime date;
-  private Person person;
-  private Floor floor;
+  private String GroupName;
+  private String description;
+
 }

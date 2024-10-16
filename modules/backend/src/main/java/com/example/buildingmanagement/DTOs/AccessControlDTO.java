@@ -3,6 +3,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @NoArgsConstructor
@@ -11,6 +13,9 @@ import java.util.Map;
 @Setter
 public class AccessControlDTO {
   private Long id;
-  private Long cardScanId;
-  private Map<Long, Boolean> floorAccess;
+  private Long controlGroupId;
+  private LocalDateTime startDate;
+  private LocalDateTime endDate;
+  private Long apartmentId;
+  private Long personId;
 }

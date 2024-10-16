@@ -1,15 +1,18 @@
 package com.example.buildingmanagement.DTOs;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class CardScanDTO {
+public class FloorDTO {
   private Long id;
-  private Long floorId;
-  private String Description;
+  private Long buildingId;
+  private Long floor_number;
+
 }
