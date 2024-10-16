@@ -9,12 +9,12 @@ import lombok.*;
 @ToString
 @Getter
 @Setter
-public class CardScan {
+public class CardScanner {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-  //  private Long personId;
+  private Long cardScannerId;
+  private String description;
   @ManyToOne
   @JoinColumn(name = "floor_id", nullable = false)
-  private BuildingComponent buildingComponent;
+  private Floor floor;
 }
