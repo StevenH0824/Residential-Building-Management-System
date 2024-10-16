@@ -11,10 +11,14 @@ import java.time.LocalDateTime;
 @ToString
 @Getter
 @Setter
-public class ControlGroup {
+public class AccessLog {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long controlGroupId;
-  private String groupName;
-  private String description;
+  private Long accessLogId;
+  @ManyToOne
+  @JoinColumn(name = "cardScanner_id", nullable = false)
+  private CardScanner cardScanner;
+  @ManyToOne
+  private Person person;
+  private LocalDateTime accessTime;
 }
