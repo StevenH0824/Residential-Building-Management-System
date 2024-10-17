@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 public class AccessLogDTO {
   private Long id;
-  private Long scannerId;
+  private Long cardScannerId;
   private Long personId;
   private LocalDateTime accessTime;
 

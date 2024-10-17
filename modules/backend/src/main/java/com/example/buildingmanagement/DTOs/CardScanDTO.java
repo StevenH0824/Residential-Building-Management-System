@@ -11,5 +11,5 @@ import lombok.Setter;
 public class CardScanDTO {
   private Long id;
   private Long floorId;
-  private String Description;
+  private String description;
 }
