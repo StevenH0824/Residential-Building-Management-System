@@ -1,2 +1,3 @@
-package com.example.buildingmanagement.Repositories;public interface JpaAccessControlRepository {
+package com.example.buildingmanagement.Repositories;
+public interface JpaAccessControlRepository {
 }
