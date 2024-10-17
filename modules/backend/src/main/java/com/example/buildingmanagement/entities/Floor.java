@@ -1,4 +1,5 @@
 package com.example.buildingmanagement.entities;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,9 +11,11 @@ import lombok.*;
 @Getter
 @Setter
 public class Floor {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long floorId;
-    private Building building;
-    private String description;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long floorId;
+  @ManyToOne
+  @JoinColumn(name = "building_id", nullable = false)
+  private Building building;
+  private String description;
 }
