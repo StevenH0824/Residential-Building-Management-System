@@ -29,11 +29,7 @@ public class AccessRequest {
   private LocalDateTime requestedDate;
   private LocalDateTime decisionDate;
   private String reason;
-
-  @ManyToOne
-  @JoinColumn(name = "processed_by")
-  private Person processedBy;  // Admin or system processing the request
-
+  private String processedBy;  // Admin or system processing the request
   @ManyToOne
   @JoinColumn(name = "floor_id")
   private Floor floor;
