@@ -13,8 +13,10 @@ public class CardScanner {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long cardScannerId;
+
   private String description;
+
   @ManyToOne
-  @JoinColumn(name = "floor_id", nullable = false)
-  private Floor floor;
+  @JoinColumn(name = "room_id")
+  private Room room;
 }

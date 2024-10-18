@@ -16,9 +16,10 @@ public class AccessLog {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long accessLogId;
   @ManyToOne
+  @JoinColumn(name = "person_id")
+  private Person person;
+  @ManyToOne
   @JoinColumn(name = "cardScanner_id", nullable = false)
   private CardScanner cardScanner;
-  @ManyToOne
-  private Person person;
   private LocalDateTime accessTime;
 }

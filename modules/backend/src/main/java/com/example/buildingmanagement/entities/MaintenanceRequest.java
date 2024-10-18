@@ -16,15 +16,19 @@ public class MaintenanceRequest {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long maintenanceRequestId;
+
+  private LocalDateTime requestDate;
+  private LocalDateTime resolvedDate;
+  private String issueDescription;
+
   @Enumerated(EnumType.STRING)
-  private StatusType status;
-  private String IssueDescription;
+  private StatusType status; // e.g., OPEN, IN_PROGRESS, RESOLVED
+
   @ManyToOne
-  @JoinColumn(name = "apartment_id", nullable = false)
-  private Apartment apartment;
+  @JoinColumn(name = "room_id", nullable = false)
+  private Room room;
+
   @ManyToOne
   @JoinColumn(name = "person_id", nullable = false)
   private Person person;
-  private LocalDateTime requestDate;
-  private LocalDateTime resolvedDate;
 }

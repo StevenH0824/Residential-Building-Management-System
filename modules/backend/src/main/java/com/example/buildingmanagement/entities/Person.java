@@ -19,5 +19,7 @@ public class Person {
   private String lastName;
   private String phoneNumber;
   private String email;
-}
 
+  // New field for role
+  private String role; // or use an enum for predefined roles
+}

@@ -1,9 +1,5 @@
 package com.example.buildingmanagement.entities;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -20,4 +16,3 @@ public class Building {
   private String address;
   private Integer totalFloors;
 }
-

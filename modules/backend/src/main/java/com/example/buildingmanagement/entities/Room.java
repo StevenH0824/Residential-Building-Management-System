@@ -10,18 +10,20 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Floor {
+public class Room {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long floorId;
+  private Long roomId;
 
   private String description;
 
   @ManyToOne
-  @JoinColumn(name = "building_id", nullable = true)
-  private Building building;
+  @JoinColumn(name = "floor_id", nullable = true)
+  private Floor floor;
 
-  @OneToMany(mappedBy = "floor")
-  private List<Room> rooms;
+  @OneToMany(mappedBy = "room")
+  private List<CardScanner> cardScanners;
+
+//  @OneToMany(mappedBy = "room")
+//  private List<Allocation> allocations;
 }
-
