@@ -2,11 +2,13 @@
 
 .gradle/
 
+
 # Compiled output
 /dist
 /tmp
 /out-tsc
 /bazel-out
+/gradle
 
 # Node
 /node_modules
