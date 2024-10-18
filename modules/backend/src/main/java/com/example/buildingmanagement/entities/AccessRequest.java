@@ -30,9 +30,9 @@ public class AccessRequest {
   private LocalDateTime decisionDate;
   private String reason;
 
-  @ManyToOne
-  @JoinColumn(name = "processed_by")
-  private Person processedBy;
+//  @ManyToOne
+//  @JoinColumn(name = "processed_by")
+//  private Person processedBy;
   /*
   commit b4f5f100db923d3a95bf887b69065c674db88031 (origin/danaBranch)
   Author: Dana <dana.seidakhmetova@peopleshores.com>
@@ -46,7 +46,7 @@ public class AccessRequest {
   incorportate processedBy as a String id but for now, no errors are given at all.
    */
 
-  //private String processedBy;  // Admin or system processing the request
+  private String processedBy;  // Admin or system processing the request
   @ManyToOne
   @JoinColumn(name = "floor_id")
   private Floor floor;

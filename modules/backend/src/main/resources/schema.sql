@@ -1,9 +1,12 @@
 
 -- Drop the person table if it exists
 DROP TABLE IF EXISTS public.person;
+DROP TABLE IF EXISTS public.access_control;
+DROP TABLE IF EXISTS public.access_request;
+DROP TABLE IF EXISTS public.apartments;
+DROP TABLE IF EXISTS public.building;
+DROP TABLE IF EXISTS public.card_scanner;
+DROP TABLE IF EXISTS public.control_group;
+DROP TABLE IF EXISTS public.floor;
+DROP TABLE IF EXISTS public.maintenance_request;
 
-CREATE TABLE public.person (
-	id bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
-	full_name varchar NULL,
-	CONSTRAINT person_pk PRIMARY KEY (id)
-);
