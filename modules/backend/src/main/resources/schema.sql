@@ -1,17 +1,4 @@
--- Add a new temporary column
-ALTER TABLE access_request ADD COLUMN new_status SMALLINT;
 
--- Copy values from the old status column to the new column, making sure to handle conversions
-UPDATE access_request SET new_status = status::SMALLINT;
-
--- Drop the old status column
-ALTER TABLE access_request DROP COLUMN status;
-
--- Rename the new column to the original column name
-ALTER TABLE access_request RENAME COLUMN new_status TO status;
-
--- Drop the person table if it exists
-DROP TABLE IF EXISTS public.person;
 -- Table for person
 CREATE TABLE person (
     person_id SERIAL PRIMARY KEY,
@@ -97,25 +84,6 @@ CREATE TABLE maintenance_request (
     status VARCHAR(255) NOT NULL,
     apartment_id INT REFERENCES apartment(apartment_id) ON DELETE CASCADE,
     person_id INT REFERENCES person(person_id) ON DELETE CASCADE,
-
--- Drop the maintenance_request table if it exists
-DROP TABLE IF EXISTS public.maintenance_request;
-CREATE TABLE maintenance_request (
-    maintenance_request_id SERIAL PRIMARY KEY,
-    request_date DATE NOT NULL,
-    resolved_date DATE,
-    issue_description VARCHAR(255) NOT NULL,
-    status VARCHAR(255) NOT NULL,
-    apartment_id INT REFERENCES apartment(apartment_id) ON DELETE CASCADE,
-    person_id INT REFERENCES person(person_id) ON DELETE CASCADE,
-
--- Drop the control_group table if it exists
-DROP TABLE IF EXISTS public.control_group;
-CREATE TABLE control_group (
-    control_group_id SERIAL PRIMARY KEY,
-    description VARCHAR(255) NOT NULL,
-    group_name VARCHAR(255) NOT NULL,
-);
 
 
 -- Drop the access_request table if it exists
