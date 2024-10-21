@@ -1,6 +1,4 @@
-package com.example.buildingmanagement.Repositories;
-
-
+package com.example.buildingmanagement.repositories;
 
 import com.example.buildingmanagement.entities.AccessControl;
 import org.springframework.data.jpa.repository.JpaRepository;
