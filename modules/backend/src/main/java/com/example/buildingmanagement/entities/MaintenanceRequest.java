@@ -23,6 +23,7 @@ public class MaintenanceRequest {
   private LocalDateTime end_date;
   @Column(name = "issue")
   private String issue;
+  @Enumerated(EnumType.STRING)
   @Column(name = "status")
   private StatusType status;
 
