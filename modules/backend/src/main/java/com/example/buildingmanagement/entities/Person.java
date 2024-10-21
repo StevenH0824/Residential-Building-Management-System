@@ -37,4 +37,7 @@ public class Person {
 
   @OneToMany(mappedBy = "personId")
   private List<Badge> badges;
+
+  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<ControlGroupAccessControl> controlGroupAccessControls;
 }

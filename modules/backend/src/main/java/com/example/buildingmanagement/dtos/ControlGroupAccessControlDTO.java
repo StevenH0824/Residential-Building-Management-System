@@ -5,15 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class BuildingDTO {
-    private Long buildingId;
-    private String name;
-    private String address;
-    private List<FloorDTO> floors; // This is optional
+public class ControlGroupAccessControlDTO {
+  private Long id;
+  private Long personId;
+  private Long controlGroupId;
+  private Long accessControlId;
 }

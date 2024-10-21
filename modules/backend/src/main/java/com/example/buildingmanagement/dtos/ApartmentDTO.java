@@ -5,15 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class BuildingDTO {
-    private Long buildingId;
-    private String name;
-    private String address;
-    private List<FloorDTO> floors; // This is optional
+public class ApartmentDTO {
+  private Long apartmentId;
+  private String number;     // Apt number
+  private String description;
+  private Long floorId;      // ID of the associated floor (if needed)
 }

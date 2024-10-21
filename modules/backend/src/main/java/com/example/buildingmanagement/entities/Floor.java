@@ -35,12 +35,6 @@ public class Floor {
   @OneToMany(mappedBy = "floor")
   private List<SpecialRoom> specialRooms;
 }
-  /*
-  Just focus on getting the building and floors to show up. lol, I believed I lied to myself!
-
-  //  @OneToMany(mappedBy = "floor")
-  //  private List<Room> rooms;
-   */
 
 
 
