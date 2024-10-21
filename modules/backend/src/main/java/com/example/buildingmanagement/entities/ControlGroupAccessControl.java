@@ -15,9 +15,9 @@ public class ControlGroupAccessControl {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "person_id", nullable = false)
-  private Person person;
+//  @ManyToOne(fetch = FetchType.LAZY)
+//  @JoinColumn(name = "person_id", nullable = false)
+//  private Person person;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "control_group_id", nullable = false)

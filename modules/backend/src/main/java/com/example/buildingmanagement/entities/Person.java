@@ -32,12 +32,12 @@ public class Person {
   private String phoneNumber;
 
   // One-to-Many relationships with AccessControlPerson, AccessRequest, and Badge
-  @OneToMany(mappedBy = "personId")
-  private List<AccessControlPerson> accessControlPersons;
+  //  @OneToMany(mappedBy = "personId")
+  //  private List<AccessControlPerson> accessControlPersons;
 
-  @OneToMany(mappedBy = "personId")
-  private List<Badge> badges;
+//  @OneToMany(mappedBy = "access_log_id")
+//  private List<AccessLog> accessLogs;
 
-  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<ControlGroupAccessControl> controlGroupAccessControls;
+//  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//  private List<ControlGroupAccessControl> controlGroupAccessControls;
 }

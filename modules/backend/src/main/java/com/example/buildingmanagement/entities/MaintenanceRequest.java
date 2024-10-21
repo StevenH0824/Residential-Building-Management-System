@@ -30,4 +30,8 @@ public class MaintenanceRequest {
   @ManyToOne
   @JoinColumn(name = "person_id", nullable = false)
   private Person person;
+
+  @ManyToOne
+  @JoinColumn(name = "room_id", nullable = false)
+  private Room room;
 }

@@ -29,11 +29,11 @@ public class Floor {
 
 //  @OneToMany(mappedBy = "floor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @OneToMany(mappedBy = "floor")
-  private List<Apartment> apartments;
+  private List<Room> rooms;
 
 //  @OneToMany(mappedBy = "floor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @OneToMany(mappedBy = "floor")
-  private List<SpecialRoom> specialRooms;
+//  @OneToMany(mappedBy = "floor")
+//  private List<SpecialRoom> specialRooms;
 }
 
 

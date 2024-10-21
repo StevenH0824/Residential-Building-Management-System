@@ -17,6 +17,5 @@ public class FloorDTO {
   private Long buildingId;
   private String description;
   private String number; // Floor Number
-  private List<ApartmentDTO> apartments; // If you want to include apartments
-  private List<SpecialRoomDTO> specialRooms; // If you want to include special rooms
+//  private List<RoomDTO> apartments; // If you want to include apartments
 }
