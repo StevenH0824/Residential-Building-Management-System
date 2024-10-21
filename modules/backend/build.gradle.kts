@@ -27,15 +27,24 @@ dependencies {
   runtimeOnly("com.h2database:h2")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+
+  /*
+  I will try to get rid of lombok towards the end of the project to see if it causes any issues, if not we are
+  removing the lombok dependencies.
+  The major benefits of reducing dependencies is that it makes our project faster to build, deploy, and download.
+  It also reduces the application size
+   */
   compileOnly("org.projectlombok:lombok")
   annotationProcessor("org.projectlombok:lombok")
-//  implementation("org.projectlombok:lombok:1.18.30")
-//  annotationProcessor("org.projectlombok:lombok:1.18.30")
-//  compileOnly("org.projectlombok:lombok:1.18.34")
-//  annotationProcessor("org.projectlombok:lombok:1.18.34")
-//  testCompileOnly("org.projectlombok:lombok:1.18.34")
-//  testAnnotationProcessor("org.projectlombok:lombok:1.18.34")
+
+  // Including swagger dependency to test out functionality of services in our project
+  implementation("io.springfox:springfox-swagger-ui:3.0.0") // http://localhost:8080/swagger-ui/index.html#/
+
+
 }
+
+
 
 
 

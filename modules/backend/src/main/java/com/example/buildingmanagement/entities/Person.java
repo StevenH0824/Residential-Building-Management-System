@@ -4,6 +4,8 @@ package com.example.buildingmanagement.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,12 +16,25 @@ import lombok.*;
 public class Person {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "person_id")
   private Long personId;
-  private String firstName;
-  private String lastName;
-  private String phoneNumber;
+
+  @Column(name = "email", nullable = false)
   private String email;
 
-  // New field for role
-  private String role; // or use an enum for predefined roles
+  @Column(name = "first_name", nullable = false)
+  private String firstName;
+
+  @Column(name = "last_name", nullable = false)
+  private String lastName;
+
+  @Column(name = "phone_number", nullable = false)
+  private String phoneNumber;
+
+  // One-to-Many relationships with AccessControlPerson, AccessRequest, and Badge
+  @OneToMany(mappedBy = "personId")
+  private List<AccessControlPerson> accessControlPersons;
+
+  @OneToMany(mappedBy = "personId")
+  private List<Badge> badges;
 }

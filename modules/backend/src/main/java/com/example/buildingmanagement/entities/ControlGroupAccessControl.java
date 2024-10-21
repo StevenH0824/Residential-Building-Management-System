@@ -1,9 +1,8 @@
 package com.example.buildingmanagement.entities;
 
+
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,18 +10,16 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-public class AccessLog {
+public class ControlGroupAccessControl {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long accessLogId;
+  private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "card_scanner_id", nullable = false)
-  private CardScanner cardScanner;
+  @JoinColumn(name = "control_group_id", nullable = false)
+  private ControlGroup controlGroup;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "badge_id", nullable = false)
-  private Badge badge;
-
-  private LocalDateTime timestamp;
+  @JoinColumn(name = "access_control_id", nullable = false)
+  private AccessControl accessControl;
 }

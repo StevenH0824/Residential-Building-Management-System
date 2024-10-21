@@ -3,22 +3,22 @@ package com.example.buildingmanagement.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Getter
 @Setter
+@ToString
 @Entity
-@Table(name = "access_request")
-public class AccessRequest {
+@Table(name = "access_control_person")
+public class AccessControlPerson {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Long id;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "access_control_id")
   private AccessControl accessControl;
 
@@ -26,9 +26,9 @@ public class AccessRequest {
   @JoinColumn(name = "person_id")
   private Person personId;
 
-  @Column(name = "request_time")
-  private LocalDateTime requestTime;
+  @Column(name = "start_date")
+  private LocalDate startDate;
 
-  @Column(name = "approved")
-  private boolean approved;
+  @Column(name = "end_date")
+  private LocalDate endDate;
 }

@@ -1,6 +1,6 @@
-package com.example.buildingmanagement.Controller;
+package com.example.buildingmanagement.controller;
 
-import com.example.buildingmanagement.DTOs.HelloWorldDTO;
+import com.example.buildingmanagement.dtos.HelloWorldDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

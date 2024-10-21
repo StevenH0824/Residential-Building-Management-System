@@ -1,32 +1,30 @@
 package com.example.buildingmanagement.entities;
 
+import com.example.buildingmanagement.enums.StatusType;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Getter
 @Setter
+@Entity
 public class MaintenanceRequest {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long maintenanceRequestId;
 
-  private LocalDateTime requestDate;
-  private LocalDateTime resolvedDate;
-  private String issueDescription;
-
-  @Enumerated(EnumType.STRING)
-  private StatusType status; // e.g., OPEN, IN_PROGRESS, RESOLVED
-
-  @ManyToOne
-  @JoinColumn(name = "room_id", nullable = false)
-  private Room room;
+  @Column(name = "created_date")
+  private LocalDateTime created_date;
+  @Column(name = "end_date")
+  private LocalDateTime end_date;
+  @Column(name = "issue")
+  private String issue;
+  @Column(name = "status")
+  private StatusType status;
 
   @ManyToOne
   @JoinColumn(name = "person_id", nullable = false)

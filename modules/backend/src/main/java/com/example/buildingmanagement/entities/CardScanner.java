@@ -3,20 +3,26 @@ package com.example.buildingmanagement.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Getter
 @Setter
+@Entity
 public class CardScanner {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long cardScannerId;
 
-  private String description;
+  private String serialNo;
+  private String make;
+  private String model;
 
-  @ManyToOne
-  @JoinColumn(name = "room_id")
-  private Room room;
+  @OneToMany(mappedBy = "cardScanner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<AccessLog> accessLogs;
+
+  @OneToMany(mappedBy = "cardScanner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<AccessControl> accessControls;
 }
