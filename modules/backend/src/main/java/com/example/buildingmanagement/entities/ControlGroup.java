@@ -22,6 +22,9 @@ public class ControlGroup {
 
   @OneToMany(mappedBy = "controlGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<ControlGroupAccessControl> controlGroupAccessControls;
+
+  @OneToMany(mappedBy = "controlGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Corrected line
+  private List<ControlGroupPerson> controlGroupPersons; // Optional: use plural for clarity
 }
 
 
