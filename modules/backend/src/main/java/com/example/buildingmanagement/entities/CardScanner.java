@@ -14,15 +14,16 @@ import java.util.List;
 public class CardScanner {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "scanner_id")
   private Long cardScannerId;
 
   private String serialNo;
   private String make;
   private String model;
 
-  @OneToMany(mappedBy = "cardScanner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "cardScanner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private List<AccessLog> accessLogs;
 
-  @OneToMany(mappedBy = "cardScanner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "cardScanner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private List<AccessControl> accessControls;
 }

@@ -1,102 +1,131 @@
----- Insert data into Floors
---INSERT INTO Floor (type) VALUES
---( 'Lobby'),
---( '1st Floor'),
---( '2nd Floor'),
---( '3rd Floor'),
---( '4th Floor'),
---( '5th Floor'),
---('Roof'),
---('Basement'),
---('Parking'),
---('Garden');
---
---INSERT INTO Apartments (floor_id, number) VALUES
---(101, 1),
---(102, 1),
---(201, 2),
---(202, 2),
---(301, 3),
---(302, 3),
---(401, 4),
---(402, 4),
---(501, 5),
---(502, 5);
---
----- Insert data into ControlGroups
---INSERT INTO ControlGroups (name) VALUES
---('Residents'),
---('Maintenance Staff'),
---('Security'),
---('Management'),
---('Visitors'),
---('Contractors'),
---('Cleaning Staff'),
---('Delivery Personnel'),
---('Emergency Services'),
---('IT Support');
---
----- Insert data into Persons
---INSERT INTO Persons (full_name, control_group_id) VALUES
---('Alice Johnson', 1),
---('Bob Smith', 1),
---('Charlie Brown', 2),
---('Diana Prince', 2),
---('Evan Turner', 3),
---('Fiona Green', 3),
---('George Martin', 4),
---('Hannah White', 4),
---('Ian Wright', 5),
---('Jessica Black', 5);
---
----- Insert data into Allocations
---INSERT INTO Allocations (apartment_id) VALUES
---(1),  -- Allocating persons to apartment 101
---(1),  -- Allocating another person to apartment 101
---(2),  -- Allocating persons to apartment 102
---(2),  -- Allocating another person to apartment 102
---(3),  -- Allocating persons to apartment 201
---(3),  -- Allocating another person to apartment 201
---(4),  -- Allocating persons to apartment 202
---(4),  -- Allocating another person to apartment 202
---(5),  -- Allocating persons to apartment 301
---(5);  -- Allocating another person to apartment 301
---
----- Insert data into AccessControls
---INSERT INTO AccessControls (card_scanner_id, floor_access) VALUES
---(1, '{"1": true, "2": true, "3": false}'),
---(2, '{"1": true, "2": false, "3": true}'),
---(3, '{"1": false, "2": true, "3": true}'),
---(4, '{"1": true, "2": true, "3": true}'),
---(5, '{"1": false, "2": false, "3": true}'),
---(6, '{"1": true, "2": true, "3": false}'),
---(7, '{"1": true, "2": false, "3": true}'),
---(8, '{"1": false, "2": true, "3": true}'),
---(9, '{"1": true, "2": true, "3": true}'),
---(10, '{"1": false, "2": false, "3": true}');
---
----- Insert data into MaintenanceRequests
---INSERT INTO MaintenanceRequests (status, issue_description, apartment_id, request_date, resolved_date) VALUES
---(true, 'Leaky faucet', 1, NOW(), NULL),
---(false, 'Broken window', 2, NOW(), NULL),
---(true, 'Heating issue', 3, NOW(), NULL),
---(false, 'Electrical fault', 4, NOW(), NULL),
---(true, 'Clogged drain', 5, NOW(), NULL),
---(false, 'Paint peeling', 1, NOW(), NULL),
---(true, 'AC not cooling', 2, NOW(), NULL),
---(false, 'Door jammed', 3, NOW(), NULL),
---(true, 'Garage light out', 4, NOW(), NULL),
---(false, 'Stove malfunction', 5, NOW(), NULL);
---
----- Insert data into CardScanners
---INSERT INTO CardScanners (floor_id) VALUES
---(1),
---(2),
---(3),
---(4),
---(5),
---(-1),
---(-2),
---(6),
---(-3),
---(-1);
+-- Insert into Building
+INSERT INTO building (name, address) VALUES
+('Building A', '123 Main St'),
+('Building B', '456 Oak Ave'),
+('Building C', '789 Maple Rd');
+
+-- Insert into Floor, referencing the correct building_id values from the building table
+INSERT INTO floor (number, description, building_id) VALUES
+('1', 'First Floor', 1),
+('2', 'Second Floor', 1),
+('1', 'First Floor', 2),
+('2', 'Second Floor', 2),
+('1', 'First Floor', 3),
+('2', 'Second Floor', 3);
+
+-- Insert into Room
+INSERT INTO room (number, description, floor_id) VALUES
+('101', 'Room 101', 1),
+('102', 'Room 102', 1),
+('201', 'Room 201', 2),
+('202', 'Room 202', 2),
+('101', 'Room 101', 3),
+('102', 'Room 102', 3),
+('201', 'Room 201', 4),
+('202', 'Room 202', 4),
+('101', 'Room 101', 5),
+('102', 'Room 102', 5);
+
+-- Insert into Person
+INSERT INTO person (email, first_name, last_name, phone_number) VALUES
+('john.doe@example.com', 'John', 'Doe', '1234567890'),
+('jane.doe@example.com', 'Jane', 'Doe', '1234567891'),
+('mark.smith@example.com', 'Mark', 'Smith', '1234567892'),
+('emma.jones@example.com', 'Emma', 'Jones', '1234567893'),
+('peter.parker@example.com', 'Peter', 'Parker', '1234567894'),
+('bruce.wayne@example.com', 'Bruce', 'Wayne', '1234567895'),
+('clark.kent@example.com', 'Clark', 'Kent', '1234567896'),
+('diana.prince@example.com', 'Diana', 'Prince', '1234567897'),
+('tony.stark@example.com', 'Tony', 'Stark', '1234567898'),
+('steve.rogers@example.com', 'Steve', 'Rogers', '1234567899');
+
+-- Insert into CardScanner
+INSERT INTO card_scanner (serial_no, make, model, room_id) VALUES
+('S101', 'MakeA', 'ModelX', 1),
+('S102', 'MakeB', 'ModelY', 2),
+('S103', 'MakeC', 'ModelZ', 3),
+('S104', 'MakeD', 'ModelW', 4),
+('S105', 'MakeE', 'ModelV', 5),
+('S106', 'MakeF', 'ModelU', 6),
+('S107', 'MakeG', 'ModelT', 7),
+('S108', 'MakeH', 'ModelS', 8),
+('S109', 'MakeI', 'ModelR', 9),
+('S110', 'MakeJ', 'ModelQ', 10);
+
+-- Insert into ControlGroup
+INSERT INTO control_group (name, description) VALUES
+('Control Group A', 'Description A'),
+('Control Group B', 'Description B'),
+('Control Group C', 'Description C'),
+('Control Group D', 'Description D'),
+('Control Group E', 'Description E'),
+('Control Group F', 'Description F'),
+('Control Group G', 'Description G'),
+('Control Group H', 'Description H'),
+('Control Group I', 'Description I'),
+('Control Group J', 'Description J');
+
+-- Insert into AccessControl
+INSERT INTO access_control (description, scanner_id, room_id) VALUES
+('Main Entrance Control', 1, 1),
+('Lobby Control', 2, 1),
+('Conference Room Control', 3, 2);
+
+-- Insert into ControlGroupAccessControl
+INSERT INTO control_group_access_control (control_group_id, access_control_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
+
+-- Insert into ControlGroupPerson
+INSERT INTO control_group_person (control_group_id, person_id, start_date, expiration_date) VALUES
+(1, 1, '2024-01-01', '2025-01-01'),
+(2, 2, '2024-02-01', '2025-02-01'),
+(3, 3, '2024-03-01', '2025-03-01'),
+(4, 4, '2024-04-01', '2025-04-01'),
+(5, 5, '2024-05-01', '2025-05-01'),
+(6, 6, '2024-06-01', '2025-06-01'),
+(7, 7, '2024-07-01', '2025-07-01'),
+(8, 8, '2024-08-01', '2025-08-01'),
+(9, 9, '2024-09-01', '2025-09-01'),
+(10, 10, '2024-10-01', '2025-10-01');
+
+-- Insert into AccessLog
+INSERT INTO access_log (scanner_id, person_id, access_time) VALUES
+(1, 1, '2024-01-01T10:00:00'),
+(2, 2, '2024-01-02T11:00:00'),
+(3, 3, '2024-01-03T12:00:00'),
+(4, 4, '2024-01-04T13:00:00'),
+(5, 5, '2024-01-05T14:00:00'),
+(6, 6, '2024-01-06T15:00:00'),
+(7, 7, '2024-01-07T16:00:00'),
+(8, 8, '2024-01-08T17:00:00'),
+(9, 9, '2024-01-09T18:00:00'),
+(10, 10, '2024-01-10T19:00:00');
+
+-- Insert into AccessRequest
+INSERT INTO access_request (access_control_id, person_id, request_time, approved, scanner_id) VALUES
+(1, 1, '2024-01-01T09:00:00', TRUE, 1),
+(2, 2, '2024-01-02T10:00:00', TRUE, 2),
+(3, 3, '2024-01-03T11:00:00', FALSE, 3),
+(1, 4, '2024-01-04T12:00:00', TRUE, 4),
+(1, 5, '2024-01-05T13:00:00', TRUE, 5),
+(2, 6, '2024-01-06T14:00:00', FALSE, 6),
+(2, 7, '2024-01-07T15:00:00', TRUE, 7),
+(3, 8, '2024-01-08T16:00:00', FALSE, 8),
+(1, 9, '2024-01-09T17:00:00', TRUE, 9),
+(1, 10, '2024-01-10T18:00:00', FALSE, 10);
+
+
+-- Insert into MaintenanceRequest
+INSERT INTO maintenance_request (created_date, end_date, issue, status, person_id, room_id) VALUES
+('2024-01-01T08:00:00', '2024-01-02T08:00:00', 'Leaking Pipe', 'OPEN', 1, 1),
+('2024-01-03T09:00:00', '2024-01-04T09:00:00', 'Broken Window', 'CLOSED', 2, 2),
+('2024-01-05T10:00:00', '2024-01-06T10:00:00', 'Faulty AC', 'OPEN', 3, 3),
+('2024-01-07T11:00:00', '2024-01-08T11:00:00', 'Lighting Issue', 'CLOSED', 4, 4),
+('2024-01-09T12:00:00', '2024-01-10T12:00:00', 'Power Outage', 'OPEN', 5, 5),
+('2024-01-11T13:00:00', '2024-01-12T13:00:00', 'Water Heater Issue', 'OPEN', 6, 6),
+('2024-01-13T14:00:00', '2024-01-14T14:00:00', 'Clogged Drain', 'CLOSED', 7, 7),
+('2024-01-15T15:00:00', '2024-01-16T15:00:00', 'Broken Door', 'OPEN', 8, 8),
+('2024-01-17T16:00:00', '2024-01-18T16:00:00', 'Cracked Wall', 'CLOSED', 9, 9),
+('2024-01-19T17:00:00', '2024-01-20T17:00:00', 'Noisy HVAC', 'OPEN', 10, 10);

@@ -1,6 +1,5 @@
 package com.example.buildingmanagement.entities;
 
-import com.example.buildingmanagement.enums.AreaType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +22,17 @@ public class AccessControl {
   @Column(name = "description")
   private String description;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "scanner_id")
+  private CardScanner cardScanner;
+
+  @OneToMany(mappedBy = "accessControl", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  private List<ControlGroupAccessControl> controlGroupAccessControls;
+
+  @ManyToOne
+  @JoinColumn(name = "room_id", nullable = false)
+  private Room room;
+}
 //  // There is no direct relationship to Apt,SR, or F. area_id is refering to one of the
 //  // entities without enforcing a foreign key constraint.
 //  //reference one of the entities,
@@ -37,17 +47,7 @@ public class AccessControl {
 
 
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "card_scanner_id")
-  private CardScanner cardScanner;
 
-  @OneToMany(mappedBy = "accessControl", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<ControlGroupAccessControl> controlGroupAccessControls;
-
-  @ManyToOne
-  @JoinColumn(name = "room_id", nullable = false)
-  private Room room;
-}
 
 
 
