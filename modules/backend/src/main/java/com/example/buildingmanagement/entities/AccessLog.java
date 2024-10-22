@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class AccessLog {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "log_id")
   private Long accessLogId;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -27,5 +28,5 @@ public class AccessLog {
   @JoinColumn(name = "person_id", nullable = false)
   private Person personId;
 
-  private LocalDateTime timestamp;
+  private LocalDateTime access_time;
 }

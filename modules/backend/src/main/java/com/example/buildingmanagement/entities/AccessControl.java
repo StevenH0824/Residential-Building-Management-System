@@ -23,10 +23,10 @@ public class AccessControl {
   private String description;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "card_scanner_id")
+  @JoinColumn(name = "scanner_id")
   private CardScanner cardScanner;
 
-  @OneToMany(mappedBy = "accessControl", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "accessControl", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private List<ControlGroupAccessControl> controlGroupAccessControls;
 
   @ManyToOne

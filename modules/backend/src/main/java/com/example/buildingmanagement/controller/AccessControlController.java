@@ -9,43 +9,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/access-controls")
+@RequestMapping("/api/access-controls")
 public class AccessControlController {
-  @Autowired
-  private AccessControlService accessControlService;
+  private final AccessControlService accessControlService;
+
+  public AccessControlController(AccessControlService accessControlService) {
+    this.accessControlService = accessControlService;
+  }
 
   @GetMapping
-  public List<AccessControl> getAllAccessControls() {
-    return accessControlService.findAll();
+  public ResponseEntity<List<AccessControl>> getAllAccessControls() {
+    List<AccessControl> accessControls = accessControlService.getAllAccessControls();
+    return ResponseEntity.ok(accessControls);
   }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<AccessControl> getAccessControlById(@PathVariable Long id) {
-    return accessControlService.findById(id)
-      .map(ResponseEntity::ok)
-      .orElse(ResponseEntity.notFound().build());
-  }
-
-  @PostMapping
-  public AccessControl createAccessControl(@RequestBody AccessControl accessControl) {
-    return accessControlService.save(accessControl);
-  }
-
-  @PutMapping("/{id}")
-  public ResponseEntity<AccessControl> updateAccessControl(
-    @PathVariable Long id,
-    @RequestBody AccessControl accessControl) {
-    return accessControlService.findById(id)
-      .map(existingAccessControl -> {
-        accessControl.setAccessControlId(id);
-        return ResponseEntity.ok(accessControlService.save(accessControl));
-      })
-      .orElse(ResponseEntity.notFound().build());
-  }
-
-  @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteAccessControl(@PathVariable Long id) {
-    accessControlService.deleteById(id);
-    return ResponseEntity.noContent().build();
-  }
 }

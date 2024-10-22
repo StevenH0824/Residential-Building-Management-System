@@ -87,6 +87,7 @@ CREATE TABLE IF NOT EXISTS control_group_access_control (
     FOREIGN KEY (access_control_id) REFERENCES access_control(access_control_id) ON DELETE CASCADE
 );
 
+
 CREATE TABLE IF NOT EXISTS access_log (
     log_id BIGSERIAL PRIMARY KEY,
     person_id BIGINT NOT NULL,
@@ -106,7 +107,7 @@ CREATE TABLE IF NOT EXISTS access_request (
     scanner_id BIGINT NOT NULL,
     CONSTRAINT fk_access_control FOREIGN KEY (access_control_id) REFERENCES access_control(access_control_id) ON DELETE CASCADE,
     CONSTRAINT fk_person FOREIGN KEY (person_id) REFERENCES person(person_id) ON DELETE CASCADE,
-    CONSTRAINT fk_card_scanner FOREIGN KEY (scanner_id) REFERENCES card_scanner(card_scanner_id)
+    CONSTRAINT fk_card_scanner FOREIGN KEY (scanner_id) REFERENCES card_scanner(scanner_id)
 );
 
 CREATE TABLE IF NOT EXISTS maintenance_request (
