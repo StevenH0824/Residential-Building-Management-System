@@ -5,20 +5,27 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Getter
 @Setter
+@Entity
 public class AccessLog {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long accessLogId;
-  @ManyToOne
-  @JoinColumn(name = "cardScanner_id", nullable = false)
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "card_scanner_id", nullable = false)
   private CardScanner cardScanner;
+
+  //  @ManyToOne(fetch = FetchType.LAZY)
+  //  @JoinColumn(name = "badge_id", nullable = false)
+  //  private Badge badge;
   @ManyToOne
-  private Person person;
-  private LocalDateTime accessTime;
+  @JoinColumn(name = "person_id", nullable = false)
+  private Person personId;
+
+  private LocalDateTime timestamp;
 }

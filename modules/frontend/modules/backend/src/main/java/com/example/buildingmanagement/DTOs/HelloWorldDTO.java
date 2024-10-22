@@ -1,8 +1,8 @@
-package com.example.buildingmanagement.DTOs;
+package com.example.buildingmanagement.dtos;
 
 public record HelloWorldDTO(
         String message
 ) {}
 
 
-// Using records allow us to have immutability 
+// Using records allow us to have immutability
