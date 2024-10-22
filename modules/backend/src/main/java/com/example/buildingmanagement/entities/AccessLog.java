@@ -17,7 +17,7 @@ public class AccessLog {
   private Long accessLogId;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "card_scanner_id", nullable = false)
+  @JoinColumn(name = "scanner_id", nullable = false)
   private CardScanner cardScanner;
 
   //  @ManyToOne(fetch = FetchType.LAZY)

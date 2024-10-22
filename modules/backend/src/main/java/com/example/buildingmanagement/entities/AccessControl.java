@@ -1,6 +1,5 @@
 package com.example.buildingmanagement.entities;
 
-import com.example.buildingmanagement.enums.AreaType;
 import jakarta.persistence.*;
 import lombok.*;
 
