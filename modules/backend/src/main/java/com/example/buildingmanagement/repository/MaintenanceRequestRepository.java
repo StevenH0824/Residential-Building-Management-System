@@ -14,11 +14,11 @@ import java.util.List;
 public interface MaintenanceRequestRepository extends JpaRepository <MaintenanceRequest, Long > {
 
     MaintenanceRequest findByMaintenanceRequestId(Long id);
-    MaintenanceRequest findByPerson(Person id); //optional removed "fixed" service
-    MaintenanceRequest findByStatus(StatusType status);
-    MaintenanceRequest findByRoom(Room id);
-    MaintenanceRequest findByCreatedDate(LocalDateTime createdDate);
-    MaintenanceRequest findByEndDate(LocalDateTime endDate);
+    MaintenanceRequest findByPerson(Long id); //optional removed "fixed" service
+    List <MaintenanceRequest> findByStatus(StatusType status);
+    MaintenanceRequest findByRoom(Long id);
+    List<MaintenanceRequest> findByCreatedDate(LocalDateTime createdDate);
+    List<MaintenanceRequest> findByEndDate(LocalDateTime endDate);
 //    List<MaintenanceRequest> findAllRequests();
 
 
