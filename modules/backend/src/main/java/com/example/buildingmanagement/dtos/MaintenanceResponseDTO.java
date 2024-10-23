@@ -12,14 +12,15 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-public class MaintenanceRequestDTO {
+public class MaintenanceResponseDTO {
   private Long maintenanceRequestId; // ID of the maintenance request
   private LocalDateTime createdDate;  // Creation date of the request
   private LocalDateTime endDate;      // End date of the maintenance task
   private String issue;                // Description of the issue
   private StatusType status;           // Status of the maintenance request
-  private Long personId;               // ID of the associated person
-  private Long roomId;
+  private String personFirstName;
+  private String personLastName;
+  private String roomNum;
 
 
 }

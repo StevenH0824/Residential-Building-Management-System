@@ -31,6 +31,10 @@ dependencies {
 
   // Swagger/OpenAPI dependencies
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+
+  // ModelMapper
+  implementation("org.modelmapper:modelmapper:3.2.1")
+
 }
 
 // Ensure that source compatibility is set correctly
@@ -43,6 +47,9 @@ java {
 tasks.withType<Test> {
   useJUnitPlatform() // Ensure JUnit 5 is used
 }
+
+
+
 
 //plugins {
 //  id("java")
