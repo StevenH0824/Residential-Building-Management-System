@@ -1,7 +1,7 @@
 package com.example.buildingmanagement.controller;
 
 import com.example.buildingmanagement.entities.Floor;
-import com.example.buildingmanagement.services.FloorService;
+import com.example.buildingmanagement.service.FloorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

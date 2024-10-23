@@ -14,10 +14,11 @@ import java.time.LocalDateTime;
 public class AccessLog {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "log_id")
   private Long accessLogId;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "card_scanner_id", nullable = false)
+  @JoinColumn(name = "scanner_id", nullable = false)
   private CardScanner cardScanner;
 
   //  @ManyToOne(fetch = FetchType.LAZY)
@@ -27,5 +28,5 @@ public class AccessLog {
   @JoinColumn(name = "person_id", nullable = false)
   private Person personId;
 
-  private LocalDateTime timestamp;
+  private LocalDateTime access_time;
 }

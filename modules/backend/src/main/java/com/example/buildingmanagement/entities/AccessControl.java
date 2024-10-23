@@ -1,6 +1,5 @@
 package com.example.buildingmanagement.entities;
 
-import com.example.buildingmanagement.enums.AreaType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,9 +11,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "access_control")
+@Table(name = "access_control") // Ensure this matches your DB table name
 public class AccessControl {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "access_control_id")
@@ -23,31 +21,14 @@ public class AccessControl {
   @Column(name = "description")
   private String description;
 
-//  // There is no direct relationship to Apt,SR, or F. area_id is refering to one of the
-//  // entities without enforcing a foreign key constraint.
-//  //reference one of the entities,
-//  // you need to ensure that you manage the relationships in your application logic.
-//  @Column(name = "area_id") // reference to either an Apartment, SpecialRoom, or Floor
-//  private Long areaId;
-//
-//
-//  @Enumerated(EnumType.STRING)
-//  @Column(name = "area_type")
-//  private AreaType areaType; // ENUM (Apt, SpecialRoom, Floor)
-
-
-
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "card_scanner_id")
+  @JoinColumn(name = "scanner_id")
   private CardScanner cardScanner;
 
   @OneToMany(mappedBy = "accessControl", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<ControlGroupAccessControl> controlGroupAccessControls;
+  private List<AccessRequest> accessRequests; // Added for connection with AccessRequest
 
   @ManyToOne
   @JoinColumn(name = "room_id", nullable = false)
   private Room room;
 }
-
-
-
