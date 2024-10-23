@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "access_request")
+@Table(name = "access_request") // Ensure this matches your DB table name
 public class AccessRequest {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class AccessRequest {
 
   @ManyToOne
   @JoinColumn(name = "person_id")
-  private Person personId;
+  private Person person; // Changed from personId to person
 
   @Column(name = "request_time")
   private LocalDateTime requestTime;
