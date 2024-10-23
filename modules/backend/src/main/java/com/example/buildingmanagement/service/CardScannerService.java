@@ -1,7 +1,7 @@
-package com.example.buildingmanagement.services;
+package com.example.buildingmanagement.service;
 
 import com.example.buildingmanagement.entities.CardScanner;
-import com.example.buildingmanagement.repositories.CardScannerRepository;
+import com.example.buildingmanagement.repository.CardScannerRepository;
 
 import java.util.List;
 import java.util.Optional;

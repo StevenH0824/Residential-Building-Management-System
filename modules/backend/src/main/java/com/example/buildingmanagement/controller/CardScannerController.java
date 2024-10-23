@@ -1,7 +1,7 @@
 package com.example.buildingmanagement.controller;
 
 import com.example.buildingmanagement.entities.CardScanner;
-import com.example.buildingmanagement.services.CardScannerService;
+import com.example.buildingmanagement.service.CardScannerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

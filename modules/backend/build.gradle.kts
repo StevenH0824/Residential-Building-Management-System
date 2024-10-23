@@ -31,9 +31,10 @@ dependencies {
 
   // Swagger/OpenAPI dependencies
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+  implementation ("org.modelmapper:modelmapper:1.1.0")
+
 }
 
-  implementation ("org.modelmapper:modelmapper:1.1.0")
 
 // Ensure that source compatibility is set correctly
 java {

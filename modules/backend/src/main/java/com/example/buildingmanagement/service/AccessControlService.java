@@ -1,13 +1,13 @@
-package com.example.buildingmanagement.services;
+package com.example.buildingmanagement.service;
 
 import com.example.buildingmanagement.dtos.AccessControlRequestDTO;
 import com.example.buildingmanagement.dtos.AccessControlResponseDTO;
 import com.example.buildingmanagement.entities.AccessControl;
 import com.example.buildingmanagement.entities.CardScanner;
 import com.example.buildingmanagement.entities.Room;
-import com.example.buildingmanagement.repositories.AccessControlRepository;
-import com.example.buildingmanagement.repositories.CardScannerRepository;
-import com.example.buildingmanagement.repositories.RoomRepository;
+import com.example.buildingmanagement.repository.AccessControlRepository;
+import com.example.buildingmanagement.repository.CardScannerRepository;
+import com.example.buildingmanagement.repository.RoomRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
