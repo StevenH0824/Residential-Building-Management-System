@@ -30,6 +30,7 @@ public class Person {
   @Column(name = "phone_number", nullable = false)
   private String phoneNumber;
 
-  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<AccessRequest> accessRequests; // Added for connection with AccessRequest
+  //public void setPersonId(Long personId) {
+ //   this.personId = personId;
+ // }
 }
