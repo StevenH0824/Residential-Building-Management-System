@@ -1,6 +1,6 @@
-package com.example.buildingmanagement.services;
+package com.example.buildingmanagement.service;
 
-import com.example.buildingmanagement.repositories.ControlGroupPersonRepository;
+import com.example.buildingmanagement.repository.ControlGroupPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

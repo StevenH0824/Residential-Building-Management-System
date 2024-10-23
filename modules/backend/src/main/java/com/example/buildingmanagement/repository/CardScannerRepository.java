@@ -1,4 +1,4 @@
-package com.example.buildingmanagement.repositories;
+package com.example.buildingmanagement.repository;
 
 import com.example.buildingmanagement.entities.CardScanner;
 import org.springframework.data.jpa.repository.JpaRepository;

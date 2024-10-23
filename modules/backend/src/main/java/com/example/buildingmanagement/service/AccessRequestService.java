@@ -1,11 +1,9 @@
-package com.example.buildingmanagement.services;
+package com.example.buildingmanagement.service;
 
 import com.example.buildingmanagement.entities.AccessRequest;
-import com.example.buildingmanagement.repositories.AccessRequestRepository;
+import com.example.buildingmanagement.repository.AccessRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class AccessRequestService {

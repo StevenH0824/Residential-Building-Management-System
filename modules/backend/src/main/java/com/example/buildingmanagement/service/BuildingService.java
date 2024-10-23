@@ -1,7 +1,7 @@
-package com.example.buildingmanagement.services;
+package com.example.buildingmanagement.service;
 
 import com.example.buildingmanagement.entities.Building;
-import com.example.buildingmanagement.repositories.BuildingRepository;
+import com.example.buildingmanagement.repository.BuildingRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

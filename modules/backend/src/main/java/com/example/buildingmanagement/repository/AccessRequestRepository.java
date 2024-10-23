@@ -1,10 +1,8 @@
-package com.example.buildingmanagement.repositories;
+package com.example.buildingmanagement.repository;
 
 import com.example.buildingmanagement.entities.AccessRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface AccessRequestRepository extends JpaRepository<AccessRequest,Long> {

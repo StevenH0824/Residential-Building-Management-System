@@ -1,8 +1,7 @@
 package com.example.buildingmanagement.controller;
 
 import com.example.buildingmanagement.entities.AccessControl;
-import com.example.buildingmanagement.services.AccessControlService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.buildingmanagement.service.AccessControlService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
