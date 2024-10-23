@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -30,48 +32,168 @@ public class MaintenanceService {
   private PersonRepository personRepository;
   @Autowired
   private RoomRepository roomRepository;
-  @Autowired
-  private MaintenanceRequestDTO maintenanceRequestDTO;
-  @Autowired
-  ModelMapper MaintenanceRequestMapper;
 
+//  @Autowired
+//  ModelMapper MaintenanceRequestMapper;
+//
 
-  public MaintenanceResponseDTO getMaintenanceRequestById(Long Id) {
-    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByMaintenanceRequestId(Id);
-    return MaintenanceRequestMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
+//  @Transactional
+//  public MaintenanceRequestDTO getMaintenanceRequestByPersonId(Long Id) {
+//    Person person = new Person(jon, );
+//    MaintenanceRequestRepository.save(person);
+//    return MaintenanceResponseDTO.;
+//  }
+//
 
-  }
-
-
-  public MaintenanceResponseDTO getByPerson(Person Id) {
-//    Person person = maintenanceRequestRepository.findByPerson(Id);
+  @Transactional
+  public MaintenanceResponseDTO getMaintenanceRequestByPersonId(Long Id) {
     MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByPerson(Id);
-  return MaintenanceRequestMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
-    //    return new MaintenanceResponseDTO(firstName =  maintenanceEntity.getPerson().getFirstName(),
-//       maintenanceEntity.getPerson().getLastName());
+    assert maintenanceEntity != null;
+    return new MaintenanceResponseDTO(maintenanceEntity.getMaintenanceRequestId(), maintenanceEntity.getCreatedDate(), maintenanceEntity.getEndDate(),maintenanceEntity.getIssue(), maintenanceEntity.getStatus(), maintenanceEntity.getPerson().getFirstName(),
+      maintenanceEntity.getPerson().getLastName(),maintenanceEntity.getRoom().getNumber()
+      );
   }
 
-  public MaintenanceResponseDTO findByRoom(Room Id){
+  @Transactional
+  public MaintenanceResponseDTO getMaintenanceRequestByMaintenanceId(Long Id) {
+    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByMaintenanceRequestId(Id);
+    assert maintenanceEntity != null;
+    return new MaintenanceResponseDTO(maintenanceEntity.getMaintenanceRequestId(), maintenanceEntity.getCreatedDate(), maintenanceEntity.getEndDate(), maintenanceEntity.getIssue(), maintenanceEntity.getStatus(), maintenanceEntity.getPerson().getFirstName(),
+      maintenanceEntity.getPerson().getLastName(), maintenanceEntity.getRoom().getNumber()
+    );
+  }
+
+
+    @Transactional
+    public List<MaintenanceResponseDTO> getMaintenanceRequestByStatus(StatusType status){
+      List<MaintenanceRequest> maintenanceEntity = maintenanceRequestRepository.findByStatus(status);
+      assert maintenanceEntity != null;
+      List<MaintenanceResponseDTO> responseDTOs = new ArrayList<>();
+      for (MaintenanceRequest entity : maintenanceEntity) {
+        MaintenanceResponseDTO dto = new MaintenanceResponseDTO(
+          entity.getMaintenanceRequestId(),
+          entity.getCreatedDate(),
+          entity.getEndDate(),
+          entity.getIssue(),
+          entity.getStatus(),
+          entity.getPerson().getFirstName(),
+          entity.getPerson().getLastName(),
+          entity.getRoom().getNumber()
+        );
+        responseDTOs.add(dto);
+      }
+
+      return responseDTOs;
+
+
+
+  }
+
+
+
+
+  @Transactional
+  public MaintenanceResponseDTO getMaintenanceRequestByRoomId(Long Id) {
     MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByRoom(Id);
-    return MaintenanceRequestMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
+    assert maintenanceEntity != null;
+    return new MaintenanceResponseDTO(maintenanceEntity.getMaintenanceRequestId(), maintenanceEntity.getCreatedDate(), maintenanceEntity.getEndDate(),maintenanceEntity.getIssue(), maintenanceEntity.getStatus(), maintenanceEntity.getPerson().getFirstName(),
+      maintenanceEntity.getPerson().getLastName(),maintenanceEntity.getRoom().getNumber()
+    );
   }
 
-  public MaintenanceResponseDTO findByStatus(StatusType status){
-    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByStatus(status);
-    return MaintenanceRequestMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
+  @Transactional
+  public List<MaintenanceResponseDTO> getMaintenanceRequestByCreatedDate(LocalDateTime createdDate){
+    List<MaintenanceRequest> maintenanceEntity = maintenanceRequestRepository.findByCreatedDate(createdDate);
+    assert maintenanceEntity != null;
+    List<MaintenanceResponseDTO> responseDTOs = new ArrayList<>();
+    for (MaintenanceRequest entity : maintenanceEntity) {
+      MaintenanceResponseDTO dto = new MaintenanceResponseDTO(
+        entity.getMaintenanceRequestId(),
+        entity.getCreatedDate(),
+        entity.getEndDate(),
+        entity.getIssue(),
+        entity.getStatus(),
+        entity.getPerson().getFirstName(),
+        entity.getPerson().getLastName(),
+        entity.getRoom().getNumber()
+      );
+      responseDTOs.add(dto);
+    }
+
+    return responseDTOs;
+
+
 
   }
 
-  public MaintenanceResponseDTO findByRequestDate(LocalDateTime requestDate){
-    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByCreatedDate(requestDate);
-    return MaintenanceRequestMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
+  @Transactional
+  public List<MaintenanceResponseDTO> getMaintenanceRequestByEndDate(LocalDateTime endDate){
+    List<MaintenanceRequest> maintenanceEntity = maintenanceRequestRepository.findByEndDate(endDate);
+    assert maintenanceEntity != null;
+    List<MaintenanceResponseDTO> responseDTOs = new ArrayList<>();
+    for (MaintenanceRequest entity : maintenanceEntity) {
+      MaintenanceResponseDTO dto = new MaintenanceResponseDTO(
+        entity.getMaintenanceRequestId(),
+        entity.getCreatedDate(),
+        entity.getEndDate(),
+        entity.getIssue(),
+        entity.getStatus(),
+        entity.getPerson().getFirstName(),
+        entity.getPerson().getLastName(),
+        entity.getRoom().getNumber()
+      );
+      responseDTOs.add(dto);
+    }
+
+    return responseDTOs;
+
+
 
   }
 
-  public MaintenanceResponseDTO findByResolvedDate(LocalDateTime resolvedDate){
-    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByEndDate(resolvedDate);
-    return MaintenanceRequestMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
-  }
+
+
+
+
+
+
+//
+//  public MaintenanceResponseDTO getMaintenanceRequestById(Long Id) {
+//    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByMaintenanceRequestId(Id);
+//    return MaintenanceRequestMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
+//
+//  }
+//
+//
+////  public MaintenanceResponseDTO getMaintenanceRequestByPersonId(Long Id) {
+//////    Person person = maintenanceRequestRepository.findByPerson(Id);
+////    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByPerson(Id);
+//////  return maintenanceEntity..map(maintenanceEntity, MaintenanceResponseDTO.class);
+////        return new MaintenanceResponseDTO(firstName =  maintenanceEntity.getPerson().getFirstName(),
+////       maintenanceEntity.getPerson().getLastName());
+////  }
+//
+//  public MaintenanceResponseDTO findByRoom(Room Id) {
+//    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByRoom(Id);
+//    return MaintenanceRequestMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
+//  }
+//
+//  public MaintenanceResponseDTO findByStatus(StatusType status) {
+//    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByStatus(status);
+//    return MaintenanceRequestMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
+//
+//  }
+//
+//  public MaintenanceResponseDTO findByRequestDate(LocalDateTime requestDate) {
+//    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByCreatedDate(requestDate);
+//    return MaintenanceRequestMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
+//
+//  }
+//
+//  public MaintenanceResponseDTO findByResolvedDate(LocalDateTime resolvedDate) {
+//    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByEndDate(resolvedDate);
+//    return MaintenanceRequestMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
+//  }
 
 //  public List<MaintenanceRequestDTO> findAllRequests(){
 //    List<MaintenanceRequest> RequestList = maintenanceRequestRepository.findAllRequests();
