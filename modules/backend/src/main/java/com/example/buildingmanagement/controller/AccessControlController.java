@@ -4,13 +4,14 @@ import com.example.buildingmanagement.dtos.AccessControlRequestDTO;
 import com.example.buildingmanagement.dtos.AccessControlResponseDTO;
 import com.example.buildingmanagement.entities.AccessControl;
 import com.example.buildingmanagement.services.AccessControlService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/accessControls")
+@RequestMapping("/api/access-controls")
 public class AccessControlController {
   private final AccessControlService accessControlService;
 

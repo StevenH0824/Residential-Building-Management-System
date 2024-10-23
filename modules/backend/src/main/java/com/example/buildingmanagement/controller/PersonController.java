@@ -1,105 +1,61 @@
-//package com.example.buildingmanagement.controller;
-//
-//import com.example.buildingmanagement.dtos.PersonDTO;
-//import com.example.buildingmanagement.entities.Person;
-//import com.example.buildingmanagement.services.PersonService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//import java.util.List;import java.util.Optional;
-//
-//@RestController
-//@RequestMapping("/api/persons")
-//public class PersonController {
-//
-//  @Autowired
-//  private PersonService personService;
-//
-//  // Get a person by ID
-//  @GetMapping("/{id}")
-//  public ResponseEntity<PersonDTO> getPersonById(@PathVariable("id") Long personId) {
-//    return PersonService.getPersonById(personId)
-//      .map(ResponseEntity::ok)
-//      .orElseGet(() -> ResponseEntity.notFound().build());
-//  }
-//
-//  // Get a person by first name
-//  @GetMapping("/first-name/{firstName}")
-//  public ResponseEntity<PersonDTO> findPersonByFirstName(@PathVariable("firstName") String firstName) {
-//    return PersonService.getPersonByFirstName(firstName)
-//      .map(ResponseEntity::ok)
-//      .orElseGet(() -> ResponseEntity.notFound().build());
-//  }
-//  // Get a person by last name
-//  @GetMapping("/last-name/{lastName}")
-//  public ResponseEntity<PersonDTO> getPersonByLastName(@PathVariable("lastName") String lastName) {
-//    return PersonService.getPersonByLastName(lastName)
-//      .map(ResponseEntity::ok)
-//      .orElseGet(() -> ResponseEntity.notFound().build());
-//  }
-//  // Get a person by phone number
-//  @GetMapping("/phone/{phoneNumber}")
-//  public ResponseEntity<PersonDTO> getPersonByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
-//    return PersonService.getPersonByPhoneNumber(phoneNumber)
-//      .map(ResponseEntity::ok)
-//      .orElseGet(() -> ResponseEntity.notFound().build());
-//  }
-//  // Get all persons
-//  @GetMapping
-//  public ResponseEntity<List<PersonDTO>> getAllPersons() {
-//    List<PersonDTO> personDTOs = PersonService.getAllPersons();
-//    return ResponseEntity.ok(personDTOs);
-//  }
-//  // Create a new person
-//  @PostMapping
-//  public ResponseEntity<PersonDTO> savePerson(@RequestBody PersonDTO personDTO) {
-//    PersonDTO savedPersonDTO = PersonService.savePerson(personDTO);
-//    return ResponseEntity.status(HttpStatus.CREATED).body(savedPersonDTO);
-//  }
-//  // Delete a person
-//  @DeleteMapping("/{id}")
-//  public ResponseEntity<Void> deletePerson(@PathVariable("id") Long personId) {
-//    PersonService.deletePerson(personId);
-//    return ResponseEntity.noContent().build();
-//
-//  }
-//
-//}
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//}
+package com.example.buildingmanagement.controller;
+
+import com.example.buildingmanagement.entities.Person;
+import com.example.buildingmanagement.service.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/persons")
+@CrossOrigin
+public class PersonController {
+
+  @Autowired
+  private PersonService personService;
+
+  @GetMapping
+  public List <Person> getAllPersons() {
+    List <Person> person = personService.getAllPersons();
+    return person;
+  }
+  @GetMapping("/{id}")
+  public Optional<Person> getPersonByID(@PathVariable Long id) {
+    Optional<Person> person = personService.getPersonById(id);
+    return person;
+  }
+  @GetMapping("/search/phoneNumber")
+  public List<Person> getPersonByPhoneNumber (@PathVariable String phoneNumber) {
+    List <Person> person = personService.getPersonByPhoneNumber(phoneNumber);
+    return person;
+  }
+  @GetMapping("/search/firstName")
+  public List<Person> getPersonByFirstName (@PathVariable String firstName) {
+    List <Person> person = personService.getPersonsByFirstName(firstName);
+    return person;
+  }
+  @GetMapping("/search/lastName")
+  public List<Person> getPersonByLastName (@PathVariable String lastName) {
+    List <Person> person = personService.getPersonsByLastName(lastName);
+    return person;
+  }
+  @GetMapping("/search/email")
+  public List<Person> getPersonByEmail (@PathVariable String email) {
+    List <Person> person = personService.getPersonsByEmail(email);
+    return person;
+  }
+
+  @DeleteMapping("/{id}")
+  public void deletePerson(@PathVariable Long id) {
+    personService.deletePerson(id);
+  }
+  @PostMapping
+  public Person createPerson(@RequestBody Person person){
+    Person personEntity = personService.createPerson(person);
+    return personEntity;
+  }
+}
+
+

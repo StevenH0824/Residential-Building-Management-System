@@ -1,18 +1,17 @@
 package com.example.buildingmanagement.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Getter
 @Setter
-@Table(name = "person")
+@Entity
+@Table(name = "person") // Ensure this matches your DB table name
 public class Person {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,13 +30,7 @@ public class Person {
   @Column(name = "phone_number", nullable = false)
   private String phoneNumber;
 
-  // One-to-Many relationships with AccessControlPerson, AccessRequest, and Badge
-  //  @OneToMany(mappedBy = "personId")
-  //  private List<AccessControlPerson> accessControlPersons;
-
-//  @OneToMany(mappedBy = "access_log_id")
-//  private List<AccessLog> accessLogs;
-
-//  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//  private List<ControlGroupAccessControl> controlGroupAccessControls;
+  //public void setPersonId(Long personId) {
+ //   this.personId = personId;
+ // }
 }

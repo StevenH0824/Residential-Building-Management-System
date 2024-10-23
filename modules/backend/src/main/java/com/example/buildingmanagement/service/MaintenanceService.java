@@ -1,12 +1,8 @@
-package com.example.buildingmanagement.services;
+package com.example.buildingmanagement.service;
 
-import com.example.buildingmanagement.entities.MaintenanceRequest;
-import com.example.buildingmanagement.entities.Person;
-import com.example.buildingmanagement.repositories.MaintenanceRequestRepository;
+import com.example.buildingmanagement.repository.MaintenanceRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class MaintenanceService {
