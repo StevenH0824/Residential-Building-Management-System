@@ -17,7 +17,7 @@ public class PersonDTO {
   private String firstName;           // First name of the person
   private String lastName;            // Last name of the person
   private String phoneNumber;          // Phone number of the person
-  private List<Long> accessControlPersonIds; // List of associated access control person IDs
-  private List<Long> badgeIds;        // List of associated badge IDs
-  private List<Long> controlGroupAccessControlIds; // List of associated control group access control IDs
+  //private List<Long> accessControlPersonIds; // List of associated access control person IDs
+  //private List<Long> badgeIds;        // List of associated badge IDs
+  //private List<Long> controlGroupAccessControlIds; // List of associated control group access control IDs
 }

@@ -42,6 +42,8 @@ dependencies {
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
 //  implementation("io.springfox:springfox-swagger-ui:3.0.0") // http://localhost:8080/swagger-ui/index.html#/
 
+  implementation ("org.modelmapper:modelmapper:1.1.0")
+
 }
 
 
