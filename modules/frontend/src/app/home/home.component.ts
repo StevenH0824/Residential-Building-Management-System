@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BuildingsService } from '../services/buildings.service';
@@ -10,10 +11,18 @@ import { Component } from "@angular/core";
 import { BuildingsService } from "../services/buildings.service";
 import { Building } from "../types";
 >>>>>>> danaBranch
+=======
+import { Component } from '@angular/core';
+import { BuildingsService } from '../services/buildings.service';
+import { Building, Buildings } from '../types';
+import { BuildingComponent } from '../components/building/building.component';
+import { CommonModule } from '@angular/common';
+>>>>>>> danaBranch
 
 @Component({
   selector: 'app-home',
   standalone: true,
+<<<<<<< HEAD
   imports: [
 <<<<<<< HEAD
     // BuildingComponent,
@@ -25,10 +34,15 @@ import { Building } from "../types";
    
 >>>>>>> danaBranch
   ],
+=======
+  imports: [BuildingComponent, CommonModule],
+>>>>>>> danaBranch
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
+
 export class HomeComponent {
+<<<<<<< HEAD
 <<<<<<< HEAD
   constructor(
     private buildingsService: BuildingsService
@@ -174,21 +188,34 @@ ngOnInit() {
 //       });
 //   }
 =======
+=======
+  buildings: Building[] = []; // Initialize as an empty array
+  isLoading: boolean = true; // Track loading state
+
+>>>>>>> danaBranch
   constructor(private buildingsService: BuildingsService) {}
 
   ngOnInit() {
-    this.buildingsService.getBuildings('http://localhost:8080/api/buildings')
-    .subscribe(
-        (buildings: Building[]) => {
-            console.log(buildings); // Log the list of buildings
+    this.loadBuildings();
+  }
+
+  loadBuildings() {
+    this.buildingsService
+      .getBuildings('http://localhost:8080/api/buildings', { page: 0, perPage: 5 })
+      .subscribe(
+        (response: Building[]) => {
+          console.log('Fetched buildings:', response); // Log the full response
+          this.buildings = response ;
+          this.isLoading = false;
         },
         (error) => {
-            console.error('Error fetching buildings:', error);
+          console.error('Error fetching buildings:', error);
+          this.isLoading = false;
         }
-    );
-}  
-
+      );
+  }
 }
+<<<<<<< HEAD
 
   // products: Product[] = [];
 
@@ -310,3 +337,5 @@ ngOnInit() {
   
 >>>>>>> danaBranch
 
+=======
+>>>>>>> danaBranch

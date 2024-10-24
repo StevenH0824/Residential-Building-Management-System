@@ -72,13 +72,13 @@ export interface PaginationParams {
         } | boolean;
     }
     
-    export interface BuildingPagination{
+    export interface Buildings {
         items: Building[];
         total: number;
         page: number;
         perPage: number;
         totalPages: number;
-    }
+      }
     
     export interface Room {
         roomId: number;
