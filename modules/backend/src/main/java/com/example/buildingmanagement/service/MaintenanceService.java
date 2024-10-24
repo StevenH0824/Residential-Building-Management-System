@@ -46,7 +46,7 @@ public class MaintenanceService {
 //
 
   @Transactional
-  public MaintenanceResponseDTO getMaintenanceRequestByPersonId(Long Id) {
+  public MaintenanceResponseDTO getMaintenanceRequestByPersonId(Person Id) {
     MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByPerson(Id);
     assert maintenanceEntity != null;
     return new MaintenanceResponseDTO(maintenanceEntity.getMaintenanceRequestId(), maintenanceEntity.getCreatedDate(), maintenanceEntity.getEndDate(),maintenanceEntity.getIssue(), maintenanceEntity.getStatus(), maintenanceEntity.getPerson().getFirstName(),
@@ -93,7 +93,7 @@ public class MaintenanceService {
 
 
   @Transactional
-  public MaintenanceResponseDTO getMaintenanceRequestByRoomId(Long Id) {
+  public MaintenanceResponseDTO getMaintenanceRequestByRoomId(Room Id) {
     MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByRoom(Id);
     assert maintenanceEntity != null;
     return new MaintenanceResponseDTO(maintenanceEntity.getMaintenanceRequestId(), maintenanceEntity.getCreatedDate(), maintenanceEntity.getEndDate(),maintenanceEntity.getIssue(), maintenanceEntity.getStatus(), maintenanceEntity.getPerson().getFirstName(),

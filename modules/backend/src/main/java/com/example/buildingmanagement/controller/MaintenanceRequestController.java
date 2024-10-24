@@ -5,6 +5,7 @@ import com.example.buildingmanagement.dtos.MaintenanceResponseDTO;
 import com.example.buildingmanagement.entities.MaintenanceRequest;
 import com.example.buildingmanagement.dtos.MaintenanceRequestDTO;
 import com.example.buildingmanagement.entities.Person;
+import com.example.buildingmanagement.entities.Room;
 import com.example.buildingmanagement.enums.StatusType;
 import com.example.buildingmanagement.service.MaintenanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,8 @@ public class MaintenanceRequestController {
 
   }
 
-  @GetMapping("{/person/id}")
-  public ResponseEntity<MaintenanceResponseDTO> getByPerson(@PathVariable Long Id) {
+  @GetMapping("/{personId}")
+  public ResponseEntity<MaintenanceResponseDTO> getByPerson(@PathVariable Person Id) {
     try {
       MaintenanceResponseDTO maintenanceRequest = maintenanceService.getMaintenanceRequestByPersonId(Id);
       return ResponseEntity.ok(maintenanceRequest);
@@ -48,7 +49,7 @@ public class MaintenanceRequestController {
 
   }
 
-  @GetMapping("{/status}")
+  @GetMapping("/{status}")
   public ResponseEntity<MaintenanceResponseDTO> getByStatus(@PathVariable StatusType status) {
     try {
      List<MaintenanceResponseDTO> maintenanceRequest = maintenanceService.getMaintenanceRequestByStatus(status);
@@ -59,8 +60,8 @@ public class MaintenanceRequestController {
 
   }
 
-  @GetMapping("{/room/id}")
-  public ResponseEntity<MaintenanceResponseDTO> getByRoom(@PathVariable Long Id) {
+  @GetMapping("/{roomId}")
+  public ResponseEntity<MaintenanceResponseDTO> getByRoom(@PathVariable Room Id) {
     try {
       MaintenanceResponseDTO maintenanceRequest = maintenanceService.getMaintenanceRequestByRoomId(Id);
       return ResponseEntity.ok(maintenanceRequest);
@@ -70,7 +71,7 @@ public class MaintenanceRequestController {
 
   }
 
-  @GetMapping("{/createdDate}")
+  @GetMapping("/{createdDate}")
   public ResponseEntity<MaintenanceResponseDTO> getByCreatedDate(@PathVariable LocalDateTime createdDate) {
     try {
       List<MaintenanceResponseDTO> maintenanceRequest = maintenanceService.getMaintenanceRequestByCreatedDate(createdDate);
@@ -81,7 +82,7 @@ public class MaintenanceRequestController {
 
   }
 
-  @GetMapping("{/endDate}")
+  @GetMapping("/{endDate}")
   public ResponseEntity<MaintenanceResponseDTO> getByEndDate(@PathVariable LocalDateTime endDate) {
     try {
       List<MaintenanceResponseDTO> maintenanceRequest = maintenanceService.getMaintenanceRequestByEndDate(endDate);
