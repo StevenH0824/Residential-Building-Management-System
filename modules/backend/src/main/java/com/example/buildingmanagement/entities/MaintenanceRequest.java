@@ -18,9 +18,9 @@ public class MaintenanceRequest {
   private Long maintenanceRequestId;
 
   @Column(name = "created_date")
-  private LocalDateTime created_date;
+  private LocalDateTime createdDate;
   @Column(name = "end_date")
-  private LocalDateTime end_date;
+  private LocalDateTime endDate;
   @Column(name = "issue")
   private String issue;
   @Enumerated(EnumType.STRING)
