@@ -1,2 +1,3 @@
-package com.example.buildingmanagement.Exceptions;public class allExceptions {
+package com.example.buildingmanagement.Exceptions;
+public class allExceptions {
 }
