@@ -8,16 +8,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/buildings")
 @RestController
 public class BuildingController {
   @Autowired
   private BuildingService buildingService;
 
+
   @GetMapping
-  public List<Building> getAllBuildings() {
-    return buildingService.getAllBuildings();
+  public ResponseEntity<List<Building>> getAllBuildings() {
+    List<Building> buildings = buildingService.getAllBuildings();
+    return ResponseEntity.ok(buildings);
   }
 
   @GetMapping("/{id}")
