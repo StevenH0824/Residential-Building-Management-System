@@ -29,6 +29,9 @@ dependencies {
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
   compileOnly("org.projectlombok:lombok")
   annotationProcessor("org.projectlombok:lombok")
+  // The dependency for mapper annotation
+  implementation ("org.mapstruct:mapstruct:1.5.5.Final")
+  annotationProcessor ("org.mapstruct:mapstruct-processor:1.5.5.Final")
 //  implementation("org.projectlombok:lombok:1.18.30")
 //  annotationProcessor("org.projectlombok:lombok:1.18.30")
 //  compileOnly("org.projectlombok:lombok:1.18.34")

@@ -16,21 +16,27 @@ public class PersonServices {
     public Person getPersonById(Long personId) {
       return personRepository.findByPersonId(personId);
     }
+
     public Optional<Person> getPersonByFirstName(String firstName) {
       return personRepository.findByFirstName(firstName);
     }
+
     public Optional<Person> getPersonByLastName(String lastName) {
       return personRepository.findByLastName(lastName);
     }
+
     public Optional<Person> getPersonByPhoneNumber (String phoneNumber) {
       return personRepository.findByPhoneNumber(phoneNumber);
     }
+
     public List<Person> getAllPersons() {
       return personRepository.findAll();
     }
+
     public Person savePerson(Person person) {
       return personRepository.save(person);
     }
+
     public void deletePerson(Long personId) {
       personRepository.deleteById(personId);
     }
