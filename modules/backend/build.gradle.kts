@@ -20,22 +20,21 @@ dependencies {
   runtimeOnly("org.postgresql:postgresql:42.7.4") // PostgreSQL
 //  runtimeOnly("com.h2database:h2") // In-memory database
 
-  // Test dependencies
-  testImplementation("org.springframework.boot:spring-boot-starter-test") // JUnit 5 included
-  testImplementation("org.springframework.security:spring-security-test")
-  testImplementation("org.testcontainers:junit-jupiter")
-
-  // Lombok (only if needed)
+  /*
+  I will try to get rid of lombok towards the end of the project to see if it causes any issues, if not we are
+  removing the lombok dependencies.
+  The major benefits of reducing dependencies is that it makes our project faster to build, deploy, and download.
+  It also reduces the application size
+   */
   compileOnly("org.projectlombok:lombok")
   annotationProcessor("org.projectlombok:lombok")
 
   // Swagger/OpenAPI dependencies
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
-
-  // ModelMapper
-  implementation("org.modelmapper:modelmapper:3.2.1")
+  implementation ("org.modelmapper:modelmapper:1.1.0")
 
 }
+
 
 // Ensure that source compatibility is set correctly
 java {
@@ -47,9 +46,6 @@ java {
 tasks.withType<Test> {
   useJUnitPlatform() // Ensure JUnit 5 is used
 }
-
-
-
 
 //plugins {
 //  id("java")
