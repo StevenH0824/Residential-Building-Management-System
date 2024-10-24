@@ -95,17 +95,33 @@ CREATE TABLE IF NOT EXISTS access_log (
   FOREIGN KEY (scanner_id) REFERENCES card_scanner(scanner_id) ON DELETE CASCADE
 );
 
+--CREATE TABLE IF NOT EXISTS access_request (
+--  id BIGSERIAL PRIMARY KEY,
+--  access_control_id BIGINT NOT NULL,
+--  person_id BIGINT NOT NULL,
+--  request_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+--  approved BOOLEAN NOT NULL,
+--  scanner_id BIGINT NOT NULL,
+--  CONSTRAINT fk_access_control FOREIGN KEY (access_control_id) REFERENCES access_control(access_control_id) ON DELETE CASCADE,
+--  CONSTRAINT fk_person FOREIGN KEY (person_id) REFERENCES person(person_id) ON DELETE CASCADE,
+--  CONSTRAINT fk_card_scanner FOREIGN KEY (scanner_id) REFERENCES card_scanner(scanner_id) ON DELETE CASCADE
+--);
+
 CREATE TABLE IF NOT EXISTS access_request (
-  id BIGSERIAL PRIMARY KEY,
-  access_control_id BIGINT NOT NULL,
-  person_id BIGINT NOT NULL,
-  request_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  approved BOOLEAN NOT NULL,
-  scanner_id BIGINT NOT NULL,
-  CONSTRAINT fk_access_control FOREIGN KEY (access_control_id) REFERENCES access_control(access_control_id) ON DELETE CASCADE,
-  CONSTRAINT fk_person FOREIGN KEY (person_id) REFERENCES person(person_id) ON DELETE CASCADE,
-  CONSTRAINT fk_card_scanner FOREIGN KEY (scanner_id) REFERENCES card_scanner(scanner_id) ON DELETE CASCADE
+    id BIGSERIAL PRIMARY KEY,
+    access_control_id BIGINT NOT NULL,
+    person_id BIGINT NOT NULL,
+    request_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    approved BOOLEAN NOT NULL,
+    scanner_id BIGINT NOT NULL,
+    CONSTRAINT fk_access_control FOREIGN KEY (access_control_id)
+        REFERENCES access_control(access_control_id) ON DELETE CASCADE,
+    CONSTRAINT fk_person FOREIGN KEY (person_id)
+        REFERENCES person(person_id) ON DELETE CASCADE,
+    CONSTRAINT fk_card_scanner FOREIGN KEY (scanner_id)
+        REFERENCES card_scanner(scanner_id) ON DELETE CASCADE
 );
+
 
 CREATE TABLE IF NOT EXISTS maintenance_request (
   maintenance_request_id BIGSERIAL PRIMARY KEY,

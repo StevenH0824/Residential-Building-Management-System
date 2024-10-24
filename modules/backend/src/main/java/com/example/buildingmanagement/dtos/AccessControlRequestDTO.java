@@ -1,6 +1,6 @@
 package com.example.buildingmanagement.dtos;
 
-import com.example.buildingmanagement.enums.AreaType;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,10 +10,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class AccessControlDTO {
-  private Long accessControlId; // ID of the access control
+public class AccessControlRequestDTO {
+  private Long accessControlId; // For updating existing AccessControl, otherwise it can be null for new creation
+  @NotNull
   private String description;     // Description of the access control
-  private Long areaId;           // Reference to the associated Apartment, SpecialRoom, or Floor
-  private AreaType areaType;     // Type of area (Apartment, SpecialRoom, Floor)
+  @NotNull
   private Long cardScannerId;    // ID of the associated card scanner (if needed)
+  private Long controlGroupAccessControls;
+  @NotNull
+  private Long roomId;
 }

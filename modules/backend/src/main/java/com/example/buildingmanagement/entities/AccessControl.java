@@ -25,8 +25,8 @@ public class AccessControl {
   @JoinColumn(name = "scanner_id")
   private CardScanner cardScanner;
 
-  @OneToMany(mappedBy = "accessControl", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<AccessRequest> accessRequests; // Added for connection with AccessRequest
+  @OneToMany(mappedBy = "accessControl", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  private List<ControlGroupAccessControl> controlGroupAccessControls;
 
   @ManyToOne
   @JoinColumn(name = "room_id", nullable = false)

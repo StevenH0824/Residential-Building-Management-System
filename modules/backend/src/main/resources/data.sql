@@ -119,13 +119,13 @@ INSERT INTO access_request (access_control_id, person_id, request_time, approved
 
 -- Insert into MaintenanceRequest
 INSERT INTO maintenance_request (created_date, end_date, issue, status, person_id, room_id) VALUES
-('2024-01-01T08:00:00', '2024-01-02T08:00:00', 'Leaking Pipe', 'OPEN', 1, 1),
-('2024-01-03T09:00:00', '2024-01-04T09:00:00', 'Broken Window', 'CLOSED', 2, 2),
-('2024-01-05T10:00:00', '2024-01-06T10:00:00', 'Faulty AC', 'OPEN', 3, 3),
-('2024-01-07T11:00:00', '2024-01-08T11:00:00', 'Lighting Issue', 'CLOSED', 4, 4),
-('2024-01-09T12:00:00', '2024-01-10T12:00:00', 'Power Outage', 'OPEN', 5, 5),
-('2024-01-11T13:00:00', '2024-01-12T13:00:00', 'Water Heater Issue', 'OPEN', 6, 6),
-('2024-01-13T14:00:00', '2024-01-14T14:00:00', 'Clogged Drain', 'CLOSED', 7, 7),
-('2024-01-15T15:00:00', '2024-01-16T15:00:00', 'Broken Door', 'OPEN', 8, 8),
-('2024-01-17T16:00:00', '2024-01-18T16:00:00', 'Cracked Wall', 'CLOSED', 9, 9),
-('2024-01-19T17:00:00', '2024-01-20T17:00:00', 'Noisy HVAC', 'OPEN', 10, 10);
+('2024-01-01T08:00:00', '2024-01-02T08:00:00', 'Leaking Pipe', 'PENDING', 1, 1),
+('2024-01-03T09:00:00', '2024-01-04T09:00:00', 'Broken Window', 'DENIED', 2, 2),
+('2024-01-05T10:00:00', '2024-01-06T10:00:00', 'Faulty AC', 'DONE', 3, 3),
+('2024-01-07T11:00:00', '2024-01-08T11:00:00', 'Lighting Issue', 'DENIED', 4, 4),
+('2024-01-09T12:00:00', '2024-01-10T12:00:00', 'Power Outage', 'PENDING', 5, 5),
+('2024-01-11T13:00:00', '2024-01-12T13:00:00', 'Water Heater Issue', 'DONE', 6, 6),
+('2024-01-13T14:00:00', '2024-01-14T14:00:00', 'Clogged Drain', 'DENIED', 7, 7),
+('2024-01-15T15:00:00', '2024-01-16T15:00:00', 'Broken Door', 'PENDING', 8, 8),
+('2024-01-17T16:00:00', '2024-01-18T16:00:00', 'Cracked Wall', 'DONE', 9, 9),
+('2024-01-19T17:00:00', '2024-01-20T17:00:00', 'Noisy HVAC', 'PENDING', 10, 10);

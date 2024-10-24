@@ -22,23 +22,29 @@ public class PersonService {
     return personRepository.findById(id);
   }
 
+
+  public List<Person> getPersonByPhoneNumber(String phoneNumber) {
+    return personRepository.findByPhoneNumber(phoneNumber);
+  }
+
+  public List<Person> getPersonsByFirstName(String firstName) {
+    return personRepository.findByFirstName(firstName);
+  }
+
+  public List<Person> getPersonsByLastName(String lastName) {
+    return personRepository.findByLastName(lastName);
+  }
+
+
+  public List<Person> getPersonsByEmail(String email) {
+    return personRepository.findByEmail(email);
+  }
+
   public Person createPerson(Person person) {
     return personRepository.save(person);
   }
 
-  public Person updatePerson(Long id, Person updatedPerson) {
-    Optional<Person> person = personRepository.findById(id);
-    if (person.isPresent()) {
-      Person existingPerson = person.get();
-      existingPerson.setEmail(updatedPerson.getEmail());
-      existingPerson.setFirstName(updatedPerson.getFirstName());
-      existingPerson.setLastName(updatedPerson.getLastName());
-      existingPerson.setPhoneNumber(updatedPerson.getPhoneNumber());
-      return personRepository.save(existingPerson);
-    } else {
-      throw new RuntimeException("Person not found with id " + id);
-    }
-  }
+  public Optional<Person> updatePerson(Long id) { return personRepository.findById(id);}
 
   public void deletePerson(Long id) {
     personRepository.deleteById(id);
