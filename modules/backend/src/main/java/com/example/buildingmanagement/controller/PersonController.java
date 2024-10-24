@@ -26,22 +26,22 @@ public class PersonController {
     Optional<Person> person = personService.getPersonById(id);
     return person;
   }
-  @GetMapping("/search/phoneNumber")
+  @GetMapping("/search/{phoneNumber}")
   public List<Person> getPersonByPhoneNumber (@PathVariable String phoneNumber) {
     List <Person> person = personService.getPersonByPhoneNumber(phoneNumber);
     return person;
   }
-  @GetMapping("/search/firstName")
+  @GetMapping("/search/{firstName}")
   public List<Person> getPersonByFirstName (@PathVariable String firstName) {
     List <Person> person = personService.getPersonsByFirstName(firstName);
     return person;
   }
-  @GetMapping("/search/lastName")
+  @GetMapping("/search/{lastName}")
   public List<Person> getPersonByLastName (@PathVariable String lastName) {
     List <Person> person = personService.getPersonsByLastName(lastName);
     return person;
   }
-  @GetMapping("/search/email")
+  @GetMapping("/search/{email}")
   public List<Person> getPersonByEmail (@PathVariable String email) {
     List <Person> person = personService.getPersonsByEmail(email);
     return person;
@@ -57,5 +57,6 @@ public class PersonController {
     return personEntity;
   }
 }
+
 
 

@@ -33,9 +33,9 @@ public class MaintenanceService {
   @Autowired
   private RoomRepository roomRepository;
 
-//  @Autowired
-//  ModelMapper MaintenanceRequestMapper;
-//
+  @Autowired
+  ModelMapper modelMapper;
+
 
 //  @Transactional
 //  public MaintenanceRequestDTO getMaintenanceRequestByPersonId(Long Id) {
@@ -46,13 +46,17 @@ public class MaintenanceService {
 //
 
   @Transactional
-  public MaintenanceResponseDTO getMaintenanceRequestByPersonId(Person Id) {
-    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByPerson(Id);
+  public MaintenanceResponseDTO getMaintenanceRequestByPersonId(Long Id) {
+    Person person = personRepository.findByPersonId(Id);
+    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByPerson(person);
     assert maintenanceEntity != null;
-    return new MaintenanceResponseDTO(maintenanceEntity.getMaintenanceRequestId(), maintenanceEntity.getCreatedDate(), maintenanceEntity.getEndDate(),maintenanceEntity.getIssue(), maintenanceEntity.getStatus(), maintenanceEntity.getPerson().getFirstName(),
-      maintenanceEntity.getPerson().getLastName(),maintenanceEntity.getRoom().getNumber()
-      );
+//    return new MaintenanceResponseDTO(maintenanceEntity.getMaintenanceRequestId(), maintenanceEntity.getCreatedDate(), maintenanceEntity.getEndDate(),maintenanceEntity.getIssue(), maintenanceEntity.getStatus(), maintenanceEntity.getPerson().getFirstName(),
+//      maintenanceEntity.getPerson().getLastName(),maintenanceEntity.getRoom().getNumber()
+//    );
+    return modelMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
   }
+
+
 
   @Transactional
   public MaintenanceResponseDTO getMaintenanceRequestByMaintenanceId(Long Id) {
@@ -64,71 +68,9 @@ public class MaintenanceService {
   }
 
 
-    @Transactional
-    public List<MaintenanceResponseDTO> getMaintenanceRequestByStatus(StatusType status){
-      List<MaintenanceRequest> maintenanceEntity = maintenanceRequestRepository.findByStatus(status);
-      assert maintenanceEntity != null;
-      List<MaintenanceResponseDTO> responseDTOs = new ArrayList<>();
-      for (MaintenanceRequest entity : maintenanceEntity) {
-        MaintenanceResponseDTO dto = new MaintenanceResponseDTO(
-          entity.getMaintenanceRequestId(),
-          entity.getCreatedDate(),
-          entity.getEndDate(),
-          entity.getIssue(),
-          entity.getStatus(),
-          entity.getPerson().getFirstName(),
-          entity.getPerson().getLastName(),
-          entity.getRoom().getNumber()
-        );
-        responseDTOs.add(dto);
-      }
-
-      return responseDTOs;
-
-
-
-  }
-
-
-
-
   @Transactional
-  public MaintenanceResponseDTO getMaintenanceRequestByRoomId(Room Id) {
-    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByRoom(Id);
-    assert maintenanceEntity != null;
-    return new MaintenanceResponseDTO(maintenanceEntity.getMaintenanceRequestId(), maintenanceEntity.getCreatedDate(), maintenanceEntity.getEndDate(),maintenanceEntity.getIssue(), maintenanceEntity.getStatus(), maintenanceEntity.getPerson().getFirstName(),
-      maintenanceEntity.getPerson().getLastName(),maintenanceEntity.getRoom().getNumber()
-    );
-  }
-
-  @Transactional
-  public List<MaintenanceResponseDTO> getMaintenanceRequestByCreatedDate(LocalDateTime createdDate){
-    List<MaintenanceRequest> maintenanceEntity = maintenanceRequestRepository.findByCreatedDate(createdDate);
-    assert maintenanceEntity != null;
-    List<MaintenanceResponseDTO> responseDTOs = new ArrayList<>();
-    for (MaintenanceRequest entity : maintenanceEntity) {
-      MaintenanceResponseDTO dto = new MaintenanceResponseDTO(
-        entity.getMaintenanceRequestId(),
-        entity.getCreatedDate(),
-        entity.getEndDate(),
-        entity.getIssue(),
-        entity.getStatus(),
-        entity.getPerson().getFirstName(),
-        entity.getPerson().getLastName(),
-        entity.getRoom().getNumber()
-      );
-      responseDTOs.add(dto);
-    }
-
-    return responseDTOs;
-
-
-
-  }
-
-  @Transactional
-  public List<MaintenanceResponseDTO> getMaintenanceRequestByEndDate(LocalDateTime endDate){
-    List<MaintenanceRequest> maintenanceEntity = maintenanceRequestRepository.findByEndDate(endDate);
+  public List<MaintenanceResponseDTO> getMaintenanceRequestByStatus(StatusType status){
+    List<MaintenanceRequest> maintenanceEntity = maintenanceRequestRepository.findByStatus(status);
     assert maintenanceEntity != null;
     List<MaintenanceResponseDTO> responseDTOs = new ArrayList<>();
     for (MaintenanceRequest entity : maintenanceEntity) {
@@ -152,6 +94,79 @@ public class MaintenanceService {
   }
 
 
+
+
+  @Transactional
+  public MaintenanceResponseDTO getMaintenanceRequestByRoomId(Long Id) {
+    Room room = roomRepository.findByRoomId(Id);
+    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByRoom(room);
+    assert maintenanceEntity != null;
+//    return new MaintenanceResponseDTO(maintenanceEntity.getMaintenanceRequestId(), maintenanceEntity.getCreatedDate(), maintenanceEntity.getEndDate(),maintenanceEntity.getIssue(), maintenanceEntity.getStatus(), maintenanceEntity.getPerson().getFirstName(),
+//      maintenanceEntity.getPerson().getLastName(),maintenanceEntity.getRoom().getNumber()
+//    );
+    return modelMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
+  }
+
+//  @Transactional
+//  public List<MaintenanceResponseDTO> getMaintenanceRequestByCreatedDate(LocalDateTime createdDate){
+//    List<MaintenanceRequest> maintenanceEntity = maintenanceRequestRepository.findByCreatedDate(createdDate);
+//    assert maintenanceEntity != null;
+//    List<MaintenanceResponseDTO> responseDTOs = new ArrayList<>();
+//    for (MaintenanceRequest entity : maintenanceEntity) {
+//      MaintenanceResponseDTO dto = new MaintenanceResponseDTO(
+//        entity.getMaintenanceRequestId(),
+//        entity.getCreatedDate(),
+//        entity.getEndDate(),
+//        entity.getIssue(),
+//        entity.getStatus(),
+//        entity.getPerson().getFirstName(),
+//        entity.getPerson().getLastName(),
+//        entity.getRoom().getNumber()
+//      );
+//      responseDTOs.add(dto);
+//    }
+//
+//    return responseDTOs;
+//
+//
+//
+//  }
+//
+//  @Transactional
+//  public List<MaintenanceResponseDTO> getMaintenanceRequestByEndDate(LocalDateTime endDate){
+//    List<MaintenanceRequest> maintenanceEntity = maintenanceRequestRepository.findByEndDate(endDate);
+//    assert maintenanceEntity != null;
+//    List<MaintenanceResponseDTO> responseDTOs = new ArrayList<>();
+//    for (MaintenanceRequest entity : maintenanceEntity) {
+//      MaintenanceResponseDTO dto = new MaintenanceResponseDTO(
+//        entity.getMaintenanceRequestId(),
+//        entity.getCreatedDate(),
+//        entity.getEndDate(),
+//        entity.getIssue(),
+//        entity.getStatus(),
+//        entity.getPerson().getFirstName(),
+//        entity.getPerson().getLastName(),
+//        entity.getRoom().getNumber()
+//      );
+//      responseDTOs.add(dto);
+//    }
+//
+//    return responseDTOs;
+//
+//
+//
+//  }
+
+
+
+
+
+
+
+
+
+
+}
 
 
 
@@ -201,7 +216,3 @@ public class MaintenanceService {
 //    return RequestList.stream().map(maintenanceRequest -> MaintenanceRequestMapper.
 //      map(maintenanceRequest, MaintenanceRequestDTO.class)).collect(Collectors.toList());
 //  }
-
-
-}
-
