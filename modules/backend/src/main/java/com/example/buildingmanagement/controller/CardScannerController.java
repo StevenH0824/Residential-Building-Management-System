@@ -1,6 +1,7 @@
 package com.example.buildingmanagement.controller;
 
 import com.example.buildingmanagement.entities.CardScanner;
+import com.example.buildingmanagement.entities.Person;
 import com.example.buildingmanagement.service.CardScannerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
+@RequestMapping("/card-scanners")
 public class CardScannerController {
   private final CardScannerService cardScannerService;
 
@@ -36,4 +39,11 @@ public class CardScannerController {
     cardScannerService.deleteCardScanner(id);
     return ResponseEntity.noContent().build();
   }
+
+  @PostMapping("/{scannerId}/log-access")
+  public ResponseEntity<Void> logAccess(@PathVariable Long scannerId, @RequestBody Person person) {
+    cardScannerService.logAccess(scannerId, person);
+    return ResponseEntity.ok().build();
+  }
+
 }
