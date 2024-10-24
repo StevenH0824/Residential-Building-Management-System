@@ -58,8 +58,8 @@ public class BuildingService {
   }
 
   private BuildingDTO convertToResponseDTO(Building building) {
-    List<Long> floorIds = building.getFloors().stream()
-      .map(Floor::getFloorId)
+    List<String> floorIds = building.getFloors().stream()
+      .map(Floor::getNumber)
       .collect(Collectors.toList());
     return new BuildingDTO(building.getBuildingId(), building.getName(), building.getAddress(), floorIds);
   }

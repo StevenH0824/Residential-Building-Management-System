@@ -8,23 +8,43 @@ INSERT INTO building (name, address) VALUES
 INSERT INTO floor (number, description, building_id) VALUES
 ('1', 'First Floor', 1),
 ('2', 'Second Floor', 1),
+('3', 'Third Floor', 1),
+('4', 'Fourth Floor', 1),
 ('1', 'First Floor', 2),
 ('2', 'Second Floor', 2),
 ('1', 'First Floor', 3),
-('2', 'Second Floor', 3);
+('2', 'Second Floor', 3),
+('3', 'Third Floor', 3),
+('4', 'Fourth Floor', 3),
+('5', 'Fifth Floor', 3),
+('6', 'Sixth Floor', 3);
 
 -- Insert into Room
 INSERT INTO room (number, description, floor_id) VALUES
 ('101', 'Room 101', 1),
 ('102', 'Room 102', 1),
+('201', 'Room 201', 1),
+('202', 'Room 202', 1),
+('101', 'Room 101', 2),
+('102', 'Room 102', 2),
 ('201', 'Room 201', 2),
 ('202', 'Room 202', 2),
 ('101', 'Room 101', 3),
 ('102', 'Room 102', 3),
+('201', 'Room 201', 3),
+('202', 'Room 202', 3),
+('101', 'Room 101', 4),
+('102', 'Room 102', 4),
 ('201', 'Room 201', 4),
 ('202', 'Room 202', 4),
 ('101', 'Room 101', 5),
-('102', 'Room 102', 5);
+('102', 'Room 102', 5),
+('201', 'Room 201', 5),
+('202', 'Room 202', 5),
+('101', 'Room 101', 6),
+('102', 'Room 102', 6),
+('201', 'Room 201', 6),
+('202', 'Room 202', 6);
 
 -- Insert into Person
 INSERT INTO person (email, first_name, last_name, phone_number) VALUES

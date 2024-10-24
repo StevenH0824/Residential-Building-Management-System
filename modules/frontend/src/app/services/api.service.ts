@@ -7,6 +7,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
+  put(url: string, body: any, arg2: {}): Observable<any> {
+    throw new Error('Method not implemented.');
+  }
+  delete(url: string, arg1: {}): Observable<any> {
+    throw new Error('Method not implemented.');
+  }
+  post(url: string, body: any, arg2: {}): Observable<any> {
+    throw new Error('Method not implemented.');
+  }
   constructor(
     private httpClient: HttpClient) { }
 
