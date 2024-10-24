@@ -1,10 +1,17 @@
 package com.example.buildingmanagement.repository;
 
 import com.example.buildingmanagement.entities.AccessRequest;
+import com.example.buildingmanagement.entities.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface AccessRequestRepository extends JpaRepository<AccessRequest,Long> {
+import java.util.List;
 
+@Repository
+public interface AccessRequestRepository extends JpaRepository<AccessRequest, Long> {
+  List<AccessRequest> findByApproved(boolean approved);
+  List<AccessRequest> findByPerson_PersonId(Long personId);
+  List<AccessRequest> findByAccessControl_AccessControlId(Long accessControlId);
+
+  List<AccessRequest> findByCardScanner_CardScannerId(Long cardScannerId);
 }
