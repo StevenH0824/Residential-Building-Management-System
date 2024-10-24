@@ -1,23 +1,36 @@
 package com.example.buildingmanagement.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Getter
 @Setter
-@Table(name = "person")
+@Entity
+@Table(name = "person") // Ensure this matches your DB table name
 public class Person {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "person_id")
   private Long personId;
-  private String firstName;
-  private String lastName;
-  private String phoneNumber;
-  private String email;
-}
 
+  @Column(name = "email", nullable = false)
+  private String email;
+
+  @Column(name = "first_name", nullable = false)
+  private String firstName;
+
+  @Column(name = "last_name", nullable = false)
+  private String lastName;
+
+  @Column(name = "phone_number", nullable = false)
+  private String phoneNumber;
+
+  //public void setPersonId(Long personId) {
+ //   this.personId = personId;
+ // }
+}

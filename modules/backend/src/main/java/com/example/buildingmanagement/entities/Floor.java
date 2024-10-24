@@ -3,19 +3,42 @@ package com.example.buildingmanagement.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+//will be needed when we start connecting the room to apartments and floors.
+import java.util.List;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Getter
 @Setter
+@Entity
+@Table(name = "floor")
 public class Floor {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long floorId;
-  @ManyToOne
-  @JoinColumn(name = "building_id", nullable = false)
-  private Building building;
+
+  @Column(name = "number")
+  private String number;
+  @Column(name = "description")
   private String description;
+
+  //  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
+  @JoinColumn(name = "building_id", nullable = true)
+  private Building building;
+
+//  @OneToMany(mappedBy = "floor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "floor")
+  private List<Room> rooms;
+
+//  @OneToMany(mappedBy = "floor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//  @OneToMany(mappedBy = "floor")
+//  private List<SpecialRoom> specialRooms;
 }
+
+
+
+
+
+
+

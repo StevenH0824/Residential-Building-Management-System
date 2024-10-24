@@ -3,18 +3,36 @@ package com.example.buildingmanagement.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Getter
 @Setter
+@Entity
+@Table(name = "card_scanner") // Make sure this matches your DB table name
 public class CardScanner {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "scanner_id")
   private Long cardScannerId;
-  private String description;
-  @ManyToOne
-  @JoinColumn(name = "floor_id", nullable = false)
-  private Floor floor;
+
+  @Column(name = "serial_no")
+  private String serialNo;
+
+  @Column(name = "make")
+  private String make;
+
+  @Column(name = "model")
+  private String model;
+
+  @OneToMany(mappedBy = "cardScanner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  private List<AccessLog> accessLogs;
+
+  @OneToMany(mappedBy = "cardScanner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  private List<AccessControl> accessControls;
+
+  @OneToMany(mappedBy = "cardScanner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  private List<AccessRequest> accessRequests; // Added for connection with AccessRequest
 }
