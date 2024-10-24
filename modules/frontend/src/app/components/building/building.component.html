@@ -1,0 +1,31 @@
+<div class="column gap-1 wrapper">
+
+  <!-- Building -->
+  <h2 class="title">{{building.name}}</h2>
+  >
+
+
+  <div class="row gap-05">
+    <button
+      type="button"
+      pButton
+      icon="pi pi-pencil"
+      (click)="editBuilding()"
+      label="Edit"
+    ></button>
+
+    <button
+      type="button"
+      pButton
+      icon="pi pi-trash"
+      (click)="deleteBuilding()"
+      label="Delete"
+      class="p-button-danger"
+      #deleteButton
+    ></button>
+  </div>
+
+  <p-confirmPopup />
+
+
+</div>
