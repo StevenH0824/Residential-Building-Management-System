@@ -1,5 +1,6 @@
 package com.example.buildingmanagement.dtos;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +15,9 @@ import java.util.List;
 @Setter
 public class FloorDTO {
   private Long floorId;
-  private Long buildingId;
+  @NotBlank(message = "floor number is mandatory")
+  private String number;
   private String description;
-  private String number; // Floor Number
-//  private List<RoomDTO> apartments; // If you want to include apartments
+  private Long buildingId;
+  private List<Long> roomIds; // If you want to include apartments
 }
