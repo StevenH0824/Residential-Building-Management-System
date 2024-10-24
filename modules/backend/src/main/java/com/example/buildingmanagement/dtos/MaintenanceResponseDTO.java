@@ -21,6 +21,9 @@ public class MaintenanceResponseDTO {
   private String personFirstName;
   private String personLastName;
   private String roomNum;
+//  private Long personId;
+//  private Long roomId;
+
 
 
 }

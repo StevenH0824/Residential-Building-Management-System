@@ -13,8 +13,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class BuildingService {
+  private final BuildingRepository buildingRepository;
+
   @Autowired
-  private BuildingRepository buildingRepository;
+  public BuildingService(BuildingRepository buildingRepository){
+    this.buildingRepository= buildingRepository;
+  }
 
   public List<BuildingDTO> getAllBuildings() {
     return buildingRepository.findAll().stream()

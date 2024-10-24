@@ -11,12 +11,16 @@ public class ApplicationConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(final CorsRegistry registry){
-        registry.addMapping("/**").allowedMethods("*").allowedOrigins("http://localhost:4200");
-        /*
-        Cross Origin method that says any method and any function is allowed on the origin that we provided, this is
-        how we will connect it to our front end application.
-         */
+//        registry.addMapping("/**").allowedMethods("*")
+////          .allowedOrigins("http://localhost:4200");
+//          .allowedOrigins("http://localhost:8080")
+//          .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH");
+      registry.addMapping("/api/**")
+        .allowedOrigins("http://localhost:4200")
+        .allowCredentials(true);
+
     }
+
 
   @Bean
   public ModelMapper modelMapper() {

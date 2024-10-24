@@ -33,6 +33,4 @@ public class CardScanner {
   @OneToMany(mappedBy = "cardScanner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private List<AccessControl> accessControls;
 
-  @OneToMany(mappedBy = "cardScanner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  private List<AccessRequest> accessRequests; // Added for connection with AccessRequest
 }

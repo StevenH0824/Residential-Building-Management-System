@@ -54,11 +54,11 @@ public class AccessRequestController {
     return ResponseEntity.ok(requests);
   }
 
-  @GetMapping("/scanner/{cardScannerId}")
-  public ResponseEntity<List<AccessRequest>> getRequestsByCardScannerId(@PathVariable Long cardScannerId) {
-    List<AccessRequest> requests = service.findByCardScanner_CardScannerId(cardScannerId);
-    return ResponseEntity.ok(requests);
-  }
+//  @GetMapping("/scanner/{cardScannerId}")
+//  public ResponseEntity<List<AccessRequest>> getRequestsByCardScannerId(@PathVariable Long cardScannerId) {
+//    List<AccessRequest> requests = service.findByCardScanner_CardScannerId(cardScannerId);
+//    return ResponseEntity.ok(requests);
+//  }
 
   @PutMapping("/{id}")
   public ResponseEntity<AccessRequest> updateRequest(@PathVariable Long id, @RequestBody AccessRequest accessRequest) {
