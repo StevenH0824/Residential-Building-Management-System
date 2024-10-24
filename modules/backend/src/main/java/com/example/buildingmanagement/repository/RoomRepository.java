@@ -13,7 +13,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
   Room findByRoomId(Long id);
   List<Room> findByNumber(String Number);
   List<Room> findByDescription(String Description);
-  List<Room> findByFloor(Floor id);
+  Room findByFloor(Floor id);
 
 
 }

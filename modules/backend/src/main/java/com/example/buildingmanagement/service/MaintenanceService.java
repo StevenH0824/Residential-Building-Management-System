@@ -4,6 +4,7 @@ package com.example.buildingmanagement.service;
 import com.example.buildingmanagement.dtos.MaintenanceResponseDTO;
 import com.example.buildingmanagement.entities.Room;
 import com.example.buildingmanagement.enums.StatusType;
+import com.example.buildingmanagement.repository.CardScannerRepository;
 import com.example.buildingmanagement.repository.PersonRepository;
 import com.example.buildingmanagement.dtos.MaintenanceRequestDTO;
 //import com.example.buildingmanagement.entities.MaintenanceRequest;
@@ -26,15 +27,19 @@ import java.util.Optional;
 @Transactional
 @Service
 public class MaintenanceService {
-  @Autowired
-  private MaintenanceRequestRepository maintenanceRequestRepository;
-  @Autowired
-  private PersonRepository personRepository;
-  @Autowired
-  private RoomRepository roomRepository;
+  private final MaintenanceRequestRepository maintenanceRequestRepository;
+  private final PersonRepository personRepository;
+  private final RoomRepository roomRepository;
+  private final ModelMapper modelMapper;
 
   @Autowired
-  ModelMapper modelMapper;
+  public MaintenanceService(MaintenanceRequestRepository maintenanceRequestRepository,PersonRepository personRepository, RoomRepository roomRepository, ModelMapper modelMapper ) {
+    this.maintenanceRequestRepository =maintenanceRequestRepository;
+    this.personRepository = personRepository;
+    this.roomRepository = roomRepository;
+    this.modelMapper = modelMapper;
+  }
+
 
 
 //  @Transactional

@@ -16,15 +16,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class FloorService {
+  private final FloorRepository floorRepository;
+  private final BuildingRepository buildingRepository;
+  private final RoomRepository roomRepository;
 
   @Autowired
-  private FloorRepository floorRepository;
-
-  @Autowired
-  private BuildingRepository buildingRepository;
-
-  @Autowired
-  private RoomRepository roomRepository;
+  public FloorService(FloorRepository floorRepository, BuildingRepository buildingRepository, RoomRepository roomRepository){
+    this.floorRepository = floorRepository;
+    this.buildingRepository =buildingRepository;
+    this.roomRepository=roomRepository;
+  }
 
   // Get all floors
   public List<FloorDTO> getAllFloors() {

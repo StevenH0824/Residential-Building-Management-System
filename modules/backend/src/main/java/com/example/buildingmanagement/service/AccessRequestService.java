@@ -41,10 +41,6 @@ public class AccessRequestService {
     return repository.findByAccessControl_AccessControlId(accessControlId);
   }
 
-  public List<AccessRequest> findByCardScanner_CardScannerId(Long cardScannerId){
-    return repository.findByCardScanner_CardScannerId(cardScannerId);
-  }
-
   public AccessRequest update(AccessRequest accessRequest) {
     // Check if the entity exists before saving
     if (repository.existsById(accessRequest.getId())) {

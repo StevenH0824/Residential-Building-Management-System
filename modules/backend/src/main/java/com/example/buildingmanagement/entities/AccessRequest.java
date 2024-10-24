@@ -32,7 +32,5 @@ public class AccessRequest {
   @Column(name = "approved")
   private boolean approved;
 
-  @ManyToOne
-  @JoinColumn(name = "scanner_id")
-  private CardScanner cardScanner;
+
 }

@@ -1,12 +1,7 @@
 package com.example.buildingmanagement.controller;
 
-import com.example.buildingmanagement.dtos.MaintenanceResponseDTO;
-import com.example.buildingmanagement.dtos.RoomDTO;
 import com.example.buildingmanagement.dtos.RoomResponseDTO;
-import com.example.buildingmanagement.entities.MaintenanceRequest;
-import com.example.buildingmanagement.entities.Room;
 import com.example.buildingmanagement.service.RoomService;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +11,7 @@ import java.util.List;
 
 @RequestMapping("/api/rooms")
 @RestController
-public class ApartmentController {
+public class RoomController {
   @Autowired
   private RoomService roomService;
 
@@ -51,15 +46,15 @@ public class ApartmentController {
     }
   }
 
-//  @GetMapping("/{floorId}")
-//  public ResponseEntity<List<RoomResponseDTO>> getRoomByFloorId(@PathVariable Long floorId) {
-//    try {
-//      List<RoomResponseDTO> room = roomService.getRoomByFloorId(floorId);
-//      return ResponseEntity.ok(room);
-//    } catch (ResponseStatusException ex) {
-//      return ResponseEntity.status(ex.getStatusCode()).body(null);
-//    }
-//  }
+  @GetMapping("/{floorId}")
+  public ResponseEntity<RoomResponseDTO> getRoomByFloorId(@PathVariable Long floorId) {
+    try {
+      RoomResponseDTO room = roomService.getRoomByFloorId(floorId);
+      return ResponseEntity.ok(room);
+    } catch (ResponseStatusException ex) {
+      return ResponseEntity.status(ex.getStatusCode()).body(null);
+    }
+  }
 
 
 

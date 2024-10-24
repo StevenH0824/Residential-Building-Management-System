@@ -10,10 +10,12 @@ import java.util.Optional;
 
 @Service
 public class PersonService {
+  private final PersonRepository personRepository;
 
   @Autowired
-  private PersonRepository personRepository;
-
+  public PersonService(PersonRepository personRepository){
+    this.personRepository = personRepository;
+  }
   public List<Person> getAllPersons() {
     return personRepository.findAll();
   }

@@ -12,6 +12,4 @@ public interface AccessRequestRepository extends JpaRepository<AccessRequest, Lo
   List<AccessRequest> findByApproved(boolean approved);
   List<AccessRequest> findByPerson_PersonId(Long personId);
   List<AccessRequest> findByAccessControl_AccessControlId(Long accessControlId);
-
-  List<AccessRequest> findByCardScanner_CardScannerId(Long cardScannerId);
 }
