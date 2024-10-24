@@ -24,9 +24,10 @@ public class AccessLog {
   //  @ManyToOne(fetch = FetchType.LAZY)
   //  @JoinColumn(name = "badge_id", nullable = false)
   //  private Badge badge;
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "person_id", nullable = false)
-  private Person personId;
+  private Person person;
 
+  @Column(name = "access_time", nullable = false)
   private LocalDateTime access_time;
 }
