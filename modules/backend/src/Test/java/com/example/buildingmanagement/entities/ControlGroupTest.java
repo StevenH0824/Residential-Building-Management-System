@@ -5,14 +5,18 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AccessControlTest {
+class ControlGroupTest {
 
   @BeforeEach
   void setUp() {
   }
 
   @Test
-  void getAccessControlId() {
+  void getControlGroupId() {
+  }
+
+  @Test
+  void getName() {
   }
 
   @Test
@@ -20,19 +24,19 @@ class AccessControlTest {
   }
 
   @Test
-  void getCardScanner() {
-  }
-
-  @Test
   void getControlGroupAccessControls() {
   }
 
   @Test
-  void getRoom() {
+  void getControlGroupPersons() {
   }
 
   @Test
-  void setAccessControlId() {
+  void setControlGroupId() {
+  }
+
+  @Test
+  void setName() {
   }
 
   @Test
@@ -40,15 +44,11 @@ class AccessControlTest {
   }
 
   @Test
-  void setCardScanner() {
-  }
-
-  @Test
   void setControlGroupAccessControls() {
   }
 
   @Test
-  void setRoom() {
+  void setControlGroupPersons() {
   }
 
   @Test

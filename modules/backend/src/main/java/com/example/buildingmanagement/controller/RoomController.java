@@ -26,7 +26,7 @@ public class RoomController {
     }
   }
 
-  @GetMapping("/{roomNumber}")
+  @GetMapping("/rom/{roomNumber}")
   public ResponseEntity<List<RoomResponseDTO>> getRoomByNumber(@PathVariable String roomNumber) {
     try {
       List<RoomResponseDTO> room = roomService.getRoomByNumber(roomNumber);
@@ -36,7 +36,7 @@ public class RoomController {
     }
   }
 
-  @GetMapping("/{roomDescription}")
+  @GetMapping("/desc/{roomDescription}")
   public ResponseEntity<List<RoomResponseDTO>> getRoomByDescription(@PathVariable String roomDescription) {
     try {
       List<RoomResponseDTO> room = roomService.getRoomByDescription(roomDescription);
@@ -46,10 +46,10 @@ public class RoomController {
     }
   }
 
-  @GetMapping("/{floorId}")
-  public ResponseEntity<RoomResponseDTO> getRoomByFloorId(@PathVariable Long floorId) {
+  @GetMapping("/flo/{floorId}")
+  public ResponseEntity<List<RoomResponseDTO>> getRoomByFloorId(@PathVariable Long floorId) {
     try {
-      RoomResponseDTO room = roomService.getRoomByFloorId(floorId);
+      List<RoomResponseDTO> room = roomService.getRoomByFloorId(floorId);
       return ResponseEntity.ok(room);
     } catch (ResponseStatusException ex) {
       return ResponseEntity.status(ex.getStatusCode()).body(null);

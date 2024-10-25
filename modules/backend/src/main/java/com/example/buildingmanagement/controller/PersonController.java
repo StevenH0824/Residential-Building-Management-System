@@ -26,28 +26,28 @@ public class PersonController {
     Optional<Person> person = personService.getPersonById(id);
     return person;
   }
-  @GetMapping("/search/{phoneNumber}")
+  @GetMapping("/searchnum/{phoneNumber}")
   public List<Person> getPersonByPhoneNumber (@PathVariable String phoneNumber) {
     List <Person> person = personService.getPersonByPhoneNumber(phoneNumber);
     return person;
   }
-  @GetMapping("/search/{firstName}")
+  @GetMapping("/searchfn/{firstName}")
   public List<Person> getPersonByFirstName (@PathVariable String firstName) {
     List <Person> person = personService.getPersonsByFirstName(firstName);
     return person;
   }
-  @GetMapping("/search/{lastName}")
+  @GetMapping("/searchln/{lastName}")
   public List<Person> getPersonByLastName (@PathVariable String lastName) {
     List <Person> person = personService.getPersonsByLastName(lastName);
     return person;
   }
-  @GetMapping("/search/{email}")
+  @GetMapping("/searchem/{email}")
   public List<Person> getPersonByEmail (@PathVariable String email) {
     List <Person> person = personService.getPersonsByEmail(email);
     return person;
   }
 
-  @DeleteMapping("/{id}")
+  @DeleteMapping("/delid/{id}")
   public void deletePerson(@PathVariable Long id) {
     personService.deletePerson(id);
   }

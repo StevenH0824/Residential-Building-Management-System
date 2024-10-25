@@ -23,6 +23,7 @@ public class AccessControlService {
   private final RoomRepository roomRepository;
   private final ModelMapper modelMapper;
 
+  @Autowired
   public AccessControlService(AccessControlRepository accessControlRepository, CardScannerRepository cardScannerRepository, RoomRepository roomRepository, ModelMapper modelMapper) {
     this.accessControlRepository = accessControlRepository;
     this.cardScannerRepository = cardScannerRepository;
