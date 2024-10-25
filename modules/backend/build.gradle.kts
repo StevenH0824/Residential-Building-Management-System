@@ -16,6 +16,10 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.boot:spring-boot-starter-data-rest")
 
+  //Mapper dependencies
+//  implementation ("org.mapstruct:mapstruct:1.5.5.Final")
+//  annotationProcessor (" org.mapstruct:mapstruct-processor:1.5.5.Final")
+
   // Database dependencies
   runtimeOnly("org.postgresql:postgresql:42.7.4") // PostgreSQL
 //  runtimeOnly("com.h2database:h2") // In-memory database

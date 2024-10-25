@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ControlGroupPersonDTO {
+public class ControlGroupPersonRequestDTO {
   private Long id;                         // ID of the control group person association
   private Long controlGroupId;             // ID of the associated control group
   private Long personId;                   // ID of the associated person
