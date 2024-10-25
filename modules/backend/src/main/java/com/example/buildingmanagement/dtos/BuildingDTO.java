@@ -15,5 +15,5 @@ public class BuildingDTO {
     private Long buildingId;
     private String name;
     private String address;
-    private List<FloorDTO> floors; // This is optional
+    private List<String> floors; // This is optional
 }

@@ -3,6 +3,7 @@ package com.example.buildingmanagement.service;
 import com.example.buildingmanagement.entities.CardScanner;
 import com.example.buildingmanagement.entities.Person;
 import com.example.buildingmanagement.repository.CardScannerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class CardScannerService {
   private final CardScannerRepository cardScannerRepository;
   private final AccessLogService accessLogService;
 
-
+  @Autowired
   public CardScannerService(CardScannerRepository cardScannerRepository, AccessLogService accessLogService) {
     this.cardScannerRepository = cardScannerRepository;
     this.accessLogService = accessLogService;

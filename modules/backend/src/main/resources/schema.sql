@@ -49,8 +49,8 @@ CREATE TABLE IF NOT EXISTS card_scanner (
   serial_no VARCHAR(100) NOT NULL,
   make VARCHAR(100) NOT NULL,
   model VARCHAR(100) NOT NULL,
-  room_id BIGINT NOT NULL,
-  FOREIGN KEY (room_id) REFERENCES room(room_id) ON DELETE CASCADE
+  room_id BIGINT NOT NULL
+--  FOREIGN KEY (room_id) REFERENCES room(room_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS access_control (
@@ -117,9 +117,10 @@ CREATE TABLE IF NOT EXISTS access_request (
     CONSTRAINT fk_access_control FOREIGN KEY (access_control_id)
         REFERENCES access_control(access_control_id) ON DELETE CASCADE,
     CONSTRAINT fk_person FOREIGN KEY (person_id)
-        REFERENCES person(person_id) ON DELETE CASCADE,
-    CONSTRAINT fk_card_scanner FOREIGN KEY (scanner_id)
-        REFERENCES card_scanner(scanner_id) ON DELETE CASCADE
+        REFERENCES person(person_id) ON DELETE CASCADE
+
+--    CONSTRAINT fk_card_scanner FOREIGN KEY (scanner_id)
+--        REFERENCES card_scanner(scanner_id) ON DELETE CASCADE
 );
 
 
