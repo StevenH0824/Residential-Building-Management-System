@@ -5,50 +5,50 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AccessControlTest {
+class ControlGroupPersonTest {
 
   @BeforeEach
   void setUp() {
   }
 
   @Test
-  void getAccessControlId() {
+  void getId() {
   }
 
   @Test
-  void getDescription() {
+  void getControlGroup() {
   }
 
   @Test
-  void getCardScanner() {
+  void getPerson() {
   }
 
   @Test
-  void getControlGroupAccessControls() {
+  void getStart_date() {
   }
 
   @Test
-  void getRoom() {
+  void getExpiration_date() {
   }
 
   @Test
-  void setAccessControlId() {
+  void setId() {
   }
 
   @Test
-  void setDescription() {
+  void setControlGroup() {
   }
 
   @Test
-  void setCardScanner() {
+  void setPerson() {
   }
 
   @Test
-  void setControlGroupAccessControls() {
+  void setStart_date() {
   }
 
   @Test
-  void setRoom() {
+  void setExpiration_date() {
   }
 
   @Test

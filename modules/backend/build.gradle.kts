@@ -15,23 +15,21 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.boot:spring-boot-starter-data-rest")
+  testImplementation("org.springframework.boot:spring-boot-starter-test")
 
   // Database dependencies
   runtimeOnly("org.postgresql:postgresql:42.7.4") // PostgreSQL
 //  runtimeOnly("com.h2database:h2") // In-memory database
 
-  /*
-  I will try to get rid of lombok towards the end of the project to see if it causes any issues, if not we are
-  removing the lombok dependencies.
-  The major benefits of reducing dependencies is that it makes our project faster to build, deploy, and download.
-  It also reduces the application size
-   */
   compileOnly("org.projectlombok:lombok")
   annotationProcessor("org.projectlombok:lombok")
 
   // Swagger/OpenAPI dependencies
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
   implementation ("org.modelmapper:modelmapper:1.1.0")
+
+  testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.3")
+  testImplementation("org.mockito:mockito-junit-jupiter:5.12.0")
 
 }
 
