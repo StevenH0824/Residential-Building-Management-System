@@ -1,0 +1,7 @@
+<div class="column gap-1">
+  <div *ngIf="isLoading">Loading...</div>
+  <div *ngIf="!isLoading && buildings.length > 0" class="row wrap gap-2 space-between">
+    <app-building *ngFor="let building of buildings" [building]="building"></app-building>
+  </div>
+  <p *ngIf="!isLoading && buildings.length === 0">No buildings found.</p>
+</div>
