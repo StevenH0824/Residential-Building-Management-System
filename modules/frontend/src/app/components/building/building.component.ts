@@ -1,17 +1,50 @@
-import { Component, Input } from '@angular/core';
 import { Building } from '../../types';
+import { Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmationService } from 'primeng/api';
+import { TruncateNamePipe } from '../../pipes/truncate-name.pipe';
 
 
 @Component({
   selector: 'app-building',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, ButtonModule, ConfirmPopupModule, ToastModule, TruncateNamePipe],
+  providers: [ConfirmationService],
   templateUrl: './building.component.html',
   styleUrl: './building.component.css'
 })
 
 export class BuildingComponent {
+  constructor(private confirmationService: ConfirmationService) {}
+  
   @Input() building!: Building;
+  @ViewChild('deleteButton') deleteButton: any;
+  @Output() edit: EventEmitter<Building> = new EventEmitter<Building>();
+  @Output() delete: EventEmitter<Building> = new EventEmitter<Building>();
+
+editBuilding(){
+    this.edit.emit(this.building);
+  }
+
+confirmDelete(){
+  this.confirmationService.confirm({
+    target: this.deleteButton.nativeElement,
+    message: 'Are you sure that you want to delete this Building?',
+    accept:() => {
+      this.deleteBuilding();
+      },
+    })
+  };
+
+  deleteBuilding(){
+    this.delete.emit(this.building);
+  }
+
+  ngOnInit(){
+  }
 }
 
 
