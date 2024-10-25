@@ -1,18 +1,21 @@
+
 package com.example.buildingmanagement.dtos;
 
-import com.example.buildingmanagement.entities.Floor;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoomDto {
+@Getter
+@Setter
+public class RoomDTO {
 
   private Long roomId;
   private String number;
   private String description;
-  private Floor floor;
+  private Long floorId;
+
 }
