@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/api/buildings")
 public class BuildingController {
@@ -45,14 +44,5 @@ public class BuildingController {
     buildingService.deleteBuilding(id);
     return ResponseEntity.noContent().build();
   }
-
-
-
-
-
-
-
-
-
 
 }

@@ -65,14 +65,4 @@ public class BuildingService {
     return response;
   }
 
-
-
-
-
-
-
-
-
-
-
 }

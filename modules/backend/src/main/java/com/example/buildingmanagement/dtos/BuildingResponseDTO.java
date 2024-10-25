@@ -8,11 +8,6 @@ import java.util.List;
 @Getter
 @Setter
 public class BuildingResponseDTO {
-  //  private Long buildingId;
-//  private String name;
-//  private String address;
-//  private List<Long> floorIds; // Assuming you're returning the IDs of floors
-//}
   private Long buildingId;
   private String name;
   private String address;
