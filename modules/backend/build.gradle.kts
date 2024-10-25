@@ -37,6 +37,11 @@ dependencies {
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
   implementation ("org.modelmapper:modelmapper:1.1.0")
 
+  //Testing
+  testImplementation("org.springframework.boot:spring-boot-starter-test")
+  testImplementation("org.springframework.security:spring-security-test")
+  testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
 }
 
 

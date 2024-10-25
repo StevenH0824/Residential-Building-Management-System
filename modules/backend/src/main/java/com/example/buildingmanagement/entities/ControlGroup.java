@@ -17,13 +17,18 @@ public class ControlGroup {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long controlGroupId;
 
+  @Column(nullable = false)
   private String name;
+
+  @Column(nullable = false)
   private String description;
 
   @OneToMany(mappedBy = "controlGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @Column(nullable = false)
   private List<ControlGroupAccessControl> controlGroupAccessControls;
 
   @OneToMany(mappedBy = "controlGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Corrected line
+  @Column(nullable = false)
   private List<ControlGroupPerson> controlGroupPersons; // Optional: use plural for clarity
 }
 
