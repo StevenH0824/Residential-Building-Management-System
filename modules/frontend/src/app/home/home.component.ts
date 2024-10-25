@@ -113,11 +113,13 @@ export class HomeComponent {
         (response: Building[]) => {
           console.log('Fetched buildings:', response);
           this.buildings = response;
-          this.isLoading = false; // Set loading to false after data is fetched
+          // Set loading to false after data is fetched
+          this.isLoading = false; 
         },
         (error) => {
           console.error('Error fetching buildings:', error);
-          this.isLoading = false; //set loading to false on error
+          //set loading to false on error
+          this.isLoading = false; 
         }
       );
   }

@@ -7,9 +7,16 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+//public class BuildingRequestDTO {
+//  private Long buildingId;
+//  private String name;
+//  private String address;
+//  private List<Long> floorIds; // Assuming you might want to reference floors by their IDs
+//}
+
+
 public class BuildingRequestDTO {
-  private Long buildingId;
   private String name;
   private String address;
-  private List<Long> floorIds; // Assuming you might want to reference floors by their IDs
+  private List<Long> floorIds; // If you want to associate existing floors
 }

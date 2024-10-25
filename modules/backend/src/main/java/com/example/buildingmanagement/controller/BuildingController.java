@@ -1,10 +1,8 @@
 package com.example.buildingmanagement.controller;
 
-import com.example.buildingmanagement.dtos.BuildingDTO;
 import com.example.buildingmanagement.dtos.BuildingRequestDTO;
-import com.example.buildingmanagement.entities.Building;
+import com.example.buildingmanagement.dtos.BuildingResponseDTO;
 import com.example.buildingmanagement.service.BuildingService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,22 +16,28 @@ public class BuildingController {
   @Autowired
   private BuildingService buildingService;
 
+  @PostMapping
+  public ResponseEntity<BuildingResponseDTO> createBuilding(@RequestBody BuildingRequestDTO request) {
+    BuildingResponseDTO response = buildingService.createBuilding(request);
+    return ResponseEntity.ok(response);
+  }
+
   @GetMapping
-  public ResponseEntity<List<BuildingDTO>> getAllBuildings() {
-    List<BuildingDTO> buildings = buildingService.getAllBuildings();
-    return ResponseEntity.ok(buildings);
+  public ResponseEntity<List<BuildingResponseDTO>> getAllBuildings() {
+    List<BuildingResponseDTO> responses = buildingService.getAllBuildings();
+    return ResponseEntity.ok(responses);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<BuildingDTO> getBuildingById(@PathVariable Long id) {
-    BuildingDTO building = buildingService.getBuildingById(id);
-    return building != null ? ResponseEntity.ok(building) : ResponseEntity.notFound().build();
+  public ResponseEntity<BuildingResponseDTO> getBuildingById(@PathVariable Long id) {
+    BuildingResponseDTO response = buildingService.getBuildingById(id);
+    return ResponseEntity.ok(response);
   }
 
-  @PostMapping
-  public ResponseEntity<BuildingDTO> createBuilding(@RequestBody BuildingRequestDTO buildingRequestDTO) {
-    BuildingDTO createdBuilding = buildingService.saveBuilding(buildingRequestDTO);
-    return ResponseEntity.ok(createdBuilding);
+  @PutMapping("/{id}")
+  public ResponseEntity<BuildingResponseDTO> updateBuilding(@PathVariable Long id, @RequestBody BuildingRequestDTO request) {
+    BuildingResponseDTO response = buildingService.updateBuilding(id, request);
+    return ResponseEntity.ok(response);
   }
 
   @DeleteMapping("/{id}")
@@ -41,4 +45,14 @@ public class BuildingController {
     buildingService.deleteBuilding(id);
     return ResponseEntity.noContent().build();
   }
+
+
+
+
+
+
+
+
+
+
 }
