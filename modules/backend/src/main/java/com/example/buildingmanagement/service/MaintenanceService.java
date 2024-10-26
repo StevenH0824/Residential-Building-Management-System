@@ -58,7 +58,7 @@ public class MaintenanceService {
 //    return new MaintenanceResponseDTO(maintenanceEntity.getMaintenanceRequestId(), maintenanceEntity.getCreatedDate(), maintenanceEntity.getEndDate(),maintenanceEntity.getIssue(), maintenanceEntity.getStatus(), maintenanceEntity.getPerson().getFirstName(),
 //      maintenanceEntity.getPerson().getLastName(),maintenanceEntity.getRoom().getNumber()
 //    );
-    return modelMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
+    return modelMapper.map(maintenanceEntity, MaintenanceResponseDTO.class); //mapping getMaintenanceRequestByPersonId to responseDTO using modelMapper.
   }
 
 

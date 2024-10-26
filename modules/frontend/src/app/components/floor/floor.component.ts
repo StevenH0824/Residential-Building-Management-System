@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Floor } from '../../types';
 
 @Component({
   selector: 'app-floor',
@@ -8,5 +9,6 @@ import { Component } from '@angular/core';
   styleUrl: './floor.component.css'
 })
 export class FloorComponent {
+  @Input() floor!: Floor;
 
 }
