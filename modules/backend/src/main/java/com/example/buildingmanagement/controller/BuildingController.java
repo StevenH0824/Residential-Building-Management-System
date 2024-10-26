@@ -1,5 +1,7 @@
 package com.example.buildingmanagement.controller;
 
+import com.example.buildingmanagement.entities.Building;
+import com.example.buildingmanagement.repository.BuildingRepository;
 import com.example.buildingmanagement.dtos.BuildingRequestDTO;
 import com.example.buildingmanagement.dtos.BuildingResponseDTO;
 import com.example.buildingmanagement.service.BuildingService;
@@ -14,6 +16,8 @@ import java.util.List;
 public class BuildingController {
   @Autowired
   private BuildingService buildingService;
+  @Autowired
+  private BuildingRepository buildingRepository;
 
   @PostMapping
   public ResponseEntity<BuildingResponseDTO> createBuilding(@RequestBody BuildingRequestDTO request) {
@@ -32,6 +36,15 @@ public class BuildingController {
     BuildingResponseDTO response = buildingService.getBuildingById(id);
     return ResponseEntity.ok(response);
   }
+
+  @GetMapping("/latestId")
+  public ResponseEntity<Long> getLatestBuildingId() {
+    Long latestId = buildingRepository.findTopByOrderByBuildingIdDesc()
+      .map(Building::getBuildingId)
+      .orElse(0L);
+    return ResponseEntity.ok(latestId);
+  }
+
 
   @PutMapping("/{id}")
   public ResponseEntity<BuildingResponseDTO> updateBuilding(@PathVariable Long id, @RequestBody BuildingRequestDTO request) {

@@ -11,5 +11,5 @@ public class BuildingResponseDTO {
   private Long buildingId;
   private String name;
   private String address;
-  private List<FloorDTO> floors;
+  private List<FloorResponseDTO> floors;
 }

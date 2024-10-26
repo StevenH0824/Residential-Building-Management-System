@@ -15,6 +15,8 @@ public interface BuildingRepository extends JpaRepository<Building, Long> {
 
   @EntityGraph(attributePaths = {"floors"})
   Optional<Building> findById(Long id);
+
+  Optional<Building> findTopByOrderByBuildingIdDesc();
 }
 
 
