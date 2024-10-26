@@ -1,39 +1,30 @@
 <div class="column gap-1 wrapper">
-    <!-- Building Name -->
-    <h2 class="title">{{ building.name | truncateName : 16 : "..." }}</h2>
-  
-    <!-- Building Address -->
-    <div class="column gap-05">
-        <div class="row gap-05">
-      <h2 class="info">Adress:</h2>
-      <span class="label">{{ building.address }}</span>
-      </div>
-      <div class="row gap-05">
-      <h2 class="info">Floors:</h2>
-      <span class="label">{{ building.floors }}</span>
-      </div>
-    </div>
-  
+  <!-- Building Name -->
+  <h2 class="title">{{ building.name | truncateName : 16 : "..." }}</h2>
 
-    <!-- Action buttons -->
-    <div class="row gap-05">
-      <button
-        type="button"
-        pButton
-        icon="pi pi-pencil"
-        (click)="editBuilding()"
-        label="Edit"
-      ></button>
-      <button
-        type="button"
-        pButton
-        icon="pi pi-trash"
-        (click)="confirmDelete()"
-        label="Delete"
-        class="p-button-danger"
-        #deleteButton
-      ></button>
-    </div>
+  <!-- Building Address -->
+  <div class="column gap-05">
+      <div class="row gap-05">
+          <h2 class="info">Address:</h2>
+          <span class="label">{{ building.address }}</span>
+      </div>
+
+      <!-- Display Floors -->
+      <div class="row gap-05">
+          <h2 class="info">Floors:</h2>
+          <ul>
+              <li *ngFor="let floor of building.floors">
+                  Floor {{ floor.number }}: {{ floor.description || "No description" }}
+              </li>
+          </ul>
+      </div>
   </div>
-  
-  <p-confirmPopup></p-confirmPopup>
+
+  <!-- Action buttons -->
+  <div class="row gap-05">
+      <button type="button" pButton icon="pi pi-pencil" (click)="editBuilding()" label="Edit"></button>
+      <button type="button" pButton icon="pi pi-trash" (click)="confirmDelete()" label="Delete" class="p-button-danger" #deleteButton></button>
+  </div>
+</div>
+
+<p-confirmPopup></p-confirmPopup>

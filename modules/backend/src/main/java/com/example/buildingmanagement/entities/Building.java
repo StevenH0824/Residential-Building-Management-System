@@ -1,9 +1,9 @@
 package com.example.buildingmanagement.entities;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.jpa.repository.EntityGraph;
 
 import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString

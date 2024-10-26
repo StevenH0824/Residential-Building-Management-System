@@ -2,14 +2,17 @@ package com.example.buildingmanagement.service;
 
 import com.example.buildingmanagement.dtos.BuildingRequestDTO;
 import com.example.buildingmanagement.dtos.BuildingResponseDTO;
+import com.example.buildingmanagement.dtos.FloorDTO;
 import com.example.buildingmanagement.entities.Building;
 import com.example.buildingmanagement.repository.BuildingRepository;
 import com.example.buildingmanagement.repository.FloorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Service
 public class BuildingService {
@@ -62,6 +65,19 @@ public class BuildingService {
     response.setBuildingId(building.getBuildingId());
     response.setName(building.getName());
     response.setAddress(building.getAddress());
+
+    List<FloorDTO> floorDTOS = building.getFloors().stream()
+      .map(floor -> {
+        FloorDTO floorDTO = new FloorDTO();
+        floorDTO.setFloorId(floor.getFloorId());
+        floorDTO.setNumber(floor.getNumber());
+        floorDTO.setDescription(floor.getDescription());
+        return floorDTO;
+      }).collect(Collectors.toList());
+
+    response.setFloors(floorDTOS);
+
+
     return response;
   }
 

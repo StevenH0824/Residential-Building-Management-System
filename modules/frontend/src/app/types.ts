@@ -37,7 +37,7 @@ import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
         number: string;
         description: string;
         building: Building;
-        rooms: Room[];
+        roomIds: Room[];
     }
 
     export interface Building{
