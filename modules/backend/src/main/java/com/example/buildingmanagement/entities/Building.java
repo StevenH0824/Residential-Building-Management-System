@@ -16,6 +16,6 @@ public class Building {
   private Long buildingId;
   private String name;
   private String address;
-  @OneToMany(mappedBy = "building", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "building", cascade = CascadeType.ALL,orphanRemoval = true)
   private List<Floor> floors;
 }
