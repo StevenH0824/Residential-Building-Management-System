@@ -17,9 +17,10 @@ export class HomeComponent {
   buildings: Building[] = [];
   floors: Floor[] = [];
   isLoading: boolean = true;
-  selectedBuilding: Building = { buildingId: 0, name: '', address: '', floors: [] }; // Initialize with a default object
+  selectedBuilding: Building | null = null; // Initialize with a default object
   displayEditPopup: boolean = false;
-  displayAddPopup: boolean = false;
+
+  // displayAddPopup: boolean = false;
 
   constructor(private buildingsService: BuildingsService) { }
 
@@ -27,62 +28,68 @@ export class HomeComponent {
     this.selectedBuilding = { ...building }; // Clone the building for editing
     this.displayEditPopup = true;
   }
-
-  toggleAddPopup() {
-    // Fetch the latest building ID
-    this.buildingsService.getLatestBuildingId().subscribe({
-      next: (latestId: number) => {
-        // Set up a new building object with the next ID
-        this.selectedBuilding = {
-          buildingId: latestId + 1, // Increment the latest ID
-          name: '',
-          address: '',
-          floors: [],
-        };
-        this.displayAddPopup = true;
-      },
-      error: (error) => {
-        console.error('Error fetching latest building ID:', error);
-      },
-    });
-  }
-
-  onConfirmEdit(updatedBuilding: Partial<Building>) {
+  onConfirmEdit(updatedBuilding: Building) {
     if (!this.selectedBuilding || this.selectedBuilding.buildingId === undefined) {
-      console.error('Building ID is required to edit the building.');
-      return;
+        console.error('Building ID is required to edit the building.');
+        return;
     }
 
     this.displayEditPopup = false;
+
     const buildingToUpdate: Building = {
-      ...this.selectedBuilding,
-      name: updatedBuilding.name ?? this.selectedBuilding.name,
-      address: updatedBuilding.address ?? this.selectedBuilding.address,
+        ...this.selectedBuilding,
+        name: updatedBuilding.name ?? this.selectedBuilding.name,
+        address: updatedBuilding.address ?? this.selectedBuilding.address,
     };
 
     this.editBuilding(buildingToUpdate, this.selectedBuilding.buildingId);
+}
+
+editBuilding(building: Building, id: number) {
+  this.buildingsService
+      .editBuilding(`http://localhost:8080/api/buildings/${id}`, building)
+      .subscribe({
+          next: (data) => {
+              const index = this.buildings.findIndex(b => b.buildingId === id);
+              if (index > -1) {
+                  this.buildings[index] = data; // Update the UI
+              }
+          },
+          error: (error) => {
+              console.error('Error editing building:', error);
+          },
+      });
+}
+  onCancelEdit() {
+    this.selectedBuilding = null; // Reset selected building
+    this.displayEditPopup = false; // Close popup
   }
+  
+  toggleAddPopup() {
+    // Fetch the latest building ID
+    // this.buildingsService.getLatestBuildingId().subscribe({
+    //   next: (latestId: number) => {
+    //     // Set up a new building object with the next ID
+    //     this.selectedBuilding = {
+    //       buildingId: latestId + 1, // Increment the latest ID
+    //       name: '',
+    //       address: '',
+    //       floors: [],
+    //     };
+    //     this.displayAddPopup = true;
+    //   },
+    //   error: (error) => {
+    //     console.error('Error fetching latest building ID:', error);
+    //   },
+    // });
+  }
+
 
   onConfirmAdd(building: Building) {
     this.addBuilding(building);
-    this.displayAddPopup = false;
+    // this.displayAddPopup = false;
   }
 
-  editBuilding(building: Building, id: number) {
-    this.buildingsService
-      .editBuilding(`http://localhost:8080/api/buildings/${id}`, building)
-      .subscribe({
-        next: (data) => {
-          const index = this.buildings.findIndex(b => b.buildingId === id);
-          if (index > -1) {
-            this.buildings[index] = data;
-          }
-        },
-        error: (error) => {
-          console.error('Error editing building:', error);
-        },
-      });
-  }
 
   addBuilding(building: Building) {
     this.buildingsService
@@ -123,6 +130,7 @@ export class HomeComponent {
         }
       );
   }
+}
 
 // import { Component } from '@angular/core';
 // import { BuildingsService } from '../services/buildings.service';

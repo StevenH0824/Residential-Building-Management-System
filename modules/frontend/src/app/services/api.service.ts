@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Options } from '../types';
 import { Observable } from 'rxjs';
@@ -7,20 +7,33 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  delete(url: string, arg1: {}): Observable<any> {
-    throw new Error('Method not implemented.');
-  }
-  put(url: string, body: any, arg2: {}): Observable<any> {
-    throw new Error('Method not implemented.');
-  }
-  post(url: string, body: any, arg2: {}): Observable<any> {
-    throw new Error('Method not implemented.');
+  constructor(private httpClient: HttpClient) {}
+
+  // Updated delete method to accept a generic type
+  delete<T>(url: string, options: {} = {}): Observable<T> {
+    return this.httpClient.delete<T>(url, options);
   }
 
-  constructor(
-    private httpClient: HttpClient) { }
+  // Updated put method to accept a generic type
+  put<T>(url: string, body: any, options: {} = {}): Observable<T> {
+    return this.httpClient.put<T>(url, body, { ...options, headers: this.getHeaders() });
+  }
 
-   get<T>(url: string, options: Options): Observable<T>{
-    return this.httpClient.get<T>(url, options) as Observable<T>;
-   }
+  // Updated post method to accept a generic type
+  post<T>(url: string, body: any, options: {} = {}): Observable<T> {
+    return this.httpClient.post<T>(url, body, { ...options, headers: this.getHeaders() });
+  }
+
+  // Generic get method
+  get<T>(url: string, options: Options): Observable<T> {
+    return this.httpClient.get<T>(url, options);
+  }
+
+  // Helper to get headers (if needed)
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      // Add more headers here if needed
+    });
+  }
 }

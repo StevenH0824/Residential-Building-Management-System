@@ -21,19 +21,20 @@
 
   <!-- Edit building -->
   <app-edit-popup
-    [building]="selectedBuilding || {}"  
-    [(display)]="displayEditPopup"
-    (confirm)="onConfirmEdit($event)"
-    [header]="'Edit Building'"
-    (displayChange)="displayEditPopup = $event"
-  ></app-edit-popup>
+  [building]="selectedBuilding"
+  [(display)]="displayEditPopup"
+  (confirm)="onConfirmEdit($event)"
+  (cancel)="onCancelEdit()"
+  [header]="'Edit Building'"
+  (displayChange)="displayEditPopup = $event"
+></app-edit-popup>
 
   <!-- Add building -->
-  <app-edit-popup
+  <!-- <app-edit-popup
     [(display)]="displayAddPopup"
     (confirm)="onConfirmAdd($event)"
     header="Add Building"
-  ></app-edit-popup>
+  ></app-edit-popup> -->
 </div>
 
 

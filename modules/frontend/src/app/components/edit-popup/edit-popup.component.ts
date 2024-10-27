@@ -23,26 +23,36 @@ export class EditPopupComponent {
   @Input() header!: string;
   @Output() displayChange = new EventEmitter<boolean>();
 
+  @Output() confirm = new EventEmitter<Building>();
+  @Output() cancel = new EventEmitter<void>(); // Add this line
+
   // Store the original building and a temporary copy for editing
   private _building!: Building; // Store the input building
 
   @Input()
-  set building(value: Building) {
-    this._building = value;
-    this.editingBuilding = { ...value }; // Clone to prevent direct modification
+  set building(value: Building | null ) {
+    if (value) {
+      this._building = value;
+      this.editingBuilding = { ...value }; // Clone to prevent direct modification
+    } else {
+      // Initialize a default empty building if null
+      this.editingBuilding = { buildingId: 0, name: '', address: '', floors: [] };
+    }
   }
-
-  @Output() confirm = new EventEmitter<Building>();
 
   editingBuilding: Building = { buildingId: 0, name: '', address: '', floors: [] };
 
   onConfirm() {
     this.confirm.emit(this.editingBuilding); // Emit the modified object
-    this.display = false;
-    this.displayChange.emit(this.display);
+    this.closeDialog();
   }
 
   onCancel() {
+    this.cancel.emit(); // Emit the cancel event
+    this.closeDialog();
+  }
+
+  private closeDialog() {
     this.display = false;
     this.displayChange.emit(this.display);
   }
