@@ -9,12 +9,14 @@
           <span class="label">{{ building.address }}</span>
       </div>
 
-      <!-- Display Floors -->
       <div class="row gap-05">
           <h2 class="info">Total Floors:</h2>
           <p>{{ (building.floors && building.floors.length) ? building.floors.length : 0 }}</p>
         
           <!--
+          I think it's better if we take out this functionality and leave it to the floor component that would connect it 
+          back to the building. It doesn't make much sense to me for each floor to display what they are when a building only
+          really cares about the amount of floors and thats it. It made the design of the building much easier as well.
           <ul>
               <li *ngFor="let floor of building.floors">
                   Floor {{ floor.number }}: {{ floor.description || "No description" }}
