@@ -50,6 +50,12 @@ public class BuildingService {
     return mapToResponse(building);
   }
 
+  public Long getLatestBuildingId() {
+    return buildingRepository.findTopByOrderByBuildingIdDesc()
+      .map(Building::getBuildingId)
+      .orElse(0L); // Return 0 if no buildings exist
+  }
+
   public BuildingResponseDTO updateBuilding(Long id, BuildingRequestDTO request) {
     Building building = buildingRepository.findById(id)
       .orElseThrow(() -> new RuntimeException("Building not found"));
