@@ -10,5 +10,5 @@ import java.util.List;
 public class BuildingRequestDTO {
   private String name;
   private String address;
-  private List<Long> floorIds;
+//  private List<Long> floorIds;
 }

@@ -57,9 +57,6 @@ public class BuildingService {
     building.setName(request.getName());
     building.setAddress(request.getAddress());
 
-    // If you want to keep the option to update floors, include that logic here
-    setFloorsForBuilding(building, request.getFloorIds());
-
     building = buildingRepository.save(building);
     return mapToResponse(building);
   }

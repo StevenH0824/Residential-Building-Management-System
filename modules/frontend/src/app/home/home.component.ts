@@ -19,6 +19,7 @@ export class HomeComponent {
   isLoading: boolean = true;
   selectedBuilding: Building | null = null; // Initialize with a default object
   displayEditPopup: boolean = false;
+  displayAddPopup:boolean = false;
 
   // displayAddPopup: boolean = false;
 
@@ -67,41 +68,39 @@ editBuilding(building: Building, id: number) {
   
   toggleAddPopup() {
     // Fetch the latest building ID
-    // this.buildingsService.getLatestBuildingId().subscribe({
-    //   next: (latestId: number) => {
-    //     // Set up a new building object with the next ID
-    //     this.selectedBuilding = {
-    //       buildingId: latestId + 1, // Increment the latest ID
-    //       name: '',
-    //       address: '',
-    //       floors: [],
-    //     };
-    //     this.displayAddPopup = true;
-    //   },
-    //   error: (error) => {
-    //     console.error('Error fetching latest building ID:', error);
-    //   },
-    // });
+    this.buildingsService.getLatestBuildingId().subscribe({
+      next: (latestId: number) => {
+        this.selectedBuilding = {
+          buildingId: latestId + 1, // Increment the latest ID
+          name: '',
+          address: '',
+          floors: [],
+        };
+        this.displayAddPopup = true; // Show the add popup
+      },
+      error: (error) => {
+        console.error('Error fetching latest building ID:', error);
+      },
+    });
   }
 
 
   onConfirmAdd(building: Building) {
     this.addBuilding(building);
-    // this.displayAddPopup = false;
+    this.displayAddPopup = false;
   }
 
 
   addBuilding(building: Building) {
-    this.buildingsService
-      .addBuilding(`http://localhost:8080/api/buildings`, building)
-      .subscribe({
-        next: (data) => {
-          this.buildings.push(data);
-        },
-        error: (error) => {
-          console.error('Error adding building:', error);
-        },
-      });
+    this.buildingsService.addBuilding(`http://localhost:8080/api/buildings`, building).subscribe({
+      next: (data) => {
+        this.buildings.push(data); // Add the new building to the list
+        this.selectedBuilding = null; // Reset selectedBuilding if needed
+      },
+      error: (error) => {
+        console.error('Error adding building:', error);
+      },
+    });
   }
 
   deleteBuilding(building: Building) {

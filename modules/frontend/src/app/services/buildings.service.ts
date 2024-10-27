@@ -15,6 +15,13 @@ export class BuildingsService {
     });
   }
 
+  getLatestBuildingId(): Observable<number> {
+    // Call the appropriate API endpoint to get the latest building ID
+    return this.apiService.get<number>('http://localhost:8080/api/buildings/latestId', {
+      responseType: 'json', // Ensure the response type is set correctly
+    });
+  }
+
   addBuilding(url: string, body: Building): Observable<Building> {
     return this.apiService.post<Building>(url, body, {});
   }
