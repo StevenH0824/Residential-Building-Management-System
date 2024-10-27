@@ -2,7 +2,7 @@ import { Building } from '../../types';
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
-
+import { HttpClient } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
 
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
@@ -19,12 +19,21 @@ import { TruncateNamePipe } from '../../pipes/truncate-name.pipe';
   templateUrl: './building.component.html',
   styleUrl: './building.component.css'
 })
-
 export class BuildingComponent {
-  constructor(private confirmationService: ConfirmationService) { }
+  newBuilding: Building = { name: '', address: '' }; // Initialize newBuilding
+  buildings: Building[] = []; // Store the list of buildings
+  total: number = 0; // Total number of buildings
+  page: number = 1; // Current page for pagination
+  perPage: number = 10; // Items per page
+
+  constructor(
+    private confirmationService: ConfirmationService,
+    private http: HttpClient // Inject HttpClient for HTTP requests
+  ) { }
 
   @Input() building!: Building;
   @ViewChild('deleteButton') deleteButton: any;
+
   @Output() edit: EventEmitter<Building> = new EventEmitter<Building>();
   @Output() delete: EventEmitter<Building> = new EventEmitter<Building>();
 
@@ -46,9 +55,43 @@ export class BuildingComponent {
     this.delete.emit(this.building);
   }
 
+  addBuilding() {
+    this.http
+      .post<Building>('http://localhost:8080/api/buildings', this.newBuilding) // Updated URL
+      .subscribe({
+        next: (building) => {
+          this.buildings.push(building); // Add the new building to the list
+          this.total += 1; // Increment total buildings count
+          this.resetNewBuilding(); // Reset the newBuilding after adding
+        },
+        error: (error) => console.log('Error adding building:', error),
+      });
+  }
+
+  resetNewBuilding() {
+    this.newBuilding = { name: '', address: '' }; // Reset newBuilding after adding
+  }
+
+  fetchBuildings(page: number, perPage: number) {
+    this.http.get<{ items: Building[], total: number, page: number, perPage: number }>(
+      `http://localhost:8080/api/buildings?page=${page}&perPage=${perPage}` // Updated URL
+    ).subscribe(response => {
+      this.buildings = response.items;
+      this.total = response.total;
+      this.page = response.page;
+      this.perPage = response.perPage;
+    });
+  }
+
   ngOnInit() {
+    this.fetchBuildings(this.page, this.perPage); // Fetch buildings on component init
   }
 }
+
+
+
+
+
 
 
 // Do not delete, need this later, dana

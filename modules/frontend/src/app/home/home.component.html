@@ -9,28 +9,71 @@
     class="add-building-btn"
   ></button>
 
-  <!-- building Section -->
+  <!-- Building Section -->
   <div class="row wrap gap-2 space-between">
+    <app-building
+      *ngFor="let building of buildings"
+      [building]="building"
+      (edit)="toggleEditPopup(building)"
+      (delete)="deleteBuilding(building)"
+    ></app-building>
+  </div>
+
+  <!-- Edit building -->
+  <app-edit-popup
+    [building]="selectedBuilding || {}"  
+    [(display)]="displayEditPopup"
+    (confirm)="onConfirmEdit($event)"
+    [header]="'Edit Building'"
+    (displayChange)="displayEditPopup = $event"
+  ></app-edit-popup>
+
+  <!-- Add building -->
+  <app-edit-popup
+    [(display)]="displayAddPopup"
+    (confirm)="onConfirmAdd($event)"
+    header="Add Building"
+  ></app-edit-popup>
+</div>
+
+
+
+
+<!-- <div class="column gap-1"> -->
+  <!-- Add building Button -->
+  <!-- <button
+    type="button"
+    pButton
+    icon="pi pi-plus"
+    (click)="toggleAddPopup()"
+    label="Add Building"
+    class="add-building-btn"
+  ></button> -->
+
+  <!-- building Section -->
+  <!-- <div class="row wrap gap-2 space-between">
     <app-building
       *ngFor="let building of buildings"
       [building]="building"
       (edit)="toggleEditPopup($event)"
       (delete)="deleteBuilding($event)"
       ></app-building>
-  </div>
+  </div> -->
 
 <!-- Edit building -->
-<app-edit-popup
+<!-- <app-edit-popup
   [building]="selectedBuilding"
   [(display)]="displayEditPopup"
   (confirm)="onConfirmEdit($event)"
   [header]="'Edit Building'"
   (displayChange)="displayEditPopup = $event"
-></app-edit-popup>
+></app-edit-popup> -->
 
 <!-- Add building -->
-<app-edit-popup
+<!-- <app-edit-popup
   [(display)]="displayAddPopup"
   (confirm)="onConfirmAdd($event)"
   header="Add Product"
-></app-edit-popup>
+></app-edit-popup> -->
+
+

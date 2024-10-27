@@ -9,16 +9,20 @@
           <span class="label">{{ building.address }}</span>
       </div>
 
-      <!-- Display Floors -->
-      <div class="row gap-05">
-          <h2 class="info">Floors:</h2>
-          <ul>
-              <li *ngFor="let floor of building.floors">
-                  Floor {{ floor.number }}: {{ floor.description || "No description" }}
-              </li>
-          </ul>
-      </div>
-  </div>
+        <!-- Display Total Number of Floors -->
+    <div class="row gap-05">
+        <h2 class="info">Total Floors: <span class="label">{{ building.floors ? building.floors.length : 0 }}</span></h2>
+    </div>
+        <!-- Display Floors
+        <div class="row gap-05">
+            <h2 class="info">Floors:</h2>
+            <ul>
+                <li *ngFor="let floor of building.floors">
+                    Floor {{ floor.number }}: {{ floor.description || "No description" }}
+                </li>
+            </ul>
+        </div> -->
+    </div>
 
   <!-- Action buttons -->
   <div class="row gap-05">

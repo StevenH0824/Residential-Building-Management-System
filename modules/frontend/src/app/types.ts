@@ -17,6 +17,8 @@ import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
         } | boolean;
     }
 
+
+
     export interface Buildings {
         items: Building[];
         total: number;
@@ -24,6 +26,13 @@ import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
         perPage: number;
         totalPages: number;
       }
+
+    export interface Building{
+        buildingId?: number;
+        name: string;
+        address: string;
+        floors?: Floor[];
+    }
 
     export interface Room {
         roomId: number;
