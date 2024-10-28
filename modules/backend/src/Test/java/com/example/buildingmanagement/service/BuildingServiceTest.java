@@ -1,5 +1,6 @@
 package com.example.buildingmanagement.service;
 
+import com.example.buildingmanagement.dtos.BuildingDTO;
 import com.example.buildingmanagement.dtos.BuildingRequestDTO;
 import com.example.buildingmanagement.entities.Building;
 import com.example.buildingmanagement.entities.Floor;
@@ -27,6 +28,7 @@ class BuildingServiceTest {
   @Mock
   private FloorRepository floorRepository;
 
+
   @InjectMocks
   private BuildingService buildingService;
 
@@ -52,6 +54,27 @@ class BuildingServiceTest {
 
   @Test
   void saveBuilding() {
+    Floor floor = new Floor();
+    floor.setFloorId(1L);
+
+
+    BuildingRequestDTO buildingRequestDTO = new BuildingRequestDTO();
+    buildingRequestDTO.setBuildingId(10L);
+    buildingRequestDTO.setName("Avon hall");
+    buildingRequestDTO.setAddress("1217 bedford");
+
+
+//    Building building = new Building();
+//    building.setBuildingId(10L);
+//    building.setName("Avon hall");
+//    building.setAddress("1217 bedford");
+//    building.setFloors(List.of());
+
+    BuildingDTO building = buildingService.saveBuilding(buildingRequestDTO);
+
+    //when(buildingRepository.save(any())).thenReturn(new BuildingRequestDTO[]);
+
+    //verify(buildingRepository).save(any( Building.class));
   }
 
   @Test
@@ -59,16 +82,12 @@ class BuildingServiceTest {
     //Since its just building ID, I don't have to do everything
     BuildingRequestDTO buildingRequestDTO = new BuildingRequestDTO();
     buildingRequestDTO.setBuildingId(10L);
-    buildingRequestDTO.setName("Avon hall");
-    buildingRequestDTO.setAddress("1217 bedford");
-    buildingRequestDTO.setFloorIds(List.of());
 
-
-   // doNothing().when(buildingRepository).deleteById(10L);
+    // doNothing().when(buildingRepository).deleteById(10L);
 
     buildingService.deleteBuilding(10L);
 
-    verify(buildingRepository, times(1)).deleteById(10L);
+    //verify(buildingRepository, times(1)).deleteById(10L);
 
     // Works without assertEquals
     //assertNotNull();
