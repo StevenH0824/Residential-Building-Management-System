@@ -50,6 +50,7 @@ import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
     }
 
     export interface Person {
+        personId: number;
         floorId?: number;
         email: string;
         firstName: string;

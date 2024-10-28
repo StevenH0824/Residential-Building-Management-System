@@ -4,13 +4,20 @@
 @import "./app/styles/theme-overrides.scss";
 
 html,
-body, p, h1, h2, h3, h4 {
+body,
+p,
+h1,
+h2,
+h3,
+h4 {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html, body, app-root {
+html,
+body,
+app-root {
     height: 100%
 }
 
