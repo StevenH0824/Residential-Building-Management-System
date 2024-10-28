@@ -4,6 +4,24 @@
         <div *ngFor="let floor of floors" class="floor-card">
             <h3>{{ floor.number }}</h3>
             <p>{{ floor.description }}</p>
-          </div>
+            <button (click)="toggleRooms(floor.floorId!)">
+                {{ showRooms[floor.floorId!] ? 'Hide Rooms' : 'Show Rooms' }}
+            </button>
+
+            <table *ngIf="showRooms[floor.floorId!] && rooms[floor.floorId!]" class="room-table">
+                <thead>
+                    <tr>
+                        <th>Room Number</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let room of rooms[floor.floorId!]">
+                        <td>{{ room.number }}</td>
+                        <td>{{ room.description }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
