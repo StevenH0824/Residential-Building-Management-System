@@ -5,10 +5,12 @@ import com.example.buildingmanagement.entities.Person;
 import com.example.buildingmanagement.entities.Room;
 import com.example.buildingmanagement.enums.StatusType;
 import com.example.buildingmanagement.service.MaintenanceService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -62,6 +64,20 @@ public class MaintenanceRequestController {
     } catch (ResponseStatusException ex) {
       return ResponseEntity.status(ex.getStatusCode()).body(null);
     }
+  }
+
+  @GetMapping("/average-time")
+  public ResponseEntity<String> getAverageTimeToSolveIssue() {
+    Duration averageTime = maintenanceService.getAverageTimeToResolveIssue();
+    String formattedTime = String.format("\"%d hours\"", averageTime.toHours());
+    return new ResponseEntity<>(formattedTime, HttpStatus.OK);
+  } //duration serializes object into iso-8601 so pt24h is average time 24 hours and formatted time format into string.
+
+  @GetMapping("/average-time/denied")
+  public ResponseEntity<String> getAverageTimeToDenyIssue() {
+    Duration averageTime = maintenanceService.getAverageTimeToDenyIssue();
+    String formattedTime = String.format("\"%d hours\"", averageTime.toHours());
+    return new ResponseEntity<>(formattedTime, HttpStatus.OK);
   }
 
 //  @GetMapping("/createdDate/{createdDate}")
