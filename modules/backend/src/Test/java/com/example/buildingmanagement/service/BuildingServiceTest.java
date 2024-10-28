@@ -41,6 +41,13 @@ class BuildingServiceTest {
 
   @Test
   void getBuildingById() {
+    BuildingRequestDTO buildingRequestDTO = new BuildingRequestDTO();
+    buildingRequestDTO.setBuildingId(15L);
+
+   // when(buildingRepository.findById(15L)).thenReturn(new Building());
+
+    buildingService.getBuildingById(15L);
+    //verify(buildingRepository, times(1)).findById(15L);
   }
 
   @Test
@@ -61,8 +68,9 @@ class BuildingServiceTest {
 
     buildingService.deleteBuilding(10L);
 
-    //verify(buildingRepository).deleteById(10L);
+    verify(buildingRepository, times(1)).deleteById(10L);
 
+    // Works without assertEquals
     //assertNotNull();
     //assertEquals(10L, 10L);
 
