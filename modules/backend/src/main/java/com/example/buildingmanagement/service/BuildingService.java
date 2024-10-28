@@ -1,70 +1,96 @@
 package com.example.buildingmanagement.service;
 
-import com.example.buildingmanagement.dtos.BuildingDTO;
 import com.example.buildingmanagement.dtos.BuildingRequestDTO;
+import com.example.buildingmanagement.dtos.BuildingResponseDTO;
+import com.example.buildingmanagement.dtos.FloorResponseDTO;
 import com.example.buildingmanagement.entities.Building;
 import com.example.buildingmanagement.entities.Floor;
 import com.example.buildingmanagement.repository.BuildingRepository;
+import com.example.buildingmanagement.repository.FloorRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Service
 public class BuildingService {
   private final BuildingRepository buildingRepository;
+  private final FloorRepository floorRepository;
 
   @Autowired
-  public BuildingService(BuildingRepository buildingRepository){
-    this.buildingRepository= buildingRepository;
+  public BuildingService(BuildingRepository buildingRepository, FloorRepository floorRepository) {
+    this.buildingRepository = buildingRepository;
+    this.floorRepository = floorRepository;
   }
 
-  public List<BuildingDTO> getAllBuildings() {
+  @Transactional
+  public BuildingResponseDTO createBuilding(BuildingRequestDTO request) {
+    Building building = new Building();
+    building.setName(request.getName());
+    building.setAddress(request.getAddress());
+
+    // No need to create floors; just save the building
+    building = buildingRepository.save(building);
+    return mapToResponse(building);
+  }
+
+  public List<BuildingResponseDTO> getAllBuildings() {
     return buildingRepository.findAll().stream()
-      .map(this::convertToResponseDTO)
+      .map(this::mapToResponse)
       .collect(Collectors.toList());
   }
 
-  public BuildingDTO getBuildingById(Long id) {
-    return buildingRepository.findById(id)
-      .map(this::convertToResponseDTO)
-      .orElse(null); // Handle not found as needed
+  public BuildingResponseDTO getBuildingById(Long id) {
+    Building building = buildingRepository.findById(id)
+      .orElseThrow(() -> new RuntimeException("Building not found"));
+    return mapToResponse(building);
   }
 
-  public BuildingDTO saveBuilding(BuildingRequestDTO buildingDTO) {
-    Building building = convertToEntity(buildingDTO);
-    Building savedBuilding = buildingRepository.save(building);
-    return convertToResponseDTO(savedBuilding);
+  public Long getLatestBuildingId() {
+    return buildingRepository.findTopByOrderByBuildingIdDesc()
+      .map(Building::getBuildingId)
+      .orElse(0L); // Return 0 if no buildings exist
+  }
+
+  public BuildingResponseDTO updateBuilding(Long id, BuildingRequestDTO request) {
+    Building building = buildingRepository.findById(id)
+      .orElseThrow(() -> new RuntimeException("Building not found"));
+
+    building.setName(request.getName());
+    building.setAddress(request.getAddress());
+
+    building = buildingRepository.save(building);
+    return mapToResponse(building);
   }
 
   public void deleteBuilding(Long id) {
     buildingRepository.deleteById(id);
   }
 
-  private Building convertToEntity(BuildingRequestDTO dto) {
-    Building building = new Building();
-    building.setBuildingId(dto.getBuildingId());
-    building.setName(dto.getName());
-    building.setAddress(dto.getAddress());
-
-    // Convert floor IDs to Floor entities
-    List<Floor> floors = dto.getFloorIds().stream()
-      .map(id -> {
-        Floor floor = new Floor(); // Assuming a constructor or method to fetch floor by ID
-        floor.setFloorId(id); // Set the ID
-        return floor;
-      })
-      .collect(Collectors.toList());
-    building.setFloors(floors);
-
-    return building;
+  private void setFloorsForBuilding(Building building, List<Long> floorIds) {
+    List<Floor> floors = floorRepository.findAllById(floorIds); // Fetch floors by IDs
+    building.setFloors(floors); // Set floors to the building entity
   }
 
-  private BuildingDTO convertToResponseDTO(Building building) {
-    List<String> floorIds = building.getFloors().stream()
-      .map(Floor::getNumber)
-      .collect(Collectors.toList());
-    return new BuildingDTO(building.getBuildingId(), building.getName(), building.getAddress(), floorIds);
+  private BuildingResponseDTO mapToResponse(Building building) {
+    BuildingResponseDTO response = new BuildingResponseDTO();
+    response.setBuildingId(building.getBuildingId());
+    response.setName(building.getName());
+    response.setAddress(building.getAddress());
+
+    // Map each Floor to a FloorResponseDTO if floors exist
+    if (building.getFloors() != null) {
+      List<FloorResponseDTO> floorResponseDto = building.getFloors().stream()
+        .map(floor -> new FloorResponseDTO(floor.getFloorId(), floor.getNumber(), floor.getDescription()))
+        .collect(Collectors.toList());
+      response.setFloors(floorResponseDto); // Set the floors as FloorResponseDTO list
+    } else {
+      response.setFloors(new ArrayList<>()); // Ensure you don't return null
+    }
+    return response;
   }
 }

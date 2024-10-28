@@ -17,6 +17,8 @@ import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
         } | boolean;
     }
 
+
+
     export interface Buildings {
         items: Building[];
         total: number;
@@ -24,6 +26,13 @@ import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
         perPage: number;
         totalPages: number;
       }
+
+    export interface Building{
+        buildingId?: number;
+        name: string;
+        address: string;
+        floors?: Floor[];
+    }
 
     export interface Room {
         roomId: number;
@@ -33,18 +42,11 @@ import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
     }
 
     export interface Floor {
-        floorId: number;
+        floorId?: number;
         number: string;
         description: string;
-        building: Building;
-        rooms: Room[];
-    }
-
-    export interface Building{
-        buildingId: number;
-        name: string;
-        address: string;
-        floors: Floor[];
+        buildingId: Building[];
+        roomIds: Room[];
     }
 
     export interface PaginationParams {
