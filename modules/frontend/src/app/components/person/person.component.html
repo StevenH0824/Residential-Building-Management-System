@@ -1,0 +1,30 @@
+<div class="column gap-1 wrapper">
+    <!-- Person Name -->
+    <h2 class="title">
+      <a [routerLink]="['/persons', person.firstName]">{{ person.lastName| truncateName : 16 : '...' }}</a>
+    </h2>
+    
+    <!-- Person Address -->
+    <div class="column gap-05">
+      <div class="row gap-05">
+        <h2 class="info">Email:</h2>
+        <span class="label">{{ person.email }}</span>
+      </div>
+
+      <div class="column gap-05">
+        <div class="row gap-05">
+          <h2 class="info">Phone Number:</h2>
+          <span class="label">{{ person.phoneNumber }}</span>
+        </div>
+  
+
+  
+    <!-- Action buttons -->
+    <div class="row gap-05">
+      <button type="button" pButton icon="pi pi-pencil" (click)="editPerson()" label="Edit"></button>
+      <button type="button" pButton icon="pi pi-trash" (click)="confirmDelete()" label="Delete" class="p-button-danger" #deleteButton></button>
+    </div>
+  </div>
+  
+  <p-confirmPopup></p-confirmPopup>
+  

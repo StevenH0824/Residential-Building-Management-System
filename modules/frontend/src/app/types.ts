@@ -49,6 +49,14 @@ import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
         roomIds: Room[];
     }
 
+    export interface Person {
+        floorId?: number;
+        email: string;
+        firstName: string;
+        lastName: string;
+        phoneNumber: string;
+    }
+
     export interface PaginationParams {
         [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
         page: number;

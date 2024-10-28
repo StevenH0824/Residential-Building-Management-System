@@ -1,3 +1,27 @@
-<header class = "wrapper row full-center">
-    <h1>Building Management System</h1>
-</header> 
+<header class="wrapper row full-center">
+    <div class="logo-container">
+        <img src="/assets/images/logo.png" class="logo" alt="Logo">
+    </div>
+    <h1 class="title">Building Management System</h1>
+    <div class="menu-container">
+        <div class="menu-icon" (click)="openMenu()">
+            <i class="{{menu_icon}}"></i>
+        </div>
+        <div class="desktop_menu" [class.mobile_menu]="menuValue">
+            <ul>
+                <li (click)="closeMenu()">
+                    <a routerLink="/">Home</a>
+                </li>
+                <li (click)="closeMenu()">
+                    <a routerLink="/about">About</a>
+                </li>
+                <li (click)="closeMenu()">
+                    <a routerLink="/person">Person</a>
+                </li>
+                <li (click)="closeMenu()">
+                    <a routerLink="/contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
