@@ -137,34 +137,47 @@ editBuilding(building: Building, id: number) {
         },
       });
   }
+  
+  onBuildingSelect(building: Building) {
+    this.selectedBuilding = building;
+    this.fetchFloors(); // Fetch floors for the selected building
+}
+
+fetchFloors() {
+  if (this.selectedBuilding && this.selectedBuilding.buildingId !== undefined) {
+    this.floorsService.getFloorsByBuildingId(this.selectedBuilding.buildingId).subscribe(
+        (response: Floor[]) => {
+            this.floors = response;
+        },
+        (error) => {
+            console.error('Error fetching floors:', error);
+        }
+    );
+} else {
+    console.error('Selected building or building ID is not valid');
+}
+}
+
 
   ngOnInit() {
     this.buildingsService
-      .getBuildings('http://localhost:8080/api/buildings', { page: 0, perPage: 5 })
-      .subscribe(
+    .getBuildings('http://localhost:8080/api/buildings', { page: 0, perPage: 5 })
+    .subscribe(
         (response: Building[]) => {
-          this.buildings = response;
-          this.isLoading = false;
+            this.buildings = response;
+            this.isLoading = false;
+
+            // Fetch floors if there's a selected building after buildings are loaded
+            if (this.selectedBuilding && this.selectedBuilding.buildingId !== undefined) {
+                this.fetchFloors(); // Call the fetchFloors method
+            }
         },
         (error) => {
-          console.error('Error fetching buildings:', error);
-          this.isLoading = false;
+            console.error('Error fetching buildings:', error);
+            this.isLoading = false;
         }
-      );
-
-      this.floorsService
-      .getFloors('http://localhost:8080/api/floors', { page: 0, perPage: 5 })
-      .subscribe(
-          (response: Floor[]) => {
-              this.floors = response;
-              this.isLoading = false;
-          },
-          (error) => {
-              console.error('Error fetching floors:', error);
-              this.isLoading = false;
-          }
-      );
-  }
+    );
+}
 }
 
 // import { Component } from '@angular/core';

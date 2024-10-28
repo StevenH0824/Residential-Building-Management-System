@@ -45,8 +45,8 @@ import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
         floorId?: number;
         number: string;
         description: string;
-        buildingId?: Building[];
-        roomIds?: Room[];
+        buildingId: Building[];
+        roomIds: Room[];
     }
 
     export interface PaginationParams {
