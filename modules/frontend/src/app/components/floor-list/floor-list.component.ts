@@ -20,6 +20,8 @@ export class FloorListComponent {
   ngOnInit(): void {
       this.route.paramMap.subscribe(params => {
           this.buildingId = +params.get('buildingId')!; // Get the building ID from the route
+          console.log('Building ID:', this.buildingId); // Log for debugging
+
           this.fetchFloors(); // Fetch floors for this building
       });
   }

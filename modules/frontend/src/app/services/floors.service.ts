@@ -17,8 +17,8 @@ export class FloorsService {
   }
 
   getFloorsByBuildingId(buildingId: number): Observable<Floor[]> {
-    return this.apiService.get<Floor[]>(`http://localhost:8080/api/floors?buildingId=${buildingId}`, {
-      responseType: 'json',
+    return this.apiService.get<Floor[]>(`http://localhost:8080/api/floors/by-building?buildingId=${buildingId}`, {
+        responseType: 'json'
     });
   }
 
