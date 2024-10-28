@@ -19,7 +19,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -112,6 +114,43 @@ public class MaintenanceService {
     return modelMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
   }
 
+  @Transactional
+  public Duration getAverageTimeToResolveIssue(){
+    List<MaintenanceRequest> completedRequests = maintenanceRequestRepository.findByStatus(StatusType.DONE);
+
+    if (completedRequests.isEmpty()) {
+      return Duration.ZERO; // Or throw an exception if appropriate
+    }
+
+    long totalTime = 0;
+    for (MaintenanceRequest request : completedRequests) {
+      totalTime += ChronoUnit.SECONDS.between(request.getCreatedDate(), request.getEndDate());
+    }
+
+    return Duration.ofSeconds(totalTime / completedRequests.size());
+  }
+
+  @Transactional
+  public Duration getAverageTimeToDenyIssue(){
+    List<MaintenanceRequest> completedRequests = maintenanceRequestRepository.findByStatus(StatusType.DENIED);
+
+    if (completedRequests.isEmpty()) {
+      return Duration.ZERO; // Or throw an exception if appropriate
+    }
+
+    long totalTime = 0;
+    for (MaintenanceRequest request : completedRequests) {
+      totalTime += ChronoUnit.SECONDS.between(request.getCreatedDate(), request.getEndDate());
+    }
+
+    return Duration.ofSeconds(totalTime / completedRequests.size());
+  }
+
+
+
+  }
+
+
 //  @Transactional
 //  public List<MaintenanceResponseDTO> getMaintenanceRequestByCreatedDate(LocalDateTime createdDate){
 //    List<MaintenanceRequest> maintenanceEntity = maintenanceRequestRepository.findByCreatedDate(createdDate);
@@ -171,7 +210,7 @@ public class MaintenanceService {
 
 
 
-}
+
 
 
 
