@@ -10,12 +10,13 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService } from 'primeng/api';
 import { TruncateNamePipe } from '../../pipes/truncate-name.pipe';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-building',
   standalone: true,
-  imports: [FormsModule, ButtonModule, ConfirmPopupModule, ToastModule, TruncateNamePipe, NgFor],
+  imports: [RouterModule, FormsModule, ButtonModule, ConfirmPopupModule, ToastModule, TruncateNamePipe, NgFor],
   providers: [ConfirmationService],
   templateUrl: './building.component.html',
   styleUrl: './building.component.css'

@@ -42,11 +42,11 @@ import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
     }
 
     export interface Floor {
-        floorId: number;
+        floorId?: number;
         number: string;
         description: string;
-        building: Building;
-        roomIds: Room[];
+        buildingId?: Building[];
+        roomIds?: Room[];
     }
 
     export interface PaginationParams {
