@@ -17,9 +17,12 @@ import java.time.LocalDateTime;
 public class RoomResponseDTO {
   private Long roomId;
   private String description;
-  //  private String number;
+  private String number;
   private Long floorId;
+  private String floorDescription;
 
   public RoomResponseDTO(Long roomId, String number, String description, Floor floor) {
   }
+
+
 }

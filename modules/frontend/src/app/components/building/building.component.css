@@ -1,0 +1,35 @@
+.wrapper {
+    width: 250px;
+
+    img {
+        aspect-ratio: 1;
+        object-fit:contain;
+        width: 100%;
+        border-radius: 15px;
+        background-color: gray;
+    }
+
+    .p-button {
+        padding: 0.5rem 1rem; /* Adjust padding as needed */
+        font-size: 0.875rem;   /* Change font size if necessary */
+    }
+
+    .title {
+        font-weight: 700;
+        font-size: 1.5rem;
+        color:brown;
+    }
+
+    .label {
+        font-weight:300;
+        font-size: 1rem;
+    }
+
+    .info {
+        font-weight: 500;
+        font-size: 1rem;
+        color: blue;
+    }
+
+
+}

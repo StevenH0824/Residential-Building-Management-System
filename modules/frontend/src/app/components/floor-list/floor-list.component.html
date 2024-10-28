@@ -1,0 +1,9 @@
+<div class="column gap-1">
+    <h2>Floors for Building ID: {{ buildingId }}</h2>
+    <div class="row wrap gap-2">
+        <div *ngFor="let floor of floors" class="floor-card">
+            <h3>{{ floor.number }}</h3>
+            <p>{{ floor.description }}</p>
+          </div>
+    </div>
+</div>

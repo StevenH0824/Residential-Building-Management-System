@@ -16,24 +16,15 @@ public class Floor {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long floorId;
-
   @Column(name = "number")
   private String number;
   @Column(name = "description")
   private String description;
-
-  //  @ManyToOne(fetch = FetchType.LAZY)
-  @ManyToOne
-  @JoinColumn(name = "building_id", nullable = true)
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "building_id", nullable = false)
   private Building building;
-
-//  @OneToMany(mappedBy = "floor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @OneToMany(mappedBy = "floor")
   private List<Room> rooms;
-
-//  @OneToMany(mappedBy = "floor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//  @OneToMany(mappedBy = "floor")
-//  private List<SpecialRoom> specialRooms;
 }
 
 
