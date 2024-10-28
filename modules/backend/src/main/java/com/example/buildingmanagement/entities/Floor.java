@@ -21,7 +21,7 @@ public class Floor {
   @Column(name = "description")
   private String description;
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "building_id", nullable = true)
+  @JoinColumn(name = "building_id", nullable = false)
   private Building building;
   @OneToMany(mappedBy = "floor")
   private List<Room> rooms;

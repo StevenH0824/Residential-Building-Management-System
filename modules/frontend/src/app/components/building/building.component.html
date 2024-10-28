@@ -1,36 +1,28 @@
 <div class="column gap-1 wrapper">
-  <!-- Building Name -->
-  <h2 class="title">{{ building.name | truncateName : 16 : "..." }}</h2>
-
-  <!-- Building Address -->
-  <div class="column gap-05">
+    <!-- Building Name -->
+    <h2 class="title">
+      <a [routerLink]="['/floors', building.buildingId]">{{ building.name | truncateName : 16 : '...' }}</a>
+    </h2>
+    
+    <!-- Building Address -->
+    <div class="column gap-05">
       <div class="row gap-05">
-          <h2 class="info">Address:</h2>
-          <span class="label">{{ building.address }}</span>
+        <h2 class="info">Address:</h2>
+        <span class="label">{{ building.address }}</span>
       </div>
-
+  
       <div class="row gap-05">
-          <h2 class="info">Total Floors:</h2>
-          <p>{{ (building.floors && building.floors.length) ? building.floors.length : 0 }}</p>
-        
-          <!--
-          I think it's better if we take out this functionality and leave it to the floor component that would connect it 
-          back to the building. It doesn't make much sense to me for each floor to display what they are when a building only
-          really cares about the amount of floors and thats it. It made the design of the building much easier as well.
-          <ul>
-              <li *ngFor="let floor of building.floors">
-                  Floor {{ floor.number }}: {{ floor.description || "No description" }}
-              </li>
-          </ul>
-          -->
+        <h2 class="info">Total Floors:</h2>
+        <p>{{ (building.floors && building.floors.length) ? building.floors.length : 0 }}</p>
       </div>
-  </div>
-
-  <!-- Action buttons -->
-  <div class="row gap-05">
+    </div>
+  
+    <!-- Action buttons -->
+    <div class="row gap-05">
       <button type="button" pButton icon="pi pi-pencil" (click)="editBuilding()" label="Edit"></button>
       <button type="button" pButton icon="pi pi-trash" (click)="confirmDelete()" label="Delete" class="p-button-danger" #deleteButton></button>
+    </div>
   </div>
-</div>
-
-<p-confirmPopup></p-confirmPopup>
+  
+  <p-confirmPopup></p-confirmPopup>
+  

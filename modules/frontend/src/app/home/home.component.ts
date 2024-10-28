@@ -5,30 +5,40 @@ import { CommonModule } from '@angular/common';
 import { BuildingComponent } from '../components/building/building.component';
 import { EditPopupComponent } from '../components/edit-popup/edit-popup.component';
 import { ButtonModule } from 'primeng/button';
+import { FloorsService } from '../services/floors.service';
+import { FloorComponent } from '../components/floor/floor.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [BuildingComponent, CommonModule, EditPopupComponent, ButtonModule],
+  imports: [RouterModule, FloorComponent, BuildingComponent, CommonModule, EditPopupComponent, ButtonModule],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
   buildings: Building[] = [];
   floors: Floor[] = [];
   isLoading: boolean = true;
   selectedBuilding: Building | null = null; // Initialize with a default object
+  selectedFloor: Floor | null = null; // Initialize with a default object
   displayEditPopup: boolean = false;
   displayAddPopup:boolean = false;
 
   // displayAddPopup: boolean = false;
 
-  constructor(private buildingsService: BuildingsService) { }
+  constructor(private buildingsService: BuildingsService, private floorsService: FloorsService) { }
 
-  toggleEditPopup(building: Building) {
+  toggleEditPopupBuilding(building: Building) {
     this.selectedBuilding = { ...building }; // Clone the building for editing
     this.displayEditPopup = true;
   }
+
+  toggleEditPopupFloor(floor: Floor) {
+    this.selectedFloor = { ...floor }; // Clone the building for editing
+    this.displayEditPopup = true;
+  }
+
   onConfirmEdit(updatedBuilding: Building) {
     if (!this.selectedBuilding || this.selectedBuilding.buildingId === undefined) {
         console.error('Building ID is required to edit the building.');
@@ -115,20 +125,59 @@ editBuilding(building: Building, id: number) {
       });
   }
 
-  ngOnInit() {
-    this.buildingsService
-      .getBuildings('http://localhost:8080/api/buildings', { page: 0, perPage: 5 })
-      .subscribe(
-        (response: Building[]) => {
-          this.buildings = response;
-          this.isLoading = false;
+
+  deleteFloor(floor: Floor) {
+    this.buildingsService.deleteBuilding(`http://localhost:8080/api/floors/${floor.floorId}`)
+      .subscribe({
+        next: () => {
+          this.floors = this.floors.filter(b => b.floorId !== floor.floorId);
+        },
+        error: (error) => {
+          console.error('Error deleting floor:', error);
+        },
+      });
+  }
+  
+  onBuildingSelect(building: Building) {
+    this.selectedBuilding = building;
+    this.fetchFloors(); // Fetch floors for the selected building
+}
+
+fetchFloors() {
+  if (this.selectedBuilding && this.selectedBuilding.buildingId !== undefined) {
+    this.floorsService.getFloorsByBuildingId(this.selectedBuilding.buildingId).subscribe(
+        (response: Floor[]) => {
+            this.floors = response;
         },
         (error) => {
-          console.error('Error fetching buildings:', error);
-          this.isLoading = false;
+            console.error('Error fetching floors:', error);
         }
-      );
-  }
+    );
+} else {
+    console.error('Selected building or building ID is not valid');
+}
+}
+
+
+  ngOnInit() {
+    this.buildingsService
+    .getBuildings('http://localhost:8080/api/buildings', { page: 0, perPage: 5 })
+    .subscribe(
+        (response: Building[]) => {
+            this.buildings = response;
+            this.isLoading = false;
+
+            // Fetch floors if there's a selected building after buildings are loaded
+            if (this.selectedBuilding && this.selectedBuilding.buildingId !== undefined) {
+                this.fetchFloors(); // Call the fetchFloors method
+            }
+        },
+        (error) => {
+            console.error('Error fetching buildings:', error);
+            this.isLoading = false;
+        }
+    );
+}
 }
 
 // import { Component } from '@angular/core';

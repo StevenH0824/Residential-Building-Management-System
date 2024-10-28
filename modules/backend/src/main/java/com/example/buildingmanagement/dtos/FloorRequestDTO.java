@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class FloorDTO {
+public class FloorRequestDTO {
   private Long floorId;
   @NotBlank(message = "floor number is mandatory")
   private String number;

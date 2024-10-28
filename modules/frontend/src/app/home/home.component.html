@@ -14,11 +14,13 @@
     <app-building
       *ngFor="let building of buildings"
       [building]="building"
-      (edit)="toggleEditPopup(building)"
+      (edit)="toggleEditPopupBuilding(building)"
       (delete)="deleteBuilding(building)"
-    ></app-building>
+    >
+  </app-building>
   </div>
 
+  
   <!-- Edit building -->
   <app-edit-popup
   [building]="selectedBuilding"
