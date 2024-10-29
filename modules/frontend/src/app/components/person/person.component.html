@@ -4,13 +4,13 @@
     <button type="button" pButton icon="pi pi-search" (click)="searchPersons()" label="Search"></button>
   </div>
 
-  <div *ngIf="newPerson">
+  <div class="add-person-container" *ngIf="newPerson">
     <h3>Add New Person</h3>
     <input [(ngModel)]="newPerson.firstName" placeholder="First Name" />
     <input [(ngModel)]="newPerson.lastName" placeholder="Last Name" />
     <input [(ngModel)]="newPerson.phoneNumber" placeholder="Phone Number" />
     <input [(ngModel)]="newPerson.email" placeholder="Email" />
-    <button (click)="addPerson()">Add</button>
+    <button type="button" pButton icon="pi pi-plus" (click)="addPerson()" label="Add"></button>
   </div>
 
   <table>
@@ -45,13 +45,14 @@
     <p>No results found for "{{ searchTerm }}"</p>
   </div>
 
-  <p-dialog [class.person-dialog]="selectedPerson !== null" [(visible)]="editPopup.display" [modal]="true" [closable]="false">
+  <p-dialog [(visible)]="editPopup.display" [modal]="true" [closable]="false">
     <app-edit-popup
       [display]="editPopup.display"
-      (displayChange)="editPopup.display = $event"
-      (confirm)="onEditConfirm($event)"
-      [header]="selectedPerson ? 'Edit Person' : 'Edit Building'"
-      [person]="selectedPerson">
+      [header]="'Edit Person'"
+      [person]="selectedPerson"
+      (confirm)="savePerson($event)"
+      (cancel)="resetSelectedPerson()"
+      (displayChange)="editPopup.display = $event">
     </app-edit-popup>
   </p-dialog>
 </div>

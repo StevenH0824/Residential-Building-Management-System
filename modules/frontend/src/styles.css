@@ -88,3 +88,14 @@ app-root {
 .hidden {
     display: none;
 }
+
+
+@media (max-width: 768px) {
+    .wrapper.menu-open {
+      margin-left: 0;
+    }
+  
+    .container {
+      padding: 10px; 
+    }
+  }

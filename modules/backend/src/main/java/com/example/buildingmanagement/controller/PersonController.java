@@ -49,15 +49,6 @@ public class PersonController {
     return person;
   }
 
-  @PutMapping("/{id}")
-  public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody PersonDTO request) {
-    Optional<Person> updatedPerson = personService.updatePerson(id, request);
-    if (updatedPerson.isEmpty()) {
-      return ResponseEntity.notFound().build();
-    }
-    return ResponseEntity.ok(updatedPerson.get());
-  }
-
   @DeleteMapping("/{id}")
   public void deletePerson(@PathVariable Long id) {
     personService.deletePerson(id);
@@ -67,6 +58,15 @@ public class PersonController {
   public Person createPerson(@RequestBody Person person){
     Person personEntity = personService.createPerson(person);
     return personEntity;
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody PersonDTO request) {
+    Optional<Person> updatedPerson = personService.updatePerson(id, request);
+    if (updatedPerson.isEmpty()) {
+      return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(updatedPerson.get());
   }
 }
 
