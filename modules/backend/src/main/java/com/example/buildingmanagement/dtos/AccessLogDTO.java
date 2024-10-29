@@ -14,6 +14,6 @@ import java.time.LocalDateTime;
 public class AccessLogDTO {
   private Long accessLogId;          // ID of the access log
   private Long cardScannerId;        // ID of the associated card scanner
-  private Long badgeId;              // ID of the associated badge
+  private Long badgeId;              // ID of the associated badge (Person ID)
   private LocalDateTime timestamp;   // Timestamp of the access event
 }
