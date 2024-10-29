@@ -44,29 +44,29 @@ export class PersonComponent {
   constructor(private route: ActivatedRoute, private personService: PersonService, private http: HttpClient, private confirmationService: ConfirmationService) { }
 
   startEdit(person: Person) {
-    this.selectedPerson = {...person}; // Set the selected person for editing
+    this.selectedPerson = person; // Set the selected person for editing
     this.editPopup.display = true; // Open the edit popup
   }
 
   // Updated savePerson to handle both Person and Building
-  savePerson() {
-    if (this.selectedPerson && this.selectedPerson.personId !== undefined) {
-        this.personService.editPerson(this.selectedPerson).subscribe({
-            next: (updatedPerson) => {
-                const index = this.persons.findIndex(p => p.personId === updatedPerson.personId);
-                if (index !== -1) {
-                    this.persons[index] = updatedPerson;
-                    this.filteredPersons[index] = updatedPerson;
-                }
-                this.resetSelectedPerson();
-                // Optionally show a success message here
-            },
-            error: (error) => console.error('Error updating Person:', error),
-        });
+  savePerson(editedEntity: EditEntity) {
+    if ((editedEntity as Person).personId !== undefined) {
+      // Handle as Person
+      this.personService.editPerson(editedEntity as Person).subscribe({
+        next: (updatedPerson) => {
+          const index = this.persons.findIndex(p => p.personId === updatedPerson.personId);
+          if (index !== -1) {
+            this.persons[index] = updatedPerson;
+            this.filteredPersons[index] = updatedPerson;
+          }
+          this.resetSelectedPerson();
+        },
+        error: (error) => console.error('Error updating Person:', error),
+      });
     } else {
-        console.error('Invalid person to update:', this.selectedPerson);
+      console.error('Unexpected entity type:', editedEntity);
     }
-}
+  }
 
   resetSelectedPerson() {
     this.selectedPerson = null; // Reset to null when not editing
@@ -167,23 +167,6 @@ export class PersonComponent {
         person.email.toLowerCase().includes(lowerCaseTerm) // Search by email
       );
     });
-  }
-
-  onEditConfirm(editedEntity: EditEntity) {
-    if (editedEntity && (editedEntity as Person).personId !== undefined) {
-      this.personService.editPerson(editedEntity as Person).subscribe({
-        next: (updatedPerson) => {
-          const index = this.persons.findIndex(p => p.personId === updatedPerson.personId);
-          if (index !== -1) {
-            this.persons[index] = updatedPerson;
-            this.filteredPersons[index] = updatedPerson;
-          }
-          this.resetSelectedPerson();
-          // Optionally show a success message here
-        },
-        error: (error) => console.error('Error updating Person:', error),
-      });
-    }
   }
 
   ngOnInit() {

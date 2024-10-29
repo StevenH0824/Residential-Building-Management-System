@@ -63,9 +63,6 @@ export class HomeComponent {
     }
   }
 
-  onCancelEdit() {
-    this.displayEditPopup = false;
-  }
 
   onConfirmAdd(entity: EditEntity) {
     if (this.isBuilding(entity)) {
