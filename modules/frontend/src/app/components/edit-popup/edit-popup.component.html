@@ -5,7 +5,7 @@
   [header]="header"
   [modal]="true"
   [closable]="false"
-  [style]="{ 'width': '70%', 'min-width': '600px', 'max-width': '900px', 'height': 'auto' }"
+  [style]="{ 'min-height': '410px', 'min-width': '600px', 'max-width': '900px', 'border': '2px solid blue' }"
 >
   <div class="popup-content">
     <div *ngIf="_person">
@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div *ngIf="_building">
+    <div *ngIf="_building" class="building-context">
       <div class="input-row">
         <label class="label" for="buildingName">Name</label>
         <input id="buildingName" [(ngModel)]="editingBuilding.name" />
