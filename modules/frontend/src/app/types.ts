@@ -17,6 +17,8 @@ import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
         } | boolean;
     }
 
+    export type EditEntity = Person | Building;
+
 
 
     export interface Buildings {
@@ -42,11 +44,20 @@ import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
     }
 
     export interface Floor {
-        floorId: number;
+        floorId?: number;
         number: string;
         description: string;
-        building: Building;
+        buildingId: Building[];
         roomIds: Room[];
+    }
+
+    export interface Person {
+        personId: number;
+        floorId?: number;
+        email: string;
+        firstName: string;
+        lastName: string;
+        phoneNumber: string;
     }
 
     export interface PaginationParams {

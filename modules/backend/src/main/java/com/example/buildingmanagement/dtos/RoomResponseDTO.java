@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 @Setter
 public class RoomResponseDTO {
   private Long roomId;
-  private String description;
   private String number;
+  private String description;
   private Long floorId;
   private String floorDescription;
 

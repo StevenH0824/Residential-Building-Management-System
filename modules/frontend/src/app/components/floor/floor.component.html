@@ -1,7 +1,34 @@
 <div class="column gap-1 wrapper">
-    <!-- <h2 class="title"> {{ floor.name }}</h2>
-    <div>
-        <h2 class = "label"><span class = "info">Address:</span> {{ floor.address }}</h2>
-        <h2 class = "label"><span class = "info">Floors: </span>{{ floor.floors }}</h2>
-    </div> -->
-</div>
+    <!-- Building Name -->
+    <!-- <h2 class="title">{{ building.name | truncateName : 16 : "..." }}</h2> -->
+  
+    <!-- Floor  -->
+    <div class="column gap-05">
+        <div class="row gap-05">
+            <h2 class="info">Number:</h2>
+            <span class="label">{{ floor.number }}</span>
+        </div>
+
+        <div class="row gap-05">
+            <h2 class="info">Description:</h2>
+            <span class="label">{{ floor.description }}</span>
+        </div>
+  
+        <div class="row gap-05">
+            <ul>
+                <!-- <li *ngFor="let floor of building.floors">
+                    Floor {{ floor.number }}: {{ floor.description || "No description" }}
+                </li> -->
+            </ul>
+        </div>
+    </div>
+  
+    <!-- Action buttons -->
+    <div class="row gap-05">
+        <button type="button" pButton icon="pi pi-pencil" (click)="editFloor()" label="Edit"></button>
+        <button type="button" pButton icon="pi pi-trash" (click)="confirmDelete()" label="Delete" class="p-button-danger" #deleteButton></button>
+    </div>
+  </div>
+  
+  <p-confirmPopup></p-confirmPopup>
+  

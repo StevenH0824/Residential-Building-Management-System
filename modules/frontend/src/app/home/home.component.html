@@ -1,5 +1,5 @@
-<div class="column gap-1">
-  <!-- Add building Button -->
+<div class="column gap-1" [class.small-button]="menuValue">
+  <!-- Add Building Button -->
   <button
     type="button"
     pButton
@@ -14,25 +14,26 @@
     <app-building
       *ngFor="let building of buildings"
       [building]="building"
-      (edit)="toggleEditPopup(building)"
+      (edit)="toggleEditPopupBuilding(building)"
       (delete)="deleteBuilding(building)"
     ></app-building>
   </div>
 
-  <!-- Edit building -->
+  <!-- Edit Building Popup -->
   <app-edit-popup
-  [building]="selectedBuilding"
-  [(display)]="displayEditPopup"
-  (confirm)="onConfirmEdit($event)"
-  (cancel)="onCancelEdit()"
-  [header]="'Edit Building'"
-  (displayChange)="displayEditPopup = $event"
-></app-edit-popup>
+    [building]="selectedBuilding"
+    [(display)]="displayEditPopup"
+    (confirm)="onConfirmEdit($event)"
+    (cancel)="onCancelEdit()"
+    [header]="'Edit Building'"
+    (displayChange)="displayEditPopup = $event"
+  ></app-edit-popup>
 
-  <!-- Add building -->
+  <!-- Add Building Popup -->
   <app-edit-popup
     [(display)]="displayAddPopup"
     (confirm)="onConfirmAdd($event)"
     header="Add Building"
+    [building]="selectedBuilding"
   ></app-edit-popup>
 </div>
