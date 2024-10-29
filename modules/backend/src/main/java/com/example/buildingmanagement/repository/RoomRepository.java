@@ -16,10 +16,6 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
   Room findByRoomId(Long id);
   List<Room> findByNumber(String Number);
 
-//  @Query("select r from Room r where r.description = :description")
-//  List<Room> findByDescription(@Param("description") String Description);
-
-
   List<Room> findByDescription(String Description);
 
   List <Room> findByFloor(Floor id);

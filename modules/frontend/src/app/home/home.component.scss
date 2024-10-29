@@ -1,0 +1,36 @@
+.column {
+    position: relative; 
+    z-index: 1; 
+    padding: 20px; 
+  }
+  
+  .add-building-btn {
+    position: relative; 
+    z-index: 2; 
+    margin-bottom: 20px; 
+  }
+  
+  .row {
+    position: relative;
+    z-index: 1; 
+    margin-top: 20px; 
+  }
+  
+  .small-button .add-building-btn {
+    font-size: 12px; // Adjust the font size as needed
+    padding: 6px 12px; // Adjust padding for smaller appearance
+  }
+
+  @media (max-width: 768px) {
+    .add-building-btn {
+      padding: 8px 16px;  /* Smaller padding for mobile */
+      font-size: 14px;    /* Smaller font size for mobile */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .add-building-btn {
+      padding: 6px 12px;  /* Even smaller padding for very small screens */
+      font-size: 12px;     /* Even smaller font size for very small screens */
+    }
+  }

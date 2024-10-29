@@ -1,13 +1,13 @@
+<!-- Header -->
+<app-header (menuToggle)="toggleMenu($event)"></app-header>
 
-<!---Header-->
-<app-header></app-header>
-
-
-<!---Wrapper-->
-<div class = "wrapper">
-  <router-outlet></router-outlet>
+<!-- Wrapper -->
+<div class="wrapper" [class.menu-open]="menuValue">
+  <div class="container" [class.menu-open]="menuValue">
+    <!-- Your existing content -->
+    <router-outlet></router-outlet>
+  </div>
 </div>
 
-
-<!--Footer-->
+<!-- Footer -->
 <app-footer></app-footer>

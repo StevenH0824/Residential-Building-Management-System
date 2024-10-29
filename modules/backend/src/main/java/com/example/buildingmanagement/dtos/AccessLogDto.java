@@ -1,21 +1,19 @@
 package com.example.buildingmanagement.dtos;
 
-import com.example.buildingmanagement.entities.CardScanner;
-import com.example.buildingmanagement.entities.Person;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccessLogDto {
-
-  private Long accessLogId;
-  private CardScanner cardScanner;
-  private Person person;
-  private LocalDateTime access_time;
-
+@Getter
+@Setter
+public class AccessLogDTO {
+  private Long accessLogId;          // ID of the access log
+  private Long cardScannerId;        // ID of the associated card scanner
+  private Long badgeId;              // ID of the associated badge (Person ID)
+  private LocalDateTime timestamp;   // Timestamp of the access event
 }
