@@ -47,10 +47,11 @@ public class PersonController {
     return person;
   }
 
-  @DeleteMapping("/delid/{id}")
+  @DeleteMapping("/{id}")
   public void deletePerson(@PathVariable Long id) {
     personService.deletePerson(id);
   }
+
   @PostMapping
   public Person createPerson(@RequestBody Person person){
     Person personEntity = personService.createPerson(person);

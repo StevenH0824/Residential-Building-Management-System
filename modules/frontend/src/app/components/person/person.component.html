@@ -1,11 +1,59 @@
-<h2>Person List</h2>
-<div *ngIf="persons.length === 0">No persons found.</div>
-<div *ngFor="let person of persons" class="person-card">
-  <h3>{{ person.firstName }} {{ person.lastName }}</h3>
-  <p>Email: {{ person.email }}</p>
-  <p>Phone: {{ person.phoneNumber }}</p>
+<div class="container">
+    <div class="search-container">
+      <input type="text" placeholder="Search" [(ngModel)]="searchTerm" (keydown.enter)="searchPersons()" />
+      <button type="button" pButton icon="pi pi-search" (click)="searchPersons()" label="Search"></button>
+    </div>
+  
+    <div *ngIf="newPerson">
+      <h3>Add New Person</h3>
+      <input [(ngModel)]="newPerson.firstName" placeholder="First Name" />
+      <input [(ngModel)]="newPerson.lastName" placeholder="Last Name" />
+      <input [(ngModel)]="newPerson.phoneNumber" placeholder="Phone Number" />
+      <input [(ngModel)]="newPerson.email" placeholder="Email" />
+      <button (click)="addPerson()">Add</button>
+    </div>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let person of filteredPersons">
+          <td>{{ person.personId }}</td>
+          <td>{{ person.firstName }}</td>
+          <td>{{ person.lastName }}</td>
+          <td>{{ person.phoneNumber }}</td>
+          <td>{{ person.email }}</td>
+          <td>
+            <button type="button" pButton icon="pi pi-pencil" (click)="startEdit(person)" label="Edit"></button>
+            <button type="button" pButton icon="pi pi-trash" (click)="confirmDelete(person)" label="Delete" class="p-button-danger" #deleteButton></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <p-confirmPopup #confirmPopup></p-confirmPopup>
+  
+    <div *ngIf="filteredPersons.length === 0 && searchTerm">
+      <p>No results found for "{{ searchTerm }}"</p>
+    </div>
 
-  <!-- Action buttons -->
-  <button type="button" pButton icon="pi pi-pencil" (click)="editPerson(person)" label="Edit"></button>
-  <button type="button" pButton icon="pi pi-trash" (click)="confirmDelete(person)" label="Delete" class="p-button-danger" #deleteButton></button>
-</div>
+    <p-dialog [(visible)]="editPopup.display" [modal]="true" [closable]="false">
+        <app-edit-popup
+          [display]="editPopup.display"
+          [header]="'Edit Person'"
+          [person]="selectedPerson"
+          (confirm)="savePerson($event)" 
+          (cancel)="resetSelectedPerson()"
+          (displayChange)="editPopup.display = $event">
+        </app-edit-popup>
+      </p-dialog>
+  </div>
+  

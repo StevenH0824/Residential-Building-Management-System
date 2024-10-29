@@ -1,9 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Building } from '../../types';
+import { Building, EditEntity, Person } from '../../types';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { PersonService } from '../../services/person.service'; // Import your service
+import { BuildingsService } from '../../services/buildings.service'; // Import your service
+
+
 
 @Component({
   selector: 'app-edit-popup',
@@ -16,39 +20,60 @@ import { ButtonModule } from 'primeng/button';
     ReactiveFormsModule,
   ],
   templateUrl: './edit-popup.component.html',
-  styleUrl: './edit-popup.component.css'
+  styleUrls: ['./edit-popup.component.css'],
 })
 export class EditPopupComponent {
   @Input() display: boolean = false;
   @Input() header!: string;
   @Output() displayChange = new EventEmitter<boolean>();
+  @Output() cancel = new EventEmitter<void>();
+  @Output() confirm = new EventEmitter<EditEntity>();
 
-  @Output() confirm = new EventEmitter<Building>();
-  @Output() cancel = new EventEmitter<void>(); // Add this line
+  private _building!: Building;
+  private _person!: Person;
+  persons: Person[] = []; // Declare persons array
+  buildings: Building[] = []; // Declare buildings array
+  personService: PersonService; // Declare person service
+  buildingService: BuildingsService; // Declare building service
 
-  // Store the original building and a temporary copy for editing
-  private _building!: Building; // Store the input building
+  // Input properties for person and building
+  @Input()
+  set person(value: Person | null) {
+    if (value) {
+      this._person = value;
+      this.editingPerson = { ...value };
+    } else {
+      this.editingPerson = { personId: 0, firstName: '', lastName: '', email: '', phoneNumber: '' };
+    }
+  }
 
   @Input()
-  set building(value: Building | null ) {
+  set building(value: Building | null) {
     if (value) {
       this._building = value;
-      this.editingBuilding = { ...value }; // Clone to prevent direct modification
+      this.editingBuilding = { ...value };
     } else {
-      // Initialize a default empty building if null
       this.editingBuilding = { buildingId: 0, name: '', address: '', floors: [] };
     }
   }
 
+  editingPerson: Person = { personId: 0, firstName: '', lastName: '', email: '', phoneNumber: '' };
   editingBuilding: Building = { buildingId: 0, name: '', address: '', floors: [] };
 
-  onConfirm() {
-    this.confirm.emit(this.editingBuilding); // Emit the modified object
-    this.closeDialog();
+  constructor(personService: PersonService, buildingService: BuildingsService) {
+    this.personService = personService; // Initialize person service
+    this.buildingService = buildingService; // Initialize building service
   }
 
+  onConfirm() {
+    const editedEntity: EditEntity = this._person ? this.editingPerson : this.editingBuilding;
+    this.confirm.emit(editedEntity);
+    this.closeDialog();
+  }
+  
+
   onCancel() {
-    this.cancel.emit(); // Emit the cancel event
+    this.cancel.emit();
     this.closeDialog();
   }
 

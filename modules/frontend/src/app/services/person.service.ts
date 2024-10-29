@@ -27,11 +27,13 @@ export class PersonService {
     return this.apiService.post<Person>(url, body, {});
   }
 
-  editPerson(url: string, body: Person): Observable<Person> {
-    return this.apiService.put<Person>(url, body, {});
+  editPerson(person: Person): Observable<Person> {
+    const url = `http://localhost:8080/api/persons/${person.personId}`; 
+    return this.apiService.put<Person>(url, person, {});
   }
 
-  deletePerson(url: string): Observable<any> {
+  deletePerson(person: Person): Observable<any> {
+    const url = `http://localhost:8080/api/persons/${person.personId}`; 
     return this.apiService.delete(url, {});
   }
 }

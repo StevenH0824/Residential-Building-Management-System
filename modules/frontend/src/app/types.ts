@@ -17,6 +17,8 @@ import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
         } | boolean;
     }
 
+    export type EditEntity = Person | Building;
+
 
 
     export interface Buildings {
