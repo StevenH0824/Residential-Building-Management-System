@@ -36,8 +36,6 @@ class RoomControllerTest {
   @MockBean
   private RoomService roomService;
 
-  @Autowired
-  private ObjectMapper objectMapper;
 
   @BeforeEach
   void setUp() {

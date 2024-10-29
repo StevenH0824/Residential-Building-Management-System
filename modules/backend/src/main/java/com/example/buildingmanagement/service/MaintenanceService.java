@@ -69,8 +69,14 @@ public class MaintenanceService {
   public MaintenanceResponseDTO getMaintenanceRequestByMaintenanceId(Long Id) {
     MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByMaintenanceRequestId(Id);
     assert maintenanceEntity != null;
-    return new MaintenanceResponseDTO(maintenanceEntity.getMaintenanceRequestId(), maintenanceEntity.getCreatedDate(), maintenanceEntity.getEndDate(), maintenanceEntity.getIssue(), maintenanceEntity.getStatus(), maintenanceEntity.getPerson().getFirstName(),
-      maintenanceEntity.getPerson().getLastName(), maintenanceEntity.getRoom().getNumber()
+    return new MaintenanceResponseDTO(maintenanceEntity.getMaintenanceRequestId(),
+                                      maintenanceEntity.getCreatedDate(),
+                                      maintenanceEntity.getEndDate(),
+                                      maintenanceEntity.getIssue(),
+                                      maintenanceEntity.getStatus(),
+                                      maintenanceEntity.getPerson().getFirstName(),
+                                      maintenanceEntity.getPerson().getLastName(),
+                                      maintenanceEntity.getRoom().getNumber()
     );
   }
 
