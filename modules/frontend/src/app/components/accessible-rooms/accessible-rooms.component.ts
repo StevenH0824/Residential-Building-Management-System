@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Room } from '../../types';
 import { ActivatedRoute } from '@angular/router';
 import { AccessService } from '../../services/access.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-accessible-rooms',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './accessible-rooms.component.html',
   styleUrl: './accessible-rooms.component.css',
   template: `
@@ -20,13 +21,19 @@ import { AccessService } from '../../services/access.service';
 })
 export class AccessibleRoomsComponent {
   rooms: Room[] = [];
-
+  personId!: number;
   constructor(private route: ActivatedRoute, private accessService: AccessService) {}
 
   ngOnInit() {
-    const personId = this.route.snapshot.params['id'];
-    this.accessService.getAccessibleRooms(personId).subscribe((rooms: Room[]) => {
-      this.rooms = rooms;
-    });
+    this.personId = +this.route.snapshot.params['id'];
+    this.accessService.getAccessibleRooms(this.personId).subscribe(
+      (rooms: Room[]) => {
+        this.rooms = rooms;
+      },
+      (error) => {
+        console.error('Error fetching rooms:', error);
+        // Optionally show an error message to the user
+      }
+    );
   }
 }

@@ -171,7 +171,7 @@ export class PersonComponent {
 
   viewPerson(person: Person){
     console.log('Person object:', person);
-    // this.router.navigate(['/person', person.personId, 'spaces']); 
+    this.router.navigate(['/person/', person.personId, 'spaces']); 
   }
 
 

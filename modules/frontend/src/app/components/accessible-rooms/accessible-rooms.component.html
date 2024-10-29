@@ -1,1 +1,9 @@
-<p>accessible-rooms works!</p>
+<h3>Accessible Rooms for Person ID: {{ personId }}</h3>
+<ul>
+  <li *ngFor="let room of rooms" class="room-item">
+    {{ room.number }} - {{ room.description }}
+  </li>
+</ul>
+
+<!-- Optional: Show a message if no rooms are accessible -->
+<div *ngIf="rooms.length === 0">No accessible rooms available.</div>
