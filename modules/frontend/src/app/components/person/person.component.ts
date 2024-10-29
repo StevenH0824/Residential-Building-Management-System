@@ -1,4 +1,4 @@
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -41,7 +41,7 @@ export class PersonComponent {
   @Output() delete: EventEmitter<Person> = new EventEmitter<Person>();
   editPopup: { display: boolean } = { display: false }; // Initialize editPopup
 
-  constructor(private route: ActivatedRoute, private personService: PersonService, private http: HttpClient, private confirmationService: ConfirmationService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private personService: PersonService, private http: HttpClient, private confirmationService: ConfirmationService) { }
 
   startEdit(person: Person) {
     this.selectedPerson = person; // Set the selected person for editing
@@ -168,6 +168,12 @@ export class PersonComponent {
       );
     });
   }
+
+  viewPerson(person: Person){
+    console.log('Person object:', person);
+    // this.router.navigate(['/person', person.personId, 'spaces']); 
+  }
+
 
   ngOnInit() {
     this.fetchPersons(this.page, this.perPage);

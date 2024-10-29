@@ -12,20 +12,20 @@ import java.time.LocalDate;
 @Setter
 @Entity
 public class ControlGroupPerson {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+
+  @EmbeddedId // Using EmbeddedId for composite key
+  private ControlGroupPersonId id;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "control_group_id", nullable = false)
+  @MapsId("controlGroupId") // Maps the embedded ID to ControlGroup
+  @JoinColumn(name = "control_group_id", referencedColumnName = "controlGroupId", nullable = false)
   private ControlGroup controlGroup;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "person_id", nullable = false)
+  @MapsId("personId") // Maps the embedded ID to Person
+  @JoinColumn(name = "person_id", referencedColumnName = "person_id", nullable = false) // Ensure this matches the DB column
   private Person person;
 
-  private LocalDate start_date;
-  private LocalDate expiration_date;
-
+  private LocalDate startDate;
+  private LocalDate expirationDate;
 }
-
