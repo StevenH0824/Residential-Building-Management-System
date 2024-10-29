@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BuildingsService } from '../services/buildings.service';
 import { Building, Floor, Person, EditEntity } from '../types';
 import { CommonModule } from '@angular/common';
@@ -26,6 +26,7 @@ export class HomeComponent {
   displayAddPopup: boolean = false;
 
   constructor(private buildingsService: BuildingsService, private floorsService: FloorsService) { }
+  @Input() menuValue: boolean = false; 
 
   toggleEditPopupBuilding(building: Building) {
     this.selectedBuilding = { ...building };

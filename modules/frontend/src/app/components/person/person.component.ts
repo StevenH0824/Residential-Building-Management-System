@@ -33,6 +33,7 @@ export class PersonComponent {
   page: number = 1;
   perPage: number = 10;
 
+  @Input() menuValue: boolean = false; 
   @Input() person!: Person;
   @ViewChild('deleteButton') deleteButton: any;
 

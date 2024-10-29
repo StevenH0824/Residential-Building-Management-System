@@ -15,6 +15,11 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 })
 export class AppComponent {
   title = 'tutorial'
+  menuValue: boolean = false; // Initialize the menu state
+
+  toggleMenu(value: boolean) {
+    this.menuValue = value; 
+  }
 }
 
 
