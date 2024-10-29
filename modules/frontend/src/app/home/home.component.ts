@@ -33,6 +33,10 @@ export class HomeComponent {
     this.displayEditPopup = true;
   }
 
+  onCancelEdit() {
+    this.displayEditPopup = false;
+  }
+
   toggleEditPopupFloor(floor: Floor) {
     this.selectedFloor = { ...floor };
     this.displayEditPopup = true;
@@ -59,9 +63,6 @@ export class HomeComponent {
     }
   }
 
-  onCancelEdit() {
-    this.displayEditPopup = false;
-  }
 
   onConfirmAdd(entity: EditEntity) {
     if (this.isBuilding(entity)) {

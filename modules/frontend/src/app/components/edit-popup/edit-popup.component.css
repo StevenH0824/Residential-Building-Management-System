@@ -11,7 +11,7 @@
     min-width: 600px;
     height: 600px; /* Fixed height for testing */
 }
-/* Common content styling */
+
 .popup-content {
     display: flex;
     flex-direction: column;
@@ -26,7 +26,6 @@
     box-sizing: border-box;
 }
 
-/* Improved input row styling */
 .input-row {
     display: flex;
     justify-content: space-between;
@@ -49,7 +48,7 @@ input {
     border-radius: 4px;
 }
 
-/* Footer button alignment */
+/* Footer alignment */
 .footer-buttons {
     display: flex;
     justify-content: center;

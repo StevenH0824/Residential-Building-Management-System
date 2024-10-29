@@ -33,6 +33,10 @@ public class AccessControl {
   @ManyToOne
   @JoinColumn(name = "room_id", nullable = false)
   private Room room;
+
+  public Long getId() {
+    return accessControlId;
+  }
 }
 
 

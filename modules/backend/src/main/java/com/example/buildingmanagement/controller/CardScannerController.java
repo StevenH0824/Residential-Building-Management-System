@@ -1,13 +1,17 @@
 package com.example.buildingmanagement.controller;
 
+import com.example.buildingmanagement.dtos.CardScannerRequestDTO;
+import com.example.buildingmanagement.dtos.CardScannerResponseDTO;
 import com.example.buildingmanagement.entities.CardScanner;
 import com.example.buildingmanagement.entities.Person;
 import com.example.buildingmanagement.service.CardScannerService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/card-scanners")
@@ -19,19 +23,32 @@ public class CardScannerController {
   }
 
   @GetMapping
-  public List<CardScanner> getAllCardScanners() {
-    return cardScannerService.getAllCardScanners();
+  public List<CardScannerResponseDTO> getAllCardScanners() {
+    List<CardScanner> cardScanners = cardScannerService.getAllCardScanners();
+    return cardScanners.stream()
+      .map(this::convertToResponseDTO)
+      .collect(Collectors.toList());
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<CardScanner> getCardScannerById(@PathVariable Long id) {
+  public ResponseEntity<CardScannerResponseDTO> getCardScannerById(@PathVariable Long id) {
     Optional<CardScanner> cardScanner = cardScannerService.getCardScannerById(id);
-    return cardScanner.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    return cardScanner.map(this::convertToResponseDTO)
+      .map(ResponseEntity::ok)
+      .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @PostMapping
-  public CardScanner createCardScanner(@RequestBody CardScanner cardScanner) {
-    return cardScannerService.createCardScanner(cardScanner);
+  public ResponseEntity<CardScannerResponseDTO> createCardScanner(@RequestBody CardScannerRequestDTO request) {
+    // Create a CardScanner entity from the request DTO
+    CardScanner cardScanner = new CardScanner();
+    cardScanner.setSerialNo(request.getSerialNo());
+    cardScanner.setMake(request.getMake());
+    cardScanner.setModel(request.getModel());
+
+    // Save the card scanner and convert to response DTO
+    CardScanner savedCardScanner = cardScannerService.createCardScanner(cardScanner);
+    return ResponseEntity.status(HttpStatus.CREATED).body(convertToResponseDTO(savedCardScanner));
   }
 
   @DeleteMapping("/{id}")
@@ -46,4 +63,14 @@ public class CardScannerController {
     return ResponseEntity.ok().build();
   }
 
+  private CardScannerResponseDTO convertToResponseDTO(CardScanner cardScanner) {
+    return new CardScannerResponseDTO(
+      cardScanner.getCardScannerId(),
+      cardScanner.getSerialNo(),
+      cardScanner.getMake(),
+      cardScanner.getModel(),
+      cardScanner.getAccessLogIds(),
+      cardScanner.getAccessControlIds()
+    );
+  }
 }

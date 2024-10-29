@@ -67,13 +67,12 @@ export class EditPopupComponent {
     this.buildingService = buildingService; // Initialize building service
   }
 
-
   onConfirm() {
     const editedEntity: EditEntity = this._person ? this.editingPerson : this.editingBuilding;
     this.confirm.emit(editedEntity);
     this.closeDialog();
   }
-  
+
 
   onCancel() {
     this.cancel.emit();
