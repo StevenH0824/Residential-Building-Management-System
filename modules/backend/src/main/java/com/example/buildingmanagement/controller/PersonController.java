@@ -1,5 +1,6 @@
 package com.example.buildingmanagement.controller;
 
+import com.example.buildingmanagement.dtos.RoomResponseDTO;
 import com.example.buildingmanagement.entities.Person;
 import com.example.buildingmanagement.entities.Room;
 import com.example.buildingmanagement.service.ControlGroupPersonService;
@@ -67,9 +68,9 @@ public class PersonController {
     return personEntity;
   }
   @GetMapping("/{id}/spaces")
-  public ResponseEntity<List<Room>> getAccessibleRooms(@PathVariable Long id) {
+  public ResponseEntity<List<RoomResponseDTO>> getAccessibleRooms(@PathVariable Long id) {
     try {
-      List<Room> rooms = controlGroupPersonService.getAccessibleRoomsByPersonId(id);
+      List<RoomResponseDTO> rooms = controlGroupPersonService.getAccessibleRoomsByPersonId(id);
       return ResponseEntity.ok(rooms);
     } catch (EntityNotFoundException e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
