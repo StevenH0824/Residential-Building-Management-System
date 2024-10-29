@@ -32,6 +32,10 @@ export class HomeComponent {
     this.displayEditPopup = true;
   }
 
+  onCancelEdit() {
+    this.displayEditPopup = false;
+  }
+
   toggleEditPopupFloor(floor: Floor) {
     this.selectedFloor = { ...floor };
     this.displayEditPopup = true;
