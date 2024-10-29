@@ -1,42 +1,50 @@
-<p-dialog [class.person-dialog]="_person" [(visible)]="display" [header]="header" [modal]="true" [closable]="false">
-    <div class="popup-content">
-        <div *ngIf="_person">
-            <div class="input-row">
-                <label class="label" for="firstName">First Name</label>
-                <input id="firstName" [(ngModel)]="editingPerson.firstName" />
-            </div>
+<p-dialog
+  [class.person-dialog]="_person"
+  [class.building-dialog]="_building"
+  [(visible)]="display"
+  [header]="header"
+  [modal]="true"
+  [closable]="false"
+  [style]="{ 'width': '70%', 'min-width': '600px', 'max-width': '900px', 'height': 'auto' }"
+>
+  <div class="popup-content">
+    <div *ngIf="_person">
+      <div class="input-row">
+        <label class="label" for="firstName">First Name</label>
+        <input id="firstName" [(ngModel)]="editingPerson.firstName" />
+      </div>
 
-            <div class="input-row">
-                <label class="label" for="lastName">Last Name</label>
-                <input id="lastName" [(ngModel)]="editingPerson.lastName" />
-            </div>
+      <div class="input-row">
+        <label class="label" for="lastName">Last Name</label>
+        <input id="lastName" [(ngModel)]="editingPerson.lastName" />
+      </div>
 
-            <div class="input-row">
-                <label class="label" for="email">Email</label>
-                <input id="email" [(ngModel)]="editingPerson.email" />
-            </div>
+      <div class="input-row">
+        <label class="label" for="email">Email</label>
+        <input id="email" [(ngModel)]="editingPerson.email" />
+      </div>
 
-            <div class="input-row">
-                <label class="label" for="phoneNumber">Phone Number</label>
-                <input id="phoneNumber" [(ngModel)]="editingPerson.phoneNumber" />
-            </div>
-        </div>
-
-        <div *ngIf="_building">
-            <div class="input-row">
-                <label class="label" for="buildingName">Name</label>
-                <input id="buildingName" [(ngModel)]="editingBuilding.name" />
-            </div>
-
-            <div class="input-row">
-                <label class="label" for="buildingAddress">Address</label>
-                <input id="buildingAddress" [(ngModel)]="editingBuilding.address" />
-            </div>
-        </div>
-
-        <div class="footer-buttons">
-            <button type="button" pButton icon="pi pi-check" (click)="onConfirm()" label="Save"></button>
-            <button type="button" pButton icon="pi pi-times" (click)="onCancel()" label="Cancel"></button>
-        </div>
+      <div class="input-row">
+        <label class="label" for="phoneNumber">Phone Number</label>
+        <input id="phoneNumber" [(ngModel)]="editingPerson.phoneNumber" />
+      </div>
     </div>
+
+    <div *ngIf="_building">
+      <div class="input-row">
+        <label class="label" for="buildingName">Name</label>
+        <input id="buildingName" [(ngModel)]="editingBuilding.name" />
+      </div>
+
+      <div class="input-row">
+        <label class="label" for="buildingAddress">Address</label>
+        <input id="buildingAddress" [(ngModel)]="editingBuilding.address" />
+      </div>
+    </div>
+
+    <div class="footer-buttons">
+      <button type="button" pButton icon="pi pi-check" (click)="onConfirm()" label="Save"></button>
+      <button type="button" pButton icon="pi pi-times" (click)="onCancel()" label="Cancel"></button>
+    </div>
+  </div>
 </p-dialog>
