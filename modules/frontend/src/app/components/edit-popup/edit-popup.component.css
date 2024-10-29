@@ -1,57 +1,75 @@
 .p-dialog {
-    width: 400px; /* Default width for building */
-    text-align: center; /* Center text for the dialog content */
+    width: 400px;
+    text-align: center;
 }
 
+/* Person dialog specific styling */
 .p-dialog.person-dialog {
-    width: 60%; /* Wider width for person dialog */
-    max-width: 800px; /* Max width for larger screens */
-    height: auto; /* Allow height to adjust based on content */
-    max-height: 600px; /* Maximum height to prevent overflow */
-    overflow: hidden; /* Prevent scrolling */
-    text-align: center;
+    width: 70%;
+    height: 100%;
+    max-width: 900px;
+    min-width: 600px;
+    height: 600px; /* Fixed height for testing */
 }
 
 .popup-content {
     display: flex;
-    flex-direction: column; /* Arrange items in a column */
-    align-items: stretch; /* Allow items to stretch full width */
-    padding: 20px; /* Add padding to the content */
-    box-sizing: border-box; /* Include padding in height calculation */
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.building-context{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    box-sizing: border-box;
 }
 
 .input-row {
     display: flex;
-    align-items: center; /* Center items vertically */
-    width: 100%; /* Full width */
-    margin-bottom: 15px; /* Space between input rows */
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
 }
 
 /* Align label and input */
 .label {
-    margin-right: 10px; /* Space between label and input */
-    text-align: right; /* Right-align text */
-    flex: 1; /* Flex-grow for label */
+    flex: 0 0 30%; /* Fixed width for label */
+    text-align: right;
+    padding-right: 10px;
 }
 
 input {
-    flex: 2; /* Flex-grow for input */
-    padding: 10px; /* Increased padding for input */
-    border: 1px solid #ccc; /* Add a border for better visibility */
-    border-radius: 4px; /* Rounded corners for inputs */
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 /* Footer alignment */
 .footer-buttons {
     display: flex;
-    justify-content: center; /* Center buttons */
-    gap: 10px; /* Space between buttons */
-    margin-top: 20px; /* Space above buttons */
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
     .p-dialog.person-dialog {
-        width: 90%; /* Adjust width on smaller screens */
+        width: 90%;
+    }
+
+    .label {
+        flex: 0 0 auto; /* Adjust to full width */
+        text-align: left;
+        padding-right: 0;
+    }
+
+    .input-row {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }

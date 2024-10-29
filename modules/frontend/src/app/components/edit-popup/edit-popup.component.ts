@@ -67,16 +67,12 @@ export class EditPopupComponent {
     this.buildingService = buildingService; // Initialize building service
   }
 
-  // get dialogWidth(): string {
-  //   return this._person ? '600px' : '400px'; // Set width based on whether a person is being edited
-  // }
-
   onConfirm() {
     const editedEntity: EditEntity = this._person ? this.editingPerson : this.editingBuilding;
     this.confirm.emit(editedEntity);
     this.closeDialog();
   }
-  
+
 
   onCancel() {
     this.cancel.emit();

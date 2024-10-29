@@ -1,6 +1,29 @@
+.container {
+  position: relative; 
+  z-index: -1; 
+  padding: 20px; 
+}
+
+.search-container {
+  position: relative; 
+  z-index: 2; 
+  margin-bottom: 20px; 
+}
+
+.add-person-container {
+  position: relative; 
+  z-index: 2; 
+  margin-bottom: 20px; 
+}
+
 .p-button {
-    padding: 0.5rem 1rem; /* Adjust padding as needed */
-    font-size: 0.875rem;   /* Change font size if necessary */
+    padding: 0.5rem 1rem; 
+    font-size: 0.875rem;   
+}
+
+button {
+  position: relative; 
+  z-index: 3; 
 }
 
 input {
@@ -32,13 +55,13 @@ table {
     background-color: #f5f5f5; /* Highlight row on hover */
   }
   
-  .container {
+  /* .container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center items horizontally */
-    margin-top: 20px; /* Space above the container */
+    align-items: center; 
+    margin-top: 20px; 
   }
-  
+  */
   .search-container {
     margin-bottom: 20px; /* Space between search and table */
   }
