@@ -1,8 +1,10 @@
 package com.example.buildingmanagement.controller;
 
+import com.example.buildingmanagement.dtos.PersonDTO;
 import com.example.buildingmanagement.entities.Person;
 import com.example.buildingmanagement.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,6 +47,15 @@ public class PersonController {
   public List<Person> getPersonByEmail (@PathVariable String email) {
     List <Person> person = personService.getPersonsByEmail(email);
     return person;
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody PersonDTO request) {
+    Optional<Person> updatedPerson = personService.updatePerson(id, request);
+    if (updatedPerson.isEmpty()) {
+      return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(updatedPerson.get());
   }
 
   @DeleteMapping("/{id}")

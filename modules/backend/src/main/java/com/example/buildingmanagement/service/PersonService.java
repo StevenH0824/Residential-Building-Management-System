@@ -1,6 +1,7 @@
 package com.example.buildingmanagement.service;
 
 
+import com.example.buildingmanagement.dtos.PersonDTO;
 import com.example.buildingmanagement.entities.Person;
 import com.example.buildingmanagement.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,25 @@ public class PersonService {
     return personRepository.save(person);
   }
 
-  public Optional<Person> updatePerson(Long id) { return personRepository.findById(id);}
+  public Optional<Person> updatePerson(Long id, PersonDTO request) {
+    // Check if the person exists
+    Optional<Person> existingPerson = personRepository.findById(id);
+
+    if (existingPerson.isPresent()) {
+      // Update fields
+      Person personToUpdate = existingPerson.get();
+      personToUpdate.setFirstName(request.getFirstName());
+      personToUpdate.setLastName(request.getLastName());
+      personToUpdate.setEmail(request.getEmail());
+      personToUpdate.setPhoneNumber(request.getPhoneNumber());
+
+      // Save the updated person back to the repository
+      return Optional.of(personRepository.save(personToUpdate));
+    }
+
+    // Return empty if person not found
+    return Optional.empty();
+  }
 
   public void deletePerson(Long id) {
     personRepository.deleteById(id);
