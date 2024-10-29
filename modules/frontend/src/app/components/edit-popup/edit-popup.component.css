@@ -1,55 +1,76 @@
 .p-dialog {
-    width: 400px; 
-    text-align: center; /* Center text for the dialog content */
+    width: 400px;
+    text-align: center;
 }
 
-.p-dialog-header {
-    background-color: #f5f5f5; 
-    font-weight: bold;
-    width: 100%; /* Ensure it takes full width */
-    display: flex; /* Use flexbox to align items */
-    justify-content: center; /* Center items horizontally */
-    align-items: center; /* Center items vertically */
-    margin: 0 auto;
+/* Person dialog specific styling */
+.p-dialog.person-dialog {
+    width: 70%;
+    height: 100%;
+    max-width: 900px;
+    min-width: 600px;
+    height: 600px; /* Fixed height for testing */
 }
-
-.p-dialog-title {
-    display: block; /* Use block display for the title */
-    text-align: center; /* Center text */
-    overflow: hidden; /* Prevent overflow */
-    white-space: nowrap; /* Prevent text wrapping */
-    text-overflow: ellipsis; /* Add ellipsis for overflowing text */
-    color: #333; /* Change this to your desired color */
-}
-
+/* Common content styling */
 .popup-content {
     display: flex;
-    flex-direction: column; /* Arrange items in a column */
-    align-items: flex-start; /* Center items horizontally */
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
+.building-context{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+/* Improved input row styling */
 .input-row {
     display: flex;
-    align-items: center; /* Center items vertically */
-    width: 100%; /* Full width */
-    margin-bottom: 10px; /* Space between input rows */
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
 }
 
 /* Align label and input */
 .label {
-    margin-right: 10px; /* Space between label and input */
-    text-align: right; /* Right-align text */
-    flex: 1; /* Flex-grow for label */
+    flex: 0 0 30%; /* Fixed width for label */
+    text-align: right;
+    padding-right: 10px;
 }
 
 input {
-    flex: 2; /* Flex-grow for input */
-    padding: 5px; /* Padding for input */
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-/* Footer alignment */
+/* Footer button alignment */
 .footer-buttons {
     display: flex;
-    justify-content: center; /* Center buttons */
-    gap: 10px; /* Space between buttons */
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .p-dialog.person-dialog {
+        width: 90%;
+    }
+
+    .label {
+        flex: 0 0 auto; /* Adjust to full width */
+        text-align: left;
+        padding-right: 0;
+    }
+
+    .input-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

@@ -10,7 +10,7 @@
       <input [(ngModel)]="newPerson.lastName" placeholder="Last Name" />
       <input [(ngModel)]="newPerson.phoneNumber" placeholder="Phone Number" />
       <input [(ngModel)]="newPerson.email" placeholder="Email" />
-      <button (click)="addPerson()">Add</button>
+      <button type="button" pButton  icon="pi pi-plus" (click)="addPerson()" label="Add"></button>
     </div>
   
     <table>

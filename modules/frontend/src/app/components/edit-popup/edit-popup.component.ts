@@ -29,8 +29,8 @@ export class EditPopupComponent {
   @Output() cancel = new EventEmitter<void>();
   @Output() confirm = new EventEmitter<EditEntity>();
 
-  private _building!: Building;
-  private _person!: Person;
+  public _building: Building | null = null;
+  public _person: Person | null = null;
   persons: Person[] = []; // Declare persons array
   buildings: Building[] = []; // Declare buildings array
   personService: PersonService; // Declare person service
@@ -43,6 +43,7 @@ export class EditPopupComponent {
       this._person = value;
       this.editingPerson = { ...value };
     } else {
+      this._person = null;
       this.editingPerson = { personId: 0, firstName: '', lastName: '', email: '', phoneNumber: '' };
     }
   }
@@ -53,6 +54,7 @@ export class EditPopupComponent {
       this._building = value;
       this.editingBuilding = { ...value };
     } else {
+      this._building = null;
       this.editingBuilding = { buildingId: 0, name: '', address: '', floors: [] };
     }
   }
@@ -64,6 +66,7 @@ export class EditPopupComponent {
     this.personService = personService; // Initialize person service
     this.buildingService = buildingService; // Initialize building service
   }
+
 
   onConfirm() {
     const editedEntity: EditEntity = this._person ? this.editingPerson : this.editingBuilding;
