@@ -27,30 +27,35 @@ INSERT INTO floor (number, description, building_id) VALUES
 
 -- Insert into Room
 INSERT INTO room (number, description, floor_id) VALUES
+-- Building A Rooms
 ('101', 'Room 101', 1),
 ('102', 'Room 102', 1),
-('201', 'Room 201', 1),
-('202', 'Room 202', 1),
-('101', 'Room 101', 2),
-('102', 'Room 102', 2),
+('103', 'Lobby', 1),
 ('201', 'Room 201', 2),
 ('202', 'Room 202', 2),
-('101', 'Room 101', 3),
-('102', 'Room 102', 3),
-('201', 'Room 201', 3),
-('202', 'Room 202', 3),
-('101', 'Room 101', 4),
-('102', 'Room 102', 4),
-('201', 'Room 201', 4),
-('202', 'Room 202', 4),
-('101', 'Room 101', 5),
-('102', 'Room 102', 5),
-('201', 'Room 201', 5),
-('202', 'Room 202', 5),
-('101', 'Room 101', 6),
-('102', 'Room 102', 6),
-('201', 'Room 201', 6),
-('202', 'Room 202', 6);
+('301', 'Room 301', 3),
+('302', 'Gym', 3),
+('R1', 'Roof Access', 1),
+
+-- Building B Rooms
+('401', 'Room 401', 4),
+('402', 'Room 402', 4),
+('403', 'Roof Access', 4),
+('501', 'Room 501', 5),
+('502', 'Room 502', 5),
+('601', 'Room 601', 6),
+('602', 'Gym', 6),
+('R2', 'Roof Access', 2),
+
+-- Building C Rooms
+('701', 'Room 701', 7),
+('702', 'Room 702', 7),
+('703', 'Lobby', 7),
+('801', 'Room 801', 8),
+('802', 'Room 802', 8),
+('901', 'Room 901', 9),
+('902', 'Room 902', 9),
+('R3', 'Roof Access', 3);
 
 -- Insert into Person
 INSERT INTO person (email, first_name, last_name, phone_number) VALUES
@@ -80,41 +85,59 @@ INSERT INTO card_scanner (serial_no, make, model, room_id) VALUES
 
 -- Insert into ControlGroup
 INSERT INTO control_group (name, description) VALUES
-('Control Group A', 'Description A'),
-('Control Group B', 'Description B'),
-('Control Group C', 'Description C'),
-('Control Group D', 'Description D'),
-('Control Group E', 'Description E'),
-('Control Group F', 'Description F'),
-('Control Group G', 'Description G'),
-('Control Group H', 'Description H'),
-('Control Group I', 'Description I'),
-('Control Group J', 'Description J');
+('Control Group A', 'Access to Room 101, Lobby, Gym'),
+('Control Group B', 'Access to Room 102, Roof, Room 201'),
+('Control Group C', 'Access to Room 201, Room 202, Gym'),
+('Control Group D', 'Access to Room 301, Roof, Room 401'),
+('Control Group E', 'Access to Room 501, Room 502, Lobby'),
+('Control Group F', 'Access to Room 601, Gym, Roof'),
+('Control Group G', 'Access to Room 701, Room 702, Roof'),
+('Control Group H', 'Access to Room 801, Room 802, Lobby'),
+('Control Group I', 'Access to Room 901, Room 902, Gym'),
+('Control Group J', 'Access to all rooms in Building C');
 
 -- Insert into AccessControl
 INSERT INTO access_control (description, scanner_id, room_id) VALUES
 ('Main Entrance Control', 1, 1),
-('Lobby Control', 2, 1),
-('Conference Room Control', 3, 2);
+('Lobby Control', 2, 3),
+('Conference Room Control', 3, 2),
+('Roof Access Control', 4, 3),
+('Gym Access Control', 5, 6),
+('Roof Access Control 2', 6, 4),
+('Gym Access Control 2', 7, 8),
+('Lobby Access Control 2', 8, 7);
 
 -- Insert into ControlGroupAccessControl
 INSERT INTO control_group_access_control (control_group_id, access_control_id) VALUES
 (1, 1),
-(2, 2),
-(3, 3);
+(1, 2),
+(1, 3),
+(2, 4),
+(2, 5),
+(3, 6),
+(3, 7),
+(3, 8),
+(4, 1),
+(4, 2),
+(4, 3),
+(5, 4),
+(5, 5),
+(6, 6),
+(6, 7),
+(7, 8);
 
 -- Insert into ControlGroupPerson
 INSERT INTO control_group_person (control_group_id, person_id, start_date, expiration_date) VALUES
 (1, 1, '2024-01-01', '2025-01-01'),
-(2, 2, '2024-02-01', '2025-02-01'),
-(3, 3, '2024-03-01', '2025-03-01'),
-(4, 4, '2024-04-01', '2025-04-01'),
-(5, 5, '2024-05-01', '2025-05-01'),
-(6, 6, '2024-06-01', '2025-06-01'),
-(7, 7, '2024-07-01', '2025-07-01'),
-(8, 8, '2024-08-01', '2025-08-01'),
-(9, 9, '2024-09-01', '2025-09-01'),
-(10, 10, '2024-10-01', '2025-10-01');
+(1, 2, '2024-02-01', '2025-02-01'),
+(1, 3, '2024-03-01', '2025-03-01'),
+(2, 4, '2024-04-01', '2025-04-01'),
+(2, 5, '2024-05-01', '2025-05-01'),
+(2, 6, '2024-06-01', '2025-06-01'),
+(3, 7, '2024-07-01', '2025-07-01'),
+(3, 8, '2024-08-01', '2025-08-01'),
+(3, 9, '2024-09-01', '2025-09-01'),
+(4, 10, '2024-10-01', '2025-10-01');
 
 -- Insert into AccessLog
 INSERT INTO access_log (scanner_id, person_id, access_time) VALUES
