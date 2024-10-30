@@ -18,8 +18,6 @@ public class AccessControl {
   @Column(name = "access_control_id") // This should match your database column name
   private Long accessControlId;
 
-
-
   @Column(name = "description")
   private String description;
 

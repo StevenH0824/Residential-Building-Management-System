@@ -1,9 +1,17 @@
-<h3>Accessible Rooms for Person ID: {{ personId }}</h3>
-<ul>
-  <li *ngFor="let room of rooms" class="room-item">
-    {{ room.number }} - {{ room.description }}
-  </li>
-</ul>
+<h3>Accessible Rooms for Person ID: {{ person?.personId }}</h3>
+<div *ngIf="person">
+    <p>Name: {{ person.firstName }} {{ person.lastName }}</p>
+    <p>Email: {{ person.email }}</p>
+    <p>Phone: {{ person.phoneNumber }}</p>
+</div>
 
-<!-- Optional: Show a message if no rooms are accessible -->
+<ul>
+    <li *ngFor="let room of rooms" class="room-item">
+        Floor: {{ room.floorId }} - {{ room.floorDescription }} <br />
+    Room: {{ room.number }} - {{ room.description }} <br />
+    Building: {{ room.buildingId }} - {{room.buildingName}}
+    </li>
+  </ul>
+
+
 <div *ngIf="rooms.length === 0">No accessible rooms available.</div>

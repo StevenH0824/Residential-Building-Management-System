@@ -12,4 +12,5 @@ export class AccessService {
   getAccessibleRooms(personId: number): Observable<Room[]> {
     return this.apiService.get<Room[]>(`http://localhost:8080/api/persons/${personId}/spaces`);
   }
+
 }

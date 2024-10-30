@@ -22,6 +22,12 @@ export class BuildingsService {
     });
   }
 
+  getBuildingById(buildingId: number): Observable<Building> {
+    return this.apiService.get<Building>(`http://localhost:8080/api/buildings/${buildingId}`, {
+        responseType: 'json'
+    });
+}
+
   addBuilding(url: string, body: Building): Observable<Building> {
     return this.apiService.post<Building>(url, body, {});
   }
