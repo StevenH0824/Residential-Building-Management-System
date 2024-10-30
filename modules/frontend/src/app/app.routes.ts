@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FloorListComponent } from './components/floor-list/floor-list.component';
 import { PersonComponent } from './components/person/person.component';
 import { AccessibleRoomsComponent } from './components/accessible-rooms/accessible-rooms.component';
+import { AccesslogComponent } from './components/accesslog/accesslog.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '', pathMatch: 'full' }, // Redirect empty path to /home
@@ -11,6 +12,7 @@ export const routes: Routes = [
     { path: 'floors/:buildingId', component: FloorListComponent },
     { path: 'person', component: PersonComponent },
     { path: 'person/:id/spaces', component: AccessibleRoomsComponent },
+    { path: 'accesslog', component: AccesslogComponent },
     { path: '**', redirectTo: 'home', pathMatch: 'full' }, // Redirect any undefined route to /home
 ];
 

@@ -15,26 +15,21 @@ import java.util.List;
 
 @Service
 public class RoomService {
-  private final RoomRepository apartmentRepository;
+  private final RoomRepository roomRepository;
   private final FloorRepository floorRepository;
   private final ModelMapper modelMapper;
 
   @Autowired
-  public RoomService(RoomRepository apartmentRepository, FloorRepository floorRepository, ModelMapper modelMapper) {
-    this.apartmentRepository = apartmentRepository;
+  public RoomService(RoomRepository roomRepository, FloorRepository floorRepository, ModelMapper modelMapper) {
+    this.roomRepository = roomRepository;
     this.floorRepository = floorRepository;
     this.modelMapper = modelMapper;
   }
 
-//  public List<RoomResponseDTO> getAllRooms() {
-//    return apartmentRepository.findAll();
-//  }
-
-
   @Transactional
   public RoomResponseDTO getRoomById(Long Id) {
 
-    Room roomEntity = apartmentRepository.findByRoomId(Id);
+    Room roomEntity = roomRepository.findByRoomId(Id);
     assert roomEntity != null;
     return new RoomResponseDTO(roomEntity.getRoomId(), roomEntity.getDescription(), roomEntity.getNumber(), roomEntity.getFloor().getFloorId(), roomEntity.getFloor().getDescription()
     );
@@ -42,7 +37,7 @@ public class RoomService {
 
   @Transactional
   public List<RoomResponseDTO> getRoomByNumber(String Number) {
-    List<Room> roomEntity = apartmentRepository.findByNumber(Number);
+    List<Room> roomEntity = roomRepository.findByNumber(Number);
     assert roomEntity != null;
     List<RoomResponseDTO> responseDTOs = new ArrayList<>();
     for (Room entity : roomEntity) {
@@ -63,7 +58,7 @@ public class RoomService {
 
   @Transactional
   public List<RoomResponseDTO> getRoomByDescription(String Description) {
-    List<Room> roomEntity = apartmentRepository.findByDescription(Description);
+    List<Room> roomEntity = roomRepository.findByDescription(Description);
     assert roomEntity != null;
     List<RoomResponseDTO> responseDTOs = new ArrayList<>();
     for (Room entity : roomEntity) {
@@ -77,17 +72,14 @@ public class RoomService {
       );
       responseDTOs.add(dto);
     }
-
     return responseDTOs;
   }
-
-
 
 
   @Transactional
   public List<RoomResponseDTO> getRoomByFloorId(Long Id) {
     Floor floor = floorRepository.findByFloorId(Id);
-    List<Room> roomEntity = apartmentRepository.findByFloor(floor);
+    List<Room> roomEntity = roomRepository.findByFloor(floor);
     assert roomEntity != null;
     List<RoomResponseDTO> responseDTOs = new ArrayList<>();
     for (Room entity : roomEntity) {
@@ -99,17 +91,8 @@ public class RoomService {
         entity.getFloor().getDescription()
 
       );
-         responseDTOs.add(dto);
-     }
-
-      return responseDTOs;
-
-
-//    return roomEntity.stream().map(room -> modelMapper.map(room, RoomResponseDTO.class)).collect(Collectors.toList());
+      responseDTOs.add(dto);
+    }
+    return responseDTOs;
   }
-//    Room roomEntity = apartmentRepository.findByFloor(floor);
-//    assert roomEntity != null;
-//    return new RoomResponseDTO(roomEntity.getRoomId(),roomEntity.getNumber(),roomEntity.getDescription(), roomEntity.getFloor().getFloorId(), roomEntity.getFloor().getDescription());
-//    return modelMapper.map(roomEntity, RoomResponseDTO.class);
-
 }
