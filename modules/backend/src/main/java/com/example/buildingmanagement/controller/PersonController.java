@@ -1,5 +1,6 @@
 package com.example.buildingmanagement.controller;
 
+import com.example.buildingmanagement.dtos.PersonDTO;
 import com.example.buildingmanagement.dtos.RoomResponseDTO;
 import com.example.buildingmanagement.entities.Person;
 import com.example.buildingmanagement.entities.Room;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/persons")
-@CrossOrigin
+//@CrossOrigin(origins = "http://localhost:4200")
 public class PersonController {
 
   @Autowired
@@ -77,6 +78,14 @@ public class PersonController {
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
+  }
+  @PutMapping("/{id}")
+  public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody PersonDTO request) {
+    Optional<Person> updatedPerson = personService.updatePerson(id, request);
+    if (updatedPerson.isEmpty()) {
+      return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(updatedPerson.get());
   }
 }
 
