@@ -23,7 +23,6 @@ public class ControlGroupPersonService {
   private ControlGroupPersonRepository controlGroupPersonRepository;
 
   public List<RoomResponseDTO> getAccessibleRoomsByPersonId(Long personId) {
-    // Fetch ControlGroupPersons by personId
     List<ControlGroupPerson> controlGroupPersons = controlGroupPersonRepository.findByPerson_PersonId(personId);
 
     if (controlGroupPersons.isEmpty()) {
@@ -42,13 +41,28 @@ public class ControlGroupPersonService {
       })
       .filter(Objects::nonNull)
       .distinct()
-      .map(room -> new RoomResponseDTO(
-        room.getRoomId(),
-        room.getNumber(),
-        room.getDescription(),
-        room.getFloor() != null ? room.getFloor().getFloorId() : null, // Assuming Room has a getFloor method
-        room.getFloor() != null ? room.getFloor().getDescription() : null // Assuming Floor has a getDescription method
-      ))
+      .map(room -> {
+        Long floorId = room.getFloor() != null ? room.getFloor().getFloorId() : null;
+        String floorDescription = room.getFloor() != null ? room.getFloor().getDescription() : null;
+
+        Long buildingId = room.getFloor() != null && room.getFloor().getBuilding() != null
+          ? room.getFloor().getBuilding().getBuildingId() : null;
+        String buildingName = room.getFloor() != null && room.getFloor().getBuilding() != null
+          ? room.getFloor().getBuilding().getName() : null;
+        String buildingAddress = room.getFloor() != null && room.getFloor().getBuilding() != null
+          ? room.getFloor().getBuilding().getAddress() : null;
+
+        return new RoomResponseDTO(
+          room.getRoomId(),
+          room.getNumber(),
+          room.getDescription(),
+          floorId,
+          floorDescription,
+          buildingId,
+          buildingName,
+          buildingAddress
+        );
+      })
       .collect(Collectors.toList());
   }
 }

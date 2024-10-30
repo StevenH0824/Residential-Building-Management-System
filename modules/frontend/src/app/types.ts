@@ -36,16 +36,16 @@ export interface Building {
     floors?: Floor[];
 }
 
-export interface Room {
-    roomId: number;
-    number: string;
-    description: string;
-    floorId: number;
-    floorDescription?: string;
-    buildingId?: number;
-    buildingName?: string;
-    buildingAddress?: string;
-}
+    export interface Room {
+        roomId: number;
+        roomNumber: string;
+        roomDescription: string;
+        floorId: number;
+        floorDescription: string;
+        buildingId: number;
+        buildingName: string;
+        buildingAddress: string;
+    }
 
 export interface Floor {
     floorId?: number;

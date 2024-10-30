@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Building, Floor, Person, Room } from '../../types';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AccessService } from '../../services/access.service';
 import { CommonModule } from '@angular/common';
 import { PersonService,  } from '../../services/person.service';
@@ -10,7 +10,7 @@ import { FloorsService } from '../../services/floors.service';
 @Component({
   selector: 'app-accessible-rooms',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './accessible-rooms.component.html',
   styleUrl: './accessible-rooms.component.css',
   template: `
@@ -30,6 +30,7 @@ export class AccessibleRoomsComponent {
   person: Person | null = null;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute, 
     private accessService: AccessService,
     private personService: PersonService,
@@ -43,6 +44,9 @@ export class AccessibleRoomsComponent {
     this.fetchPersonDetails(); // Fetch person details first
   }
 
+  goBack() {
+    this.router.navigate(['/person']); 
+}
   fetchPersonDetails() {
     this.personService.getPersonById(this.personId).subscribe(
       (person: Person) => {
@@ -60,46 +64,46 @@ export class AccessibleRoomsComponent {
   fetchAccessibleRooms() {
     this.accessService.getAccessibleRooms(this.personId).subscribe(
       (rooms: Room[]) => {
-          this.rooms = rooms;
-
-          // Fetch floor and building details for each room
-          this.rooms.forEach(room => {
-              this.fetchFloorDetails(room);
-          });
+        this.rooms = rooms;
+        console.log('Fetched rooms:', this.rooms); 
+        this.rooms.forEach(room => {
+          this.fetchFloorDetails(room);
+        });
       },
       (error) => {
-          console.error('Error fetching rooms:', error);
+        console.error('Error fetching rooms:', error);
       }
-  );
+    );
 }
 
 fetchFloorDetails(room: Room) {
   if (room.floorId) {
     this.floorsService.getFloorsByBuildingId(room.floorId).subscribe(
-        (floors: Floor[]) => {
-            const floor = floors.find(f => f.floorId === room.floorId);
-            if (floor) {
-                room.floorDescription = floor.description; // Update room with floor description
-                if (floor.building && floor.building.buildingId) {
-                    this.buildingsService.getBuildingById(floor.building.buildingId).subscribe(
-                        (building: Building) => {
-                          room.buildingId = building.buildingId; 
-                          room.buildingName = building.name; 
-                            room.buildingAddress = building.address; 
-                        },
-                        (error) => {
-                            console.error('Error fetching building:', error);
-                        }
-                    );
-                }
-            }
-        },
-        (error) => {
-            console.error('Error fetching floor details:', error);
+      (floors: Floor[]) => {
+        const floor = floors.find(f => f.floorId === room.floorId);
+        if (floor) {
+          room.floorDescription = floor.description; // Update room with floor description
+          
+          if (floor.building && floor.building.buildingId) {
+            this.buildingsService.getBuildingById(floor.building.buildingId).subscribe(
+              (building: Building) => {
+                room.buildingId = building.buildingId!;
+                room.buildingName = building.name;
+                room.buildingAddress = building.address;
+              },
+              (error) => {
+                console.error('Error fetching building:', error);
+              }
+            );
+          }
         }
+      },
+      (error) => {
+        console.error('Error fetching floor details:', error);
+      }
     );
-} else {
+  } else {
     console.warn('Room floorId is undefined:', room);
-}
+  }
 }
 }

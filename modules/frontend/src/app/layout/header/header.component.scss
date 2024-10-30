@@ -40,6 +40,7 @@ header {
 
 .desktop_menu {
   margin-top: 24px;
+  z-index: 2;
 }
 
 .desktop_menu ul {
@@ -90,6 +91,8 @@ header {
       background: #02534d;
       width: 280px;
       height: 100%;
+      margin-top:24px;
+      z-index: 2;
   }
 
   .desktop_menu ul li {

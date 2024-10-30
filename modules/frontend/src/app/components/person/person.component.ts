@@ -6,7 +6,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { TruncateNamePipe } from '../../pipes/truncate-name.pipe';
 import { Component, EventEmitter, Input, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { Building, EditEntity, Person } from '../../types';
+import { EditEntity, Person } from '../../types';
 import { PersonService } from '../../services/person.service';
 import { HttpClient } from '@angular/common/http';
 import { ConfirmationService } from 'primeng/api';
@@ -43,7 +43,6 @@ export class PersonComponent {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private personService: PersonService,
     private http: HttpClient,
     private confirmationService: ConfirmationService,
