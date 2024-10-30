@@ -11,7 +11,7 @@ import lombok.*;
 @Entity
 public class ControlGroupAccessControl {
 
-  @EmbeddedId // Use EmbeddedId for composite key
+  @EmbeddedId
   private ControlGroupAccessControlId id;
 
   @ManyToOne(fetch = FetchType.LAZY)

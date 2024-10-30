@@ -40,14 +40,18 @@ import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
         roomId: number;
         number: string;
         description: string;
-        floor: Floor
+        floorId: number; 
+        floorDescription?: string;    
+        buildingId?: number;
+        buildingName?: string; 
+        buildingAddress?: string;
     }
 
     export interface Floor {
         floorId?: number;
         number: string;
         description: string;
-        buildingId: Building[];
+        building: Building;
         roomIds: Room[];
     }
 

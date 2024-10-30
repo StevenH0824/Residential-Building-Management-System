@@ -17,8 +17,8 @@ export class PersonService {
   }
 
 
-  getPersonsByPersonId(personId: number): Observable<Person[]> {
-    return this.apiService.get<Person[]>(`http://localhost:8080/api/persons/by-person?personId=${personId}`, {
+  getPersonById(personId: number): Observable<Person> {
+    return this.apiService.get<Person>(`http://localhost:8080/api/persons/by-person?personId=${personId}`, {
         responseType: 'json'
     });
   }

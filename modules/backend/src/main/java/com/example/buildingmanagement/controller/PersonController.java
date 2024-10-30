@@ -31,9 +31,9 @@ public class PersonController {
     List <Person> person = personService.getAllPersons();
     return person;
   }
-  @GetMapping("/{id}")
-  public Optional<Person> getPersonByID(@PathVariable Long id) {
-    Optional<Person> person = personService.getPersonById(id);
+  @GetMapping("/by-person")
+  public Optional<Person> getPersonByID(@RequestParam Long personId) {
+    Optional<Person> person = personService.getPersonById(personId);
     return person;
   }
   @GetMapping("/searchnum/{phoneNumber}")
