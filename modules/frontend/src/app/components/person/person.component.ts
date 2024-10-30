@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { TruncateNamePipe } from '../../pipes/truncate-name.pipe';
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Building, EditEntity, Person } from '../../types';
 import { PersonService } from '../../services/person.service';
 import { HttpClient } from '@angular/common/http';
@@ -17,7 +17,7 @@ import { DialogModule } from 'primeng/dialog';
 @Component({
   selector: 'app-person',
   standalone: true,
-  imports: [RouterModule, FormsModule, ButtonModule, ConfirmPopupModule, ToastModule, TruncateNamePipe, NgFor, CommonModule, EditPopupComponent,DialogModule],
+  imports: [RouterModule, FormsModule, ButtonModule, ConfirmPopupModule, ToastModule, TruncateNamePipe, NgFor, CommonModule, EditPopupComponent, DialogModule],
   templateUrl: './person.component.html',
   styleUrls: ['./person.component.css'],
   providers: [ConfirmationService]
@@ -33,7 +33,7 @@ export class PersonComponent {
   page: number = 1;
   perPage: number = 10;
 
-  @Input() menuValue: boolean = false; 
+  @Input() menuValue: boolean = false;
   @Input() person!: Person;
   @ViewChild('deleteButton') deleteButton: any;
 
@@ -41,7 +41,14 @@ export class PersonComponent {
   @Output() delete: EventEmitter<Person> = new EventEmitter<Person>();
   editPopup: { display: boolean } = { display: false }; // Initialize editPopup
 
-  constructor(private router: Router, private route: ActivatedRoute, private personService: PersonService, private http: HttpClient, private confirmationService: ConfirmationService) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private personService: PersonService,
+    private http: HttpClient,
+    private confirmationService: ConfirmationService,
+    private cd: ChangeDetectorRef // Inject ChangeDetectorRef
+  ) { }
 
   startEdit(person: Person) {
     this.selectedPerson = person; // Set the selected person for editing
@@ -51,13 +58,15 @@ export class PersonComponent {
   // Updated savePerson to handle both Person and Building
   savePerson(editedEntity: EditEntity) {
     if ((editedEntity as Person).personId !== undefined) {
-      // Handle as Person
       this.personService.editPerson(editedEntity as Person).subscribe({
         next: (updatedPerson) => {
           const index = this.persons.findIndex(p => p.personId === updatedPerson.personId);
           if (index !== -1) {
             this.persons[index] = updatedPerson;
-            this.filteredPersons[index] = updatedPerson;
+            this.filteredPersons[index] = updatedPerson; // Ensure you also update filteredPersons
+            this.cd.detectChanges(); // Ensure change detection runs
+          } else {
+            console.warn('Person not found in the list:', updatedPerson);
           }
           this.resetSelectedPerson();
         },
@@ -116,9 +125,11 @@ export class PersonComponent {
       return;
     }
 
-    this.http.post<Person>('http://localhost:8080/api/persons', this.newPerson).subscribe({
+    this.http.post<Person>('http://localhost:8080/api/persons', this.newPerson)
+    .subscribe({
       next: (person) => {
         this.persons.push(person);
+        this.filteredPersons.push(person); // Update filteredPersons as well
         this.total++;
         this.resetNewPerson();
       },
@@ -169,11 +180,10 @@ export class PersonComponent {
     });
   }
 
-  viewPerson(person: Person){
+  viewPerson(person: Person) {
     console.log('Person object:', person);
-    this.router.navigate(['/person/', person.personId, 'spaces']); 
+    this.router.navigate(['/person/', person.personId, 'spaces']);
   }
-
 
   ngOnInit() {
     this.fetchPersons(this.page, this.perPage);
