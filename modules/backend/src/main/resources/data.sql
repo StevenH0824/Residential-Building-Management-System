@@ -6,18 +6,24 @@ INSERT INTO building (name, address) VALUES
 
 -- Insert into Floor, referencing the correct building_id values from the building table
 INSERT INTO floor (number, description, building_id) VALUES
-('1', 'First Floor', 1),
+('1', 'First Floor - Front Door', 1),
+('1', 'First Floor - Rear Door', 1),
 ('2', 'Second Floor', 1),
 ('3', 'Third Floor', 1),
 ('4', 'Fourth Floor', 1),
-('1', 'First Floor', 2),
+('R', 'Roof', 1),
+('1', 'First Floor - Front Door', 2),
+('1', 'First Floor - Rear Door', 2),
 ('2', 'Second Floor', 2),
-('1', 'First Floor', 3),
+('R', 'Roof', 2),
+('1', 'First Floor - Front Door', 3),
+('1', 'First Floor - Rear Door', 3),
 ('2', 'Second Floor', 3),
 ('3', 'Third Floor', 3),
 ('4', 'Fourth Floor', 3),
 ('5', 'Fifth Floor', 3),
-('6', 'Sixth Floor', 3);
+('6', 'Sixth Floor', 3),
+('R', 'Roof', 3);
 
 -- Insert into Room
 INSERT INTO room (number, description, floor_id) VALUES
@@ -48,16 +54,16 @@ INSERT INTO room (number, description, floor_id) VALUES
 
 -- Insert into Person
 INSERT INTO person (email, first_name, last_name, phone_number) VALUES
-('john.doe@example.com', 'John', 'Doe', '1234567890'),
-('jane.doe@example.com', 'Jane', 'Doe', '1234567891'),
-('mark.smith@example.com', 'Mark', 'Smith', '1234567892'),
-('emma.jones@example.com', 'Emma', 'Jones', '1234567893'),
-('peter.parker@example.com', 'Peter', 'Parker', '1234567894'),
-('bruce.wayne@example.com', 'Bruce', 'Wayne', '1234567895'),
-('clark.kent@example.com', 'Clark', 'Kent', '1234567896'),
-('diana.prince@example.com', 'Diana', 'Prince', '1234567897'),
-('tony.stark@example.com', 'Tony', 'Stark', '1234567898'),
-('steve.rogers@example.com', 'Steve', 'Rogers', '1234567899');
+('tony.stark@marvel.com', 'Tony', 'Stark', '9876543210'),
+('steve.rogers@marvel.com', 'Steve', 'Rogers', '9876543211'),
+('natasha.romanoff@marvel.com', 'Natasha', 'Romanoff', '9876543212'),
+('bruce.banner@marvel.com', 'Bruce', 'Banner', '9876543213'),
+('thor.odinson@marvel.com', 'Thor', 'Odinson', '9876543214'),
+('peter.parker@marvel.com', 'Peter', 'Parker', '9876543215'),
+('wanda.maximoff@marvel.com', 'Wanda', 'Maximoff', '9876543216'),
+('clint.barton@marvel.com', 'Clint', 'Barton', '9876543217'),
+('stephen.strange@marvel.com', 'Stephen', 'Strange', '9876543218'),
+('carol.danvers@marvel.com', 'Carol', 'Danvers', '9876543219');
 
 -- Insert into CardScanner
 INSERT INTO card_scanner (serial_no, make, model, room_id) VALUES
