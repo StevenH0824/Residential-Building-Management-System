@@ -10,9 +10,7 @@ export class RoomsService {
 
   constructor(private apiService: ApiService) { }
 
-  getBuildings(url: string): Observable<Room[]> {
-      return this.apiService.get(url, {
-          responseType: 'json',
-      });
-  }
+  getRoomsWithBuilding(url: string): Observable<Room[]> {
+    return this.apiService.get(url, { responseType: 'json' });
+}
 }

@@ -56,7 +56,15 @@ public class RoomController {
     }
   }
 
-
+  @GetMapping("/with-building-info")
+  public ResponseEntity<List<RoomResponseDTO>> getRoomsWithBuildingInfo() {
+    try {
+      List<RoomResponseDTO> rooms = roomService.getRoomsWithBuildingInfo();
+      return ResponseEntity.ok(rooms);
+    } catch (ResponseStatusException ex) {
+      return ResponseEntity.status(ex.getStatusCode()).body(null);
+    }
+  }
 
 }
 

@@ -11,8 +11,13 @@ import lombok.Setter;
 @Setter
 public class RoomResponseDTO {
   private Long roomId;
-  private String number;
-  private String description;
+  private String roomNumber;
+  private String roomDescription;
   private Long floorId;
   private String floorDescription;
-  }
+  private Long buildingId;
+  private String buildingName;
+  private String buildingAddress;
+
+
+}

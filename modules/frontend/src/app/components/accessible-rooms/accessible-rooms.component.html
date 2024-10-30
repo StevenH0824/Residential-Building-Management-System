@@ -1,17 +1,36 @@
-<h3>Accessible Rooms for Person ID: {{ person?.personId }}</h3>
-<div *ngIf="person">
-    <p>Name: {{ person.firstName }} {{ person.lastName }}</p>
-    <p>Email: {{ person.email }}</p>
-    <p>Phone: {{ person.phoneNumber }}</p>
+<div class="accessible-rooms">
+    <h3>Accessible Rooms for Person ID: {{ person?.personId }}</h3>
+
+    <div *ngIf="person" class="person-info">
+        <p><strong>Name:</strong> {{ person.firstName }} {{ person.lastName }}</p>
+        <p><strong>Email:</strong> {{ person.email }}</p>
+        <p><strong>Phone:</strong> {{ person.phoneNumber }}</p>
+    </div>
+
+    <button (click)="goBack()" class="back-button">Back</button>
+
+    <table class="room-table">
+        <thead>
+            <tr>
+                <th>Floor</th>
+                <th>Room Number</th>
+                <th>Description</th>
+                <th>Building Name</th>
+                <th>Building ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let room of rooms" class="room-item">
+                <td>{{ room.floorDescription }}</td>
+                <td>{{ room.roomNumber }}</td>
+                <td>{{ room.roomDescription }}</td>
+                <td>{{ room.buildingName }}</td>
+                <td>{{ room.buildingId }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="rooms.length === 0" class="no-rooms">
+        <p>No accessible rooms available.</p>
+    </div>
 </div>
-
-<ul>
-    <li *ngFor="let room of rooms" class="room-item">
-        Floor: {{ room.floorId }} - {{ room.floorDescription }} <br />
-    Room: {{ room.number }} - {{ room.description }} <br />
-    Building: {{ room.buildingId }} - {{room.buildingName}}
-    </li>
-  </ul>
-
-
-<div *ngIf="rooms.length === 0">No accessible rooms available.</div>

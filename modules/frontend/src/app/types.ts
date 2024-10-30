@@ -38,13 +38,13 @@ export type EditEntity = Person | Building;
 
     export interface Room {
         roomId: number;
-        number: string;
-        description: string;
+        roomNumber: string;
+        roomDescription: string;
         floorId: number;
-        floorDescription?: string;
-        buildingId?: number;
-        buildingName?: string;
-        buildingAddress?: string;
+        floorDescription: string;
+        buildingId: number;
+        buildingName: string;
+        buildingAddress: string;
     }
 
     export interface Floor {

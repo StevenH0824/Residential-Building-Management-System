@@ -6,18 +6,18 @@ INSERT INTO building (name, address) VALUES
 
 -- Insert into Floor, referencing the correct building_id values from the building table
 INSERT INTO floor (number, description, building_id) VALUES
-('1', 'First Floor - Front Door', 1),
-('1', 'First Floor - Rear Door', 1),
+('1', 'First Floor', 1),
+('1A', 'First Floor', 1),
 ('2', 'Second Floor', 1),
 ('3', 'Third Floor', 1),
 ('4', 'Fourth Floor', 1),
 ('R', 'Roof', 1),
-('1', 'First Floor - Front Door', 2),
-('1', 'First Floor - Rear Door', 2),
+('1', 'First Floor', 2),
+('1', 'First Floor ', 2),
 ('2', 'Second Floor', 2),
 ('R', 'Roof', 2),
-('1', 'First Floor - Front Door', 3),
-('1', 'First Floor - Rear Door', 3),
+('1', 'First Floor', 3),
+('1', 'First Floor', 3),
 ('2', 'Second Floor', 3),
 ('3', 'Third Floor', 3),
 ('4', 'Fourth Floor', 3),
@@ -35,7 +35,7 @@ INSERT INTO room (number, description, floor_id) VALUES
 ('202', 'Room 202', 2),
 ('301', 'Room 301', 3),
 ('302', 'Gym', 3),
-('R1', 'Roof Access', 1),
+('R1', 'Roof Access', 6),
 
 -- Building B Rooms
 ('401', 'Room 401', 4),
@@ -85,16 +85,16 @@ INSERT INTO card_scanner (serial_no, make, model, room_id) VALUES
 
 -- Insert into ControlGroup
 INSERT INTO control_group (name, description) VALUES
-('Control Group A', 'Access to Room 101, Lobby, Gym'),
-('Control Group B', 'Access to Room 102, Roof, Room 201'),
-('Control Group C', 'Access to Room 201, Room 202, Gym'),
-('Control Group D', 'Access to Room 301, Roof, Room 401'),
-('Control Group E', 'Access to Room 501, Room 502, Lobby'),
-('Control Group F', 'Access to Room 601, Gym, Roof'),
-('Control Group G', 'Access to Room 701, Room 702, Roof'),
-('Control Group H', 'Access to Room 801, Room 802, Lobby'),
-('Control Group I', 'Access to Room 901, Room 902, Gym'),
-('Control Group J', 'Access to all rooms in Building C');
+('Control Group A', 'Access to Second Floor'),
+('Control Group B', 'Access to Second Floor, Roof, Access to Room 201'),
+('Control Group C', 'Access to Second Floor, Third Floor, Gym'),
+('Control Group D', 'Access to Third Floor, Roof, Fourth Floor'),
+('Control Group E', 'Access to Fifth Floor, Lobby'),
+('Control Group F', 'Access to Sixth Floor, Gym, Roof'),
+('Control Group G', 'Access to Seventh Floor, Roof'),
+('Control Group H', 'Access to Eighth Floor, Lobby'),
+('Control Group I', 'Access to Ninth Floor, Gym'),
+('Control Group J', 'Access to all floors in Building C');
 
 -- Insert into AccessControl
 INSERT INTO access_control (description, scanner_id, room_id) VALUES
@@ -129,8 +129,8 @@ INSERT INTO control_group_access_control (control_group_id, access_control_id) V
 -- Insert into ControlGroupPerson
 INSERT INTO control_group_person (control_group_id, person_id, start_date, expiration_date) VALUES
 (1, 1, '2024-01-01', '2025-01-01'),
-(1, 2, '2024-02-01', '2025-02-01'),
-(1, 3, '2024-03-01', '2025-03-01'),
+(2, 2, '2024-02-01', '2025-02-01'),
+(3, 3, '2024-03-01', '2025-03-01'),
 (2, 4, '2024-04-01', '2025-04-01'),
 (2, 5, '2024-05-01', '2025-05-01'),
 (2, 6, '2024-06-01', '2025-06-01'),
