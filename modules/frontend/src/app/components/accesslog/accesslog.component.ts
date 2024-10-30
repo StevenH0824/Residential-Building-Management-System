@@ -22,18 +22,16 @@ import { AccessLog } from '../../types';
   ],
   providers: [ConfirmationService],
   templateUrl: './accesslog.component.html',
-  styleUrls: ['./accesslog.component.css'], // Fixed 'styleUrl' to 'styleUrls'
+  styleUrls: ['./accesslog.component.css'],
 })
 export class AccesslogComponent implements OnInit {
   newAccessLog: AccessLog = { cardScannerId: 0, badgeId: 0, timestamp: '' };
   accesslogs: AccessLog[] = [];
   total: number = 0;
-  page: number = 1;
-  perPage: number = 10;
 
   constructor(
     private confirmationService: ConfirmationService,
-    private http: HttpClient // Inject HttpClient for HTTP requests
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +49,6 @@ export class AccesslogComponent implements OnInit {
     this.http.post<AccessLog>('/api/accesslog/log', this.newAccessLog).subscribe(response => {
       if (response) {
         this.accesslogs.push(response); // Add new access log to the list
-        this.showSuccessToast('Access logged successfully!');
         this.resetNewAccessLog(); // Reset form
       }
     });
@@ -63,7 +60,6 @@ export class AccesslogComponent implements OnInit {
       accept: () => {
         this.http.delete(`/api/accesslog/${id}`).subscribe(() => {
           this.accesslogs = this.accesslogs.filter(log => log.accessLogId !== id); // Remove log from array
-          this.showSuccessToast('Access log deleted successfully!');
         });
       }
     });
@@ -73,8 +69,4 @@ export class AccesslogComponent implements OnInit {
     this.newAccessLog = { cardScannerId: 0, badgeId: 0, timestamp: '' }; // Reset form fields
   }
 
-  showSuccessToast(message: string): void {
-    // Implementation for displaying success toast using PrimeNG's Toast component
-    // Example: this.toastService.add({ severity: 'success', summary: 'Success', detail: message });
-  }
 }
