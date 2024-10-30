@@ -19,6 +19,11 @@ public class AccessControlController {
     this.accessControlService = accessControlService;
   }
 
+  @GetMapping
+  public List<AccessControl> getAllAccessControls() {
+    return accessControlService.getAllAccessControls();
+  }
+
   @GetMapping("/{id}")
   public ResponseEntity<AccessControlResponseDTO> getAccessControlById(@PathVariable Long id) {
     AccessControl accessControl = accessControlService.getAccessControlById(id).orElse(null);

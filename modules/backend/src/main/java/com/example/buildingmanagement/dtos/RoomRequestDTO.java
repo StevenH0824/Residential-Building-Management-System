@@ -11,8 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class RoomDTO {
-
+public class RoomRequestDTO {
   private Long roomId;
   private String number;
   private String description;

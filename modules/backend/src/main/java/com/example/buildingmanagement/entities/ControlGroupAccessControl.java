@@ -1,10 +1,7 @@
 package com.example.buildingmanagement.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.io.Serializable;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,16 +9,19 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@IdClass(ControlGroupAccessControlId.class)
-public class ControlGroupAccessControl implements Serializable {
+public class ControlGroupAccessControl {
 
-  @Id
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "control_group_id", nullable = false)
+  @EmbeddedId // Use EmbeddedId for composite key
+  private ControlGroupAccessControlId id;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @MapsId("controlGroupId") // Maps the embedded ID to ControlGroup
+  @JoinColumn(name = "control_group_id", referencedColumnName = "controlGroupId", nullable = false)
   private ControlGroup controlGroup;
 
-  @Id
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "access_control_id", nullable = false)
+  @ManyToOne(fetch = FetchType.LAZY)
+  @MapsId("accessControlId") // Maps the embedded ID to AccessControl
+  @JoinColumn(name = "access_control_id", referencedColumnName = "access_control_id", nullable = false)
   private AccessControl accessControl;
+
 }

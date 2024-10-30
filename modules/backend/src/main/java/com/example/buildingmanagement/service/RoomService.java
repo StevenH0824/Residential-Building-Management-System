@@ -1,11 +1,7 @@
 package com.example.buildingmanagement.service;
 
-import com.example.buildingmanagement.dtos.MaintenanceResponseDTO;
-import com.example.buildingmanagement.dtos.RoomDTO;
 import com.example.buildingmanagement.dtos.RoomResponseDTO;
 import com.example.buildingmanagement.entities.Floor;
-import com.example.buildingmanagement.entities.MaintenanceRequest;
-import com.example.buildingmanagement.entities.Person;
 import com.example.buildingmanagement.entities.Room;
 import com.example.buildingmanagement.repository.FloorRepository;
 import com.example.buildingmanagement.repository.RoomRepository;
@@ -16,8 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class RoomService {
