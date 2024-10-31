@@ -1,40 +1,40 @@
 import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
 
-    export interface Options {
-        headers?: HttpHeaders | {
-            [header: string]: string | string[];
-        };
-        observe?: 'body';
-        context?: HttpContext;
-        params?: HttpParams | {
-            [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
-        };
-        reportProgress?: boolean;
-        responseType?: 'json';
-        withCredentials?: boolean;
-        transferCache?: {
-            includeHeaders?: string[];
-        } | boolean;
-    }
+export interface Options {
+    headers?: HttpHeaders | {
+        [header: string]: string | string[];
+    };
+    observe?: 'body';
+    context?: HttpContext;
+    params?: HttpParams | {
+        [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
+    };
+    reportProgress?: boolean;
+    responseType?: 'json';
+    withCredentials?: boolean;
+    transferCache?: {
+        includeHeaders?: string[];
+    } | boolean;
+}
 
 export type EditEntity = Person | Building;
 
 
 
-    export interface Buildings {
-        items: Building[];
-        total: number;
-        page: number;
-        perPage: number;
-        totalPages: number;
-      }
+export interface Buildings {
+    items: Building[];
+    total: number;
+    page: number;
+    perPage: number;
+    totalPages: number;
+}
 
-    export interface Building{
-        buildingId?: number;
-        name: string;
-        address: string;
-        floors?: Floor[];
-    }
+export interface Building {
+    buildingId?: number;
+    name: string;
+    address: string;
+    floors?: Floor[];
+}
 
     export interface Room {
         roomId: number;
@@ -47,13 +47,13 @@ export type EditEntity = Person | Building;
         buildingAddress: string;
     }
 
-    export interface Floor {
-        floorId?: number;
-        number: string;
-        description: string;
-        building: Building;
-        roomIds: Room[];
-    }
+export interface Floor {
+    floorId?: number;
+    number: string;
+    description: string;
+    building: Building;
+    roomIds: Room[];
+}
 
 export interface Person {
     personId: number;
@@ -103,4 +103,33 @@ export interface PaginatedAccessLogs {
     totalPages: number;
 }
 
+export interface MaintenanceRequest {
+    maintenanceRequestId?: number;
+    createdDate: string;
+    endDate?: string;
+    issue: string;
+    status: StatusType;
+    personId: number;
+    roomId: number;
+}
 
+export interface MaintenanceResponse {
+    maintenanceRequestId: number;
+    createdDate: string;
+    endDate?: string;
+    issue: string;
+    status: StatusType;
+    personFirstName: string;
+    personLastName: string;
+    roomNum: string;
+}
+
+export interface PaginatedMaintenanceRequests {
+    items: MaintenanceRequest[];
+    total: number;
+    page: number;
+    perPage: number;
+    totalPages: number;
+}
+
+export type StatusType = 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
