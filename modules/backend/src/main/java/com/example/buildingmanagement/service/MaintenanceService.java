@@ -1,16 +1,10 @@
 package com.example.buildingmanagement.service;
 
-
 import com.example.buildingmanagement.dtos.MaintenanceResponseDTO;
 import com.example.buildingmanagement.entities.Room;
 import com.example.buildingmanagement.enums.StatusType;
-import com.example.buildingmanagement.repository.CardScannerRepository;
 import com.example.buildingmanagement.repository.PersonRepository;
-import com.example.buildingmanagement.dtos.MaintenanceRequestDTO;
-//import com.example.buildingmanagement.entities.MaintenanceRequest;
-
 import com.example.buildingmanagement.entities.Person;
-
 import com.example.buildingmanagement.entities.MaintenanceRequest;
 import com.example.buildingmanagement.repository.MaintenanceRequestRepository;
 import com.example.buildingmanagement.repository.RoomRepository;
@@ -20,11 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -35,7 +27,10 @@ public class MaintenanceService {
   private final ModelMapper modelMapper;
 
   @Autowired
-  public MaintenanceService(MaintenanceRequestRepository maintenanceRequestRepository, PersonRepository personRepository, RoomRepository roomRepository, ModelMapper modelMapper) {
+  public MaintenanceService(MaintenanceRequestRepository maintenanceRequestRepository,
+                            PersonRepository personRepository,
+                            RoomRepository roomRepository,
+                            ModelMapper modelMapper) {
     this.maintenanceRequestRepository = maintenanceRequestRepository;
     this.personRepository = personRepository;
     this.roomRepository = roomRepository;
@@ -43,108 +38,74 @@ public class MaintenanceService {
   }
 
   public List<MaintenanceResponseDTO> getAllMaintenanceRequests() {
-    return maintenanceRequestRepository.findAll().stream()
-      .map(this::convertToResponseDTO)
-      .toList();
+    List<MaintenanceRequest> requests = maintenanceRequestRepository.findAll();
+    return requests.stream().map(this::convertToResponseDTO).collect(Collectors.toList());
   }
 
-  private MaintenanceResponseDTO convertToResponseDTO(MaintenanceRequest maintenanceRequest) {
+  private MaintenanceResponseDTO convertToResponseDTO(MaintenanceRequest request) {
     return new MaintenanceResponseDTO(
-      maintenanceRequest.getMaintenanceRequestId(),
-      maintenanceRequest.getCreatedDate(),
-      maintenanceRequest.getEndDate(),
-      maintenanceRequest.getIssue(),
-      maintenanceRequest.getStatus(),
-      maintenanceRequest.getPerson().getFirstName(),
-      maintenanceRequest.getPerson().getLastName(),
-      maintenanceRequest.getRoom().getNumber()
+      request.getMaintenanceRequestId(),
+      request.getCreatedDate(),
+      request.getEndDate(),
+      request.getIssue(),
+      request.getStatus().name(),
+      request.getRoom().getNumber(),
+      request.getRoom().getFloor().getDescription(),
+      request.getRoom().getFloor().getBuilding().getName(),
+      request.getPerson().getFirstName() + " " + request.getPerson().getLastName(),
+      request.getPerson().getPhoneNumber(),
+      request.getPerson().getPersonId(),
+      request.getRoom().getRoomId()
     );
   }
 
   @Transactional
-  public MaintenanceResponseDTO getMaintenanceRequestByPersonId(Long Id) {
-    Person person = personRepository.findByPersonId(Id);
+  public MaintenanceResponseDTO getMaintenanceRequestByPersonId(Long id) {
+    Person person = personRepository.findByPersonId(id);
     MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByPerson(person);
-    assert maintenanceEntity != null;
-    return modelMapper.map(maintenanceEntity, MaintenanceResponseDTO.class); //mapping getMaintenanceRequestByPersonId to responseDTO using modelMapper.
+    return convertToResponseDTO(maintenanceEntity);
   }
-
 
   @Transactional
-  public MaintenanceResponseDTO getMaintenanceRequestByMaintenanceId(Long Id) {
-    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByMaintenanceRequestId(Id);
-    assert maintenanceEntity != null;
-    return new MaintenanceResponseDTO(maintenanceEntity.getMaintenanceRequestId(),
-      maintenanceEntity.getCreatedDate(),
-      maintenanceEntity.getEndDate(),
-      maintenanceEntity.getIssue(),
-      maintenanceEntity.getStatus(),
-      maintenanceEntity.getPerson().getFirstName(),
-      maintenanceEntity.getPerson().getLastName(),
-      maintenanceEntity.getRoom().getNumber()
-    );
+  public MaintenanceResponseDTO getMaintenanceRequestByMaintenanceId(Long id) {
+    MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByMaintenanceRequestId(id);
+    return convertToResponseDTO(maintenanceEntity);
   }
-
 
   @Transactional
   public List<MaintenanceResponseDTO> getMaintenanceRequestByStatus(StatusType status) {
-    List<MaintenanceRequest> maintenanceEntity = maintenanceRequestRepository.findByStatus(status);
-    assert maintenanceEntity != null;
-    List<MaintenanceResponseDTO> responseDTOs = new ArrayList<>();
-    for (MaintenanceRequest entity : maintenanceEntity) {
-      MaintenanceResponseDTO dto = new MaintenanceResponseDTO(
-        entity.getMaintenanceRequestId(),
-        entity.getCreatedDate(),
-        entity.getEndDate(),
-        entity.getIssue(),
-        entity.getStatus(),
-        entity.getPerson().getFirstName(),
-        entity.getPerson().getLastName(),
-        entity.getRoom().getNumber()
-      );
-      responseDTOs.add(dto);
-    }
-    return responseDTOs;
+    List<MaintenanceRequest> maintenanceEntities = maintenanceRequestRepository.findByStatus(status);
+    return maintenanceEntities.stream().map(this::convertToResponseDTO).collect(Collectors.toList());
   }
 
   @Transactional
-  public MaintenanceResponseDTO getMaintenanceRequestByRoomId(Long Id) {
-    Room room = roomRepository.findByRoomId(Id);
+  public MaintenanceResponseDTO getMaintenanceRequestByRoomId(Long id) {
+    Room room = roomRepository.findByRoomId(id);
     MaintenanceRequest maintenanceEntity = maintenanceRequestRepository.findByRoom(room);
-    assert maintenanceEntity != null;
-    return modelMapper.map(maintenanceEntity, MaintenanceResponseDTO.class);
+    return convertToResponseDTO(maintenanceEntity);
   }
 
   @Transactional
   public Duration getAverageTimeToResolveIssue() {
     List<MaintenanceRequest> completedRequests = maintenanceRequestRepository.findByStatus(StatusType.DONE);
-
-    if (completedRequests.isEmpty()) {
-      return Duration.ZERO; // Or throw an exception if appropriate
-    }
-
-    long totalTime = 0;
-    for (MaintenanceRequest request : completedRequests) {
-      totalTime += ChronoUnit.SECONDS.between(request.getCreatedDate(), request.getEndDate());
-    }
-
-    return Duration.ofSeconds(totalTime / completedRequests.size());
+    return calculateAverageTime(completedRequests);
   }
 
   @Transactional
   public Duration getAverageTimeToDenyIssue() {
-    List<MaintenanceRequest> completedRequests = maintenanceRequestRepository.findByStatus(StatusType.DENIED);
-
-    if (completedRequests.isEmpty()) {
-      return Duration.ZERO; // Or throw an exception if appropriate
-    }
-
-    long totalTime = 0;
-    for (MaintenanceRequest request : completedRequests) {
-      totalTime += ChronoUnit.SECONDS.between(request.getCreatedDate(), request.getEndDate());
-    }
-
-    return Duration.ofSeconds(totalTime / completedRequests.size());
+    List<MaintenanceRequest> deniedRequests = maintenanceRequestRepository.findByStatus(StatusType.DENIED);
+    return calculateAverageTime(deniedRequests);
   }
 
+  private Duration calculateAverageTime(List<MaintenanceRequest> requests) {
+    if (requests.isEmpty()) {
+      return Duration.ZERO;
+    }
+
+    long totalTime = requests.stream()
+      .mapToLong(request -> ChronoUnit.SECONDS.between(request.getCreatedDate(), request.getEndDate()))
+      .sum();
+
+    return Duration.ofSeconds(totalTime / requests.size());
+  }
 }

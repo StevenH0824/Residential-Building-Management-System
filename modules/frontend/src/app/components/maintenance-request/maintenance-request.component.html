@@ -17,6 +17,7 @@
       <tr>
         <th>ID</th>
         <th>Created Date</th>
+        <th>End Date</th>
         <th>Issue</th>
         <th>Status</th>
         <th>Person ID</th>
@@ -28,6 +29,7 @@
       <tr *ngFor="let request of requests">
         <td>{{ request.maintenanceRequestId }}</td>
         <td>{{ request.createdDate | date: 'short' }}</td>
+        <td>{{ request.endDate | date: 'short' }}</td>
         <td>{{ request.issue }}</td>
         <td>{{ request.status }}</td>
         <td>{{ request.personFullName }}</td>

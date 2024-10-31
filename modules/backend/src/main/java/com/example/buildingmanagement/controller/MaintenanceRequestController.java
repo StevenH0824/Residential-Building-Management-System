@@ -15,13 +15,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/maintenanceRequest")
+@RequestMapping("/api/maintenance-requests")
 @CrossOrigin
 public class MaintenanceRequestController {
 
   private final MaintenanceService maintenanceService;
 
-  // Constructor-based dependency injection
   public MaintenanceRequestController(MaintenanceService maintenanceService) {
     this.maintenanceService = maintenanceService;
   }
