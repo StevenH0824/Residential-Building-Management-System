@@ -61,6 +61,9 @@ export class MaintenancerequestComponent implements OnInit {
   }
 
   createMaintenanceRequest(): void {
+    this.newMaintenanceRequest.createdDate = new Date(); 
+    this.newMaintenanceRequest.endDate = undefined; 
+  
     this.maintenanceRequestsService.createMaintenanceRequest(this.newMaintenanceRequest).subscribe(
       response => {
         if (response) {
@@ -114,11 +117,12 @@ export class MaintenancerequestComponent implements OnInit {
 
   resetNewMaintenanceRequest(): void {
     this.newMaintenanceRequest = {
-      issue: '',
-      status: 'PENDING' as StatusType,
-      createdDate: new Date(),
-      personId: 0,
-      roomId: 0,
+    issue: '',
+    status: 'PENDING' as StatusType,
+    createdDate: new Date(),
+    personId: 0,
+    roomId: 0,
+    endDate: null
     };
   }
 
@@ -128,6 +132,5 @@ export class MaintenancerequestComponent implements OnInit {
   }
 
   searchMaintenanceRequests(): void {
-    // Implement search functionality based on searchTerm if needed
   }
 }

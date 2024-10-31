@@ -1,10 +1,13 @@
 package com.example.buildingmanagement.controller;
 
+import com.example.buildingmanagement.dtos.MaintenanceRequestDTO;
 import com.example.buildingmanagement.dtos.MaintenanceResponseDTO;
+import com.example.buildingmanagement.entities.MaintenanceRequest;
 import com.example.buildingmanagement.entities.Person;
 import com.example.buildingmanagement.entities.Room;
 import com.example.buildingmanagement.enums.StatusType;
 import com.example.buildingmanagement.service.MaintenanceService;
+import com.example.buildingmanagement.service.PersonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +23,12 @@ import java.util.List;
 public class MaintenanceRequestController {
 
   private final MaintenanceService maintenanceService;
+  private final PersonService personService;
 
-  public MaintenanceRequestController(MaintenanceService maintenanceService) {
+
+  public MaintenanceRequestController(MaintenanceService maintenanceService, PersonService personService) {
     this.maintenanceService = maintenanceService;
+    this.personService = personService;
   }
 
   @GetMapping
@@ -87,5 +93,15 @@ public class MaintenanceRequestController {
     Duration averageTime = maintenanceService.getAverageTimeToDenyIssue();
     String formattedTime = String.format("\"%d hours\"", averageTime.toHours());
     return new ResponseEntity<>(formattedTime, HttpStatus.OK);
+  }
+
+  @PostMapping
+  public ResponseEntity<MaintenanceRequest> createMaintenanceRequest(@RequestBody MaintenanceRequestDTO dto) {
+    try {
+      MaintenanceRequest createdRequest = maintenanceService.createMaintenanceRequest(dto);
+      return new ResponseEntity<>(createdRequest, HttpStatus.CREATED);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
   }
 }
