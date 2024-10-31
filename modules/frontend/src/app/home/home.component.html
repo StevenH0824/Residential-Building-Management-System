@@ -9,6 +9,26 @@
     class="add-building-btn"
   ></button>
 
+  <!-- Edit Person Button -->
+  <button
+    type="button"
+    pButton
+    icon="pi pi-pencil"
+    (click)="toggleEditPopupPerson(selectedPerson)"
+    label="Edit Person"
+    [disabled]="!selectedPerson"
+  ></button>
+
+  <!-- Edit Maintenance Request Button -->
+  <button
+    type="button"
+    pButton
+    icon="pi pi-pencil"
+    (click)="toggleEditPopupMaintenance(selectedMaintenanceRequest)"
+    label="Edit Maintenance Request"
+    [disabled]="!selectedMaintenanceRequest"
+  ></button>
+
   <!-- Building Section -->
   <div class="row wrap gap-2 space-between">
     <app-building
@@ -35,5 +55,23 @@
     (confirm)="onConfirmAdd($event)"
     header="Add Building"
     [building]="selectedBuilding"
+  ></app-edit-popup>
+
+  <!-- Edit Person Popup -->
+  <app-edit-popup
+    [person]="selectedPerson"
+    [(display)]="displayEditPersonPopup"
+    (confirm)="onConfirmEdit($event)"
+    (cancel)="displayEditPersonPopup = false"
+    [header]="'Edit Person'"
+  ></app-edit-popup>
+
+  <!-- Edit Maintenance Popup -->
+  <app-edit-popup
+    [maintenanceRequest]="selectedMaintenanceRequest"
+    [(display)]="displayEditMaintenancePopup"
+    (confirm)="onConfirmEdit($event)"
+    (cancel)="displayEditMaintenancePopup = false"
+    [header]="'Edit Maintenance Request'"
   ></app-edit-popup>
 </div>

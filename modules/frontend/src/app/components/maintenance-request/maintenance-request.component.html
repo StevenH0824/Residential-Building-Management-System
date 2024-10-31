@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="search-container">
+    <input type="text" placeholder="Search" [(ngModel)]="searchTerm" (keydown.enter)="searchMaintenanceRequests()" />
+    <button type="button" pButton icon="pi pi-search" (click)="searchMaintenanceRequests()" label="Search"></button>
+  </div>
+
+  <div class="add-maintenance-container">
+    <h3>Add New Maintenance Request</h3>
+    <input [(ngModel)]="newMaintenanceRequest.issue" placeholder="Issue" />
+    <input type="number" [(ngModel)]="newMaintenanceRequest.personId" placeholder="Person ID" />
+    <input type="number" [(ngModel)]="newMaintenanceRequest.roomId" placeholder="Room ID" />
+    <button type="button" pButton icon="pi pi-plus" (click)="createMaintenanceRequest()" label="Add"></button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Created Date</th>
+        <th>End Date</th>
+        <th>Issue</th>
+        <th>Status</th>
+        <th>Person ID</th>
+        <th>Room ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of requests">
+        <td>{{ request.maintenanceRequestId }}</td>
+        <td>{{ request.createdDate | date: 'short' }}</td>
+        <td>{{ request.endDate | date: 'short' }}</td>
+        <td>{{ request.issue }}</td>
+        <td>{{ request.status }}</td>
+        <td>{{ request.personFullName }}</td>
+        <td>{{ request.roomNumber }}</td>
+        <td>
+          <button type="button" pButton icon="pi pi-pencil" label="Edit"></button>
+          <button type="button" pButton icon="pi pi-trash"  label="Delete" class="p-button-danger"></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p-confirmPopup #confirmPopup></p-confirmPopup>
+
+  <div *ngIf="requests.length === 0 && searchTerm">
+    <p>No results found for "{{ searchTerm }}"</p>
+  </div>
+
+  <!-- <p-dialog [(visible)]="editPopup.display" [modal]="true" [closable]="false" (displayChange)="editPopup.display = $event">
+    <app-edit-popup
+      [display]="editPopup.display"
+      [header]="'Edit Maintenance Request'"
+      [maintenanceRequest]="selectedRequest"
+      (confirm)="saveMaintenanceRequest($event)"  
+      (cancel)="resetSelectedMaintenanceRequest()">
+    </app-edit-popup>
+  </p-dialog> -->
+</div>

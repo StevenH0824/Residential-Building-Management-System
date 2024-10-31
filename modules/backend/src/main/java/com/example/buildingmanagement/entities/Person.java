@@ -11,11 +11,11 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "person") // Ensure this matches your DB table name
+@Table(name = "person")
 public class Person {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "person_id") // Ensure this matches the DB column name
+  @Column(name = "person_id")
   private Long personId;
 
   @Column(name = "email", nullable = false)
@@ -29,6 +29,4 @@ public class Person {
 
   @Column(name = "phone_number", nullable = false)
   private String phoneNumber;
-
-  // Add any additional relationships if needed
 }

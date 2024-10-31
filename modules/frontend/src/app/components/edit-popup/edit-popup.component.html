@@ -42,9 +42,26 @@
       </div>
     </div>
 
+    <div class="popup-content">
+      <div *ngIf="_maintenanceRequest">
+        <div class="input-row">
+          <label class="label" for="issue">Issue</label>
+          <input id="issue" [(ngModel)]="editingMaintenanceRequest.issue" />
+        </div>
+  
+        <div class="input-row">
+          <label class="label" for="status">Status</label>
+          <select id="status" [(ngModel)]="editingMaintenanceRequest.status">
+            <option value="PENDING">Pending</option>
+            <option value="APPROVED">Approved</option>
+            <option value="DENIED">Denied</option>
+            <option value="DONE">Done</option>
+          </select>
+        </div>
+      </div>
+
     <div class="footer-buttons">
       <button type="button" pButton icon="pi pi-check" (click)="onConfirm()" label="Save"></button>
       <button type="button" pButton icon="pi pi-times" (click)="onCancel()" label="Cancel"></button>
     </div>
   </div>
-</p-dialog>

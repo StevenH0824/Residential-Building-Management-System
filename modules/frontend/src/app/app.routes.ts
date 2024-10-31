@@ -5,7 +5,7 @@ import { FloorListComponent } from './components/floor-list/floor-list.component
 import { PersonComponent } from './components/person/person.component';
 import { AccessibleRoomsComponent } from './components/accessible-rooms/accessible-rooms.component';
 import { AccesslogComponent } from './components/accesslog/accesslog.component';
-import { MaintenancerequestComponent } from './components/maintenancerequest/maintenancerequest.component';
+import { MaintenancerequestComponent } from './components/maintenance-request/maintenance-request.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '', pathMatch: 'full' }, // Redirect empty path to /home

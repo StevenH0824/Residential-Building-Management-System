@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { PersonService,  } from '../../services/person.service';
 import { BuildingsService } from '../../services/buildings.service';
 import { FloorsService } from '../../services/floors.service';
-import { ControlGroupService } from '../../services/control-group.service';
+// import { ControlGroupService } from '../../services/control-group.service';
 
 @Component({
   selector: 'app-accessible-rooms',
@@ -38,14 +38,14 @@ export class AccessibleRoomsComponent {
     private personService: PersonService,
     private buildingsService: BuildingsService,
     private floorsService: FloorsService,
-    private controlGroupService: ControlGroupService
+    // private controlGroupService: ControlGroupService
   ) {}
 
   ngOnInit() {
     this.personId = +this.route.snapshot.params['id']; // Retrieve personId from route
     console.log('Retrieved personId:', this.personId);
     this.fetchPersonDetails(); // Fetch person details first
-    this.fetchControlGroups(); // Call the method to fetch control groups
+    // this.fetchControlGroups(); // Call the method to fetch control groups
   }
 
   goBack() {
@@ -66,17 +66,17 @@ export class AccessibleRoomsComponent {
   );
   }
 
-  fetchControlGroups() {
-    this.controlGroupService.getControlGroupsForPerson(this.personId).subscribe(
-      (groups: ControlGroup[]) => {
-        this.controlGroups = groups; // Assign the fetched control groups
-        console.log('Fetched control groups:', this.controlGroups);
-      },
-      (error) => {
-        console.error('Error fetching control groups:', error);
-      }
-    );
-  }
+  // fetchControlGroups() {
+  //   this.controlGroupService.getControlGroupsForPerson(this.personId).subscribe(
+  //     (groups: ControlGroup[]) => {
+  //       this.controlGroups = groups; // Assign the fetched control groups
+  //       console.log('Fetched control groups:', this.controlGroups);
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching control groups:', error);
+  //     }
+  //   );
+  // }
 
   fetchAccessibleRooms() {
     this.accessService.getAccessibleRooms(this.personId).subscribe(
