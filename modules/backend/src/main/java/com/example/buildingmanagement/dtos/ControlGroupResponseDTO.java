@@ -1,8 +1,10 @@
 package com.example.buildingmanagement.dtos;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import lombok.*;
 import java.util.List;
 
 @NoArgsConstructor
@@ -10,8 +12,9 @@ import java.util.List;
 @Getter
 @Setter
 public class ControlGroupResponseDTO {
-  private Long controlGroupId;
-  private String name;
-  private String description;
-  private List<ControlGroupAccessControlDTO> accessControls;
+  private Long controlGroupId;                      // ID of the control group
+  private String name;                               // Name of the control group
+  private String description;                        // Description of the control group
+  private List<Long> controlGroupAccessControlIds;  // List of associated access control IDs
+  private List<Long> controlGroupPersonIds;         // List of associated person IDs
 }

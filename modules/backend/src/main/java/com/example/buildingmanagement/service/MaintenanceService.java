@@ -13,6 +13,8 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -127,6 +129,37 @@ public class MaintenanceService {
 
     MaintenanceRequest savedRequest = maintenanceRequestRepository.save(request);
     return convertToResponseDTO(savedRequest);
+  }
+
+  @Transactional
+  public void deleteRequest(Long requestId) {
+    maintenanceRequestRepository.deleteById(requestId);
+  }
+  @Transactional
+  public MaintenanceResponseDTO updateMaintenanceRequest(Long requestId, MaintenanceRequestDTO requestDTO) {
+    try {
+
+      MaintenanceRequest existingRequest = maintenanceRequestRepository.findById(requestId)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Maintenance request not found"));
+
+
+      if (requestDTO.getIssue() != null) {
+        existingRequest.setIssue(requestDTO.getIssue());
+      }
+      if (requestDTO.getStatus() != null) {
+        existingRequest.setStatus(requestDTO.getStatus());
+      }
+
+      MaintenanceRequest updatedRequest = maintenanceRequestRepository.save(existingRequest);
+
+
+      return modelMapper.map(updatedRequest, MaintenanceResponseDTO.class);
+
+    } catch (ResponseStatusException ex) {
+      throw ex;
+    } catch (Exception e) {
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to update maintenance request", e);
+    }
   }
 }
 

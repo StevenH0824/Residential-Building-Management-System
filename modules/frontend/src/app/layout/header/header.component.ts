@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -6,22 +6,37 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [RouterModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  @Output() menuToggle = new EventEmitter<boolean>(); 
-  menuValue: boolean = false;
-  menu_icon: string = 'bi bi-list';
+  menuValue = false;
+  menu_icon = "bi bi-list";
+  isMenuOpen = false;
 
-  openMenu() {
+  @Output() menuToggle = new EventEmitter<boolean>();
+
+  constructor(private changeDetectorRef: ChangeDetectorRef) { }
+
+  toggleMenu() {
     this.menuValue = !this.menuValue;
     this.menu_icon = this.menuValue ? 'bi bi-x' : 'bi bi-list';
-    this.menuToggle.emit(this.menuValue); 
+    this.isMenuOpen = !this.isMenuOpen;
+    this.menuToggle.emit(this.isMenuOpen);
+
+    this.changeDetectorRef.detectChanges();
   }
-  
-  closeMenu() {
-    this.menuValue = false;
-    this.menu_icon = 'bi bi-list';
-    this.menuToggle.emit(this.menuValue); 
-  }
+  // menuValue: boolean = false;
+  // menu_icon: string = 'bi bi-list';
+
+  // openMenu() {
+  //   this.menuValue = !this.menuValue;
+  //   this.menu_icon = this.menuValue ? 'bi bi-x' : 'bi bi-list';
+  //   this.menuToggle.emit(this.menuValue); 
+  // }
+
+  // closeMenu() {
+  //   this.menuValue = false;
+  //   this.menu_icon = 'bi bi-list';
+  //   this.menuToggle.emit(this.menuValue); 
+  // }
 }

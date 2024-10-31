@@ -5,13 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class ControlGroupRequestDTO {
-  private String name;
-  private String description;
+public class ControlGroupAccessControlResponseDTO {
+  private Long controlGroupId;     // ID of the Control Group
+  private Long accessControlId;     // ID of the Access Control
 }
