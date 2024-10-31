@@ -1,11 +1,9 @@
 package com.example.buildingmanagement.service;
 
+import com.example.buildingmanagement.dtos.ControlGroupPersonRequestDTO;
+import com.example.buildingmanagement.dtos.ControlGroupPersonResponseDTO;
 import com.example.buildingmanagement.dtos.RoomResponseDTO;
-import com.example.buildingmanagement.entities.AccessControl;
-import com.example.buildingmanagement.entities.ControlGroup;
-import com.example.buildingmanagement.entities.ControlGroupAccessControl; // Ensure this is imported
-import com.example.buildingmanagement.entities.ControlGroupPerson;
-import com.example.buildingmanagement.entities.Room;
+import com.example.buildingmanagement.entities.*;
 import com.example.buildingmanagement.repository.ControlGroupPersonRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,6 +20,43 @@ public class ControlGroupPersonService {
 
   @Autowired
   private ControlGroupPersonRepository controlGroupPersonRepository;
+
+  @Autowired
+  public ControlGroupPersonService(ControlGroupPersonRepository controlGroupPersonRepository) {
+    this.controlGroupPersonRepository = controlGroupPersonRepository;
+  }
+
+  public List<ControlGroupPersonResponseDTO> findAll() {
+    return controlGroupPersonRepository.findAll().stream()
+      .map(this::convertToResponseDTO)
+      .collect(Collectors.toList());
+  }
+
+  public Optional<ControlGroupPersonResponseDTO> findById(ControlGroupPersonId id) {
+    return controlGroupPersonRepository.findById(id).map(this::convertToResponseDTO);
+  }
+
+  public ControlGroupPersonResponseDTO save(ControlGroupPersonRequestDTO requestDTO) {
+    ControlGroupPerson controlGroupPerson = new ControlGroupPerson();
+    controlGroupPerson.setId(new ControlGroupPersonId(requestDTO.getControlGroupId(), requestDTO.getPersonId()));
+    controlGroupPerson.setStartDate(requestDTO.getStartDate());
+    controlGroupPerson.setExpirationDate(requestDTO.getExpirationDate());
+
+    return convertToResponseDTO(controlGroupPersonRepository.save(controlGroupPerson));
+  }
+
+  public void deleteById(ControlGroupPersonId id) {
+    controlGroupPersonRepository.deleteById(id);
+  }
+
+  private ControlGroupPersonResponseDTO convertToResponseDTO(ControlGroupPerson controlGroupPerson) {
+    return new ControlGroupPersonResponseDTO(
+      controlGroupPerson.getId().getControlGroupId(),
+      controlGroupPerson.getId().getPersonId(),
+      controlGroupPerson.getStartDate(),
+      controlGroupPerson.getExpirationDate()
+    );
+  }
 
   public List<RoomResponseDTO> getAccessibleRoomsByPersonId(Long personId) {
     List<ControlGroupPerson> controlGroupPersons = controlGroupPersonRepository.findByPerson_PersonId(personId);

@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ControlGroupDTO {
+public class ControlGroupResponseDTO {
   private Long controlGroupId;                      // ID of the control group
   private String name;                               // Name of the control group
   private String description;                        // Description of the control group
