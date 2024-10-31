@@ -64,6 +64,24 @@ export interface Person {
     phoneNumber: string;
 }
 
+export interface ControlGroup{
+    controlGroupId: number; 
+    name: string;            
+    description: string;     
+    controlGroupAccessControls?: ControlGroupAccessControl[]; 
+    controlGroupPersons?: ControlGroupPerson[]; 
+  }
+  
+  export interface ControlGroupAccessControl {
+    accessControlId: number;
+  }
+  
+  export interface ControlGroupPerson {
+    personId: number; 
+    startDate: Date;  
+    expirationDate: Date; 
+  }
+
 export interface PaginationParams {
     [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
     page: number;

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { Building, Floor, Person, Room } from '../../types';
+import { Building, ControlGroup, Floor, Person, Room } from '../../types';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AccessService } from '../../services/access.service';
 import { CommonModule } from '@angular/common';
 import { PersonService,  } from '../../services/person.service';
 import { BuildingsService } from '../../services/buildings.service';
 import { FloorsService } from '../../services/floors.service';
+import { ControlGroupService } from '../../services/control-group.service';
 
 @Component({
   selector: 'app-accessible-rooms',
@@ -28,25 +29,29 @@ export class AccessibleRoomsComponent {
   rooms: Room[] = [];
   personId!: number;
   person: Person | null = null;
-
+  controlGroups: ControlGroup[] = [];
+  
   constructor(
     private router: Router,
     private route: ActivatedRoute, 
     private accessService: AccessService,
     private personService: PersonService,
     private buildingsService: BuildingsService,
-    private floorsService: FloorsService
+    private floorsService: FloorsService,
+    private controlGroupService: ControlGroupService
   ) {}
 
   ngOnInit() {
     this.personId = +this.route.snapshot.params['id']; // Retrieve personId from route
     console.log('Retrieved personId:', this.personId);
     this.fetchPersonDetails(); // Fetch person details first
+    this.fetchControlGroups(); // Call the method to fetch control groups
   }
 
   goBack() {
     this.router.navigate(['/person']); 
 }
+
   fetchPersonDetails() {
     this.personService.getPersonById(this.personId).subscribe(
       (person: Person) => {
@@ -59,6 +64,18 @@ export class AccessibleRoomsComponent {
           this.person = null;
       }
   );
+  }
+
+  fetchControlGroups() {
+    this.controlGroupService.getControlGroupsForPerson(this.personId).subscribe(
+      (groups: ControlGroup[]) => {
+        this.controlGroups = groups; // Assign the fetched control groups
+        console.log('Fetched control groups:', this.controlGroups);
+      },
+      (error) => {
+        console.error('Error fetching control groups:', error);
+      }
+    );
   }
 
   fetchAccessibleRooms() {
