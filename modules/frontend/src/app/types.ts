@@ -17,7 +17,7 @@ export interface Options {
     } | boolean;
 }
 
-export type EditEntity = Person | Building;
+export type EditEntity = Person | Building |  MaintenanceRequest;
 
 
 
@@ -105,8 +105,8 @@ export interface PaginatedAccessLogs {
 
 export interface MaintenanceRequest {
     maintenanceRequestId?: number;
-    createdDate: string;
-    endDate?: string;
+    createdDate: Date;
+    endDate?: Date;
     issue: string;
     status: StatusType;
     personId: number;
@@ -115,14 +115,25 @@ export interface MaintenanceRequest {
 
 export interface MaintenanceResponse {
     maintenanceRequestId: number;
-    createdDate: string;
-    endDate?: string;
+    createdDate: Date;
+    endDate: Date;
     issue: string;
     status: StatusType;
-    personFirstName: string;
-    personLastName: string;
-    roomNum: string;
+    roomId: number; 
+    personId: number; 
+    roomNumber: string;
+    floorDescription: string;
+    buildingName: string;
+    personFullName: string;
+    phoneNumber: string;
 }
+
+export enum StatusType {
+    APPROVED = 'APPROVED',
+    PENDING = 'PENDING',
+    DENIED = 'DENIED',
+    DONE = 'DONE',
+  }
 
 export interface PaginatedMaintenanceRequests {
     items: MaintenanceRequest[];
@@ -132,4 +143,3 @@ export interface PaginatedMaintenanceRequests {
     totalPages: number;
 }
 
-export type StatusType = 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
