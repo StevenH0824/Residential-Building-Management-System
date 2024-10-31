@@ -104,4 +104,18 @@ public class MaintenanceRequestController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
   }
+
+  @DeleteMapping("/delete/{requestId}")
+  public ResponseEntity<Void> deleteRequest(@PathVariable Long requestId) {
+    maintenanceService.deleteRequest(requestId);
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  }
+
+  @PutMapping("/update/{requestId}")
+  public ResponseEntity<MaintenanceResponseDTO> updateMaintenanceRequest(
+    @PathVariable Long requestId,
+    @RequestBody MaintenanceRequestDTO requestDTO) {
+    MaintenanceResponseDTO updatedRequest = maintenanceService.updateMaintenanceRequest(requestId, requestDTO);
+    return new ResponseEntity<>(updatedRequest, HttpStatus.OK);
+  }
 }
