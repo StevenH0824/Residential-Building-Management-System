@@ -106,7 +106,7 @@ export interface PaginatedAccessLogs {
 export interface MaintenanceRequest {
     maintenanceRequestId?: number;
     createdDate: Date;
-    endDate?: Date;
+    endDate?: Date | null;
     issue: string;
     status: StatusType;
     personId: number;

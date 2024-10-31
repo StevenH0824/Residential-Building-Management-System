@@ -1,5 +1,6 @@
 package com.example.buildingmanagement.service;
 
+import com.example.buildingmanagement.dtos.MaintenanceRequestDTO;
 import com.example.buildingmanagement.dtos.MaintenanceResponseDTO;
 import com.example.buildingmanagement.entities.Room;
 import com.example.buildingmanagement.enums.StatusType;
@@ -59,6 +60,7 @@ public class MaintenanceService {
     );
   }
 
+
   @Transactional
   public MaintenanceResponseDTO getMaintenanceRequestByPersonId(Long id) {
     Person person = personRepository.findByPersonId(id);
@@ -108,4 +110,21 @@ public class MaintenanceService {
 
     return Duration.ofSeconds(totalTime / requests.size());
   }
+
+  public MaintenanceRequest createMaintenanceRequest(MaintenanceRequestDTO dto) {
+    Person person = personRepository.findById(dto.getPersonId())
+      .orElseThrow(() -> new RuntimeException("Person not found"));
+    Room room = roomRepository.findById(dto.getRoomId())
+      .orElseThrow(() -> new RuntimeException("Room not found"));
+
+    MaintenanceRequest request = new MaintenanceRequest();
+    request.setCreatedDate(dto.getCreatedDate());
+    request.setEndDate(dto.getEndDate());
+    request.setIssue(dto.getIssue());
+    request.setStatus(dto.getStatus());
+    request.setPerson(person);
+    request.setRoom(room);
+
+    return maintenanceRequestRepository.save(request);  }
 }
+
