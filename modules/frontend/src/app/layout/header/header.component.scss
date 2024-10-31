@@ -5,33 +5,33 @@
   padding: 20px 10px;
   box-sizing: border-box;
   display: flex;
-  justify-content: space-between; 
-  align-items: center; 
+  justify-content: space-between;
+  align-items: center;
 }
 
 header {
   padding: 10px;
   background: #359675;
-  display: flex; 
-  flex-wrap: wrap; 
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .logo-container {
-  flex: 0 0 auto; 
+  flex: 0 0 auto;
 }
 
 .title {
-  flex: 1; 
-  text-align: center; 
+  flex: 1;
+  text-align: center;
 }
 
 .menu-container {
-  flex: 0 0 auto; 
-  text-align: right; 
+  flex: 0 0 auto;
+  text-align: right;
 }
 
 .logo {
-  width: 90px; 
+  width: 90px;
 }
 
 .logo:hover {
@@ -42,6 +42,30 @@ header {
   margin-top: 24px;
   z-index: 2;
 }
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 250px;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.main-content {
+  margin-left: 0;
+  transition: margin-left 1s ease-in-out;
+}
+
+.shifted {
+  margin-left: 250px;
+}
+
 
 .desktop_menu ul {
   padding: 0;
@@ -66,53 +90,53 @@ header {
 }
 
 .desktop_menu ul li a {
-  text-decoration: none; 
-  color: black; 
-  display: inline-block; 
-  padding: 10px 15px; 
+  text-decoration: none;
+  color: black;
+  display: inline-block;
+  padding: 10px 15px;
 }
 
 .desktop_menu ul li a:hover {
   color: white;
-  font-weight: bold; 
-  transition: color 0.3s ease; 
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 .menu-icon {
-  display: none; 
+  display: none;
 }
 
 @media screen and (min-width: 128px) and (max-width: 900px) {
   .desktop_menu {
-      position: fixed !important;
-      right: -280px;
-      transition: 0.4s ease-in-out;
-      top: 64px;
-      background: #02534d;
-      width: 280px;
-      height: 100%;
-      margin-top:24px;
-      z-index: 2;
+    position: fixed !important;
+    right: -280px;
+    transition: 0.4s ease-in-out;
+    top: 64px;
+    background: #02534d;
+    width: 280px;
+    height: 100%;
+    margin-top: 24px;
+    z-index: 2;
   }
 
   .desktop_menu ul li {
-      display: block;
-      text-align: left;
-      margin: 0;
-      padding: 10px 0 10px 26px;
-      border-bottom: 1px solid grey;
+    display: block;
+    text-align: left;
+    margin: 0;
+    padding: 10px 0 10px 26px;
+    border-bottom: 1px solid grey;
   }
 
   .menu-icon {
-      display: block; 
-      color: white;
-      font-size: 40px;
-      padding-top: 10px;
-      cursor: pointer; 
+    display: block;
+    color: white;
+    font-size: 40px;
+    padding-top: 10px;
+    cursor: pointer;
   }
 
   .mobile_menu {
-      right: 0;
-      transition: 0.4s ease-in-out;
+    right: 0;
+    transition: 0.4s ease-in-out;
   }
 }
