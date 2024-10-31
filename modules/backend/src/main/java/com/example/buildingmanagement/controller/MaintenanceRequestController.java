@@ -8,6 +8,7 @@ import com.example.buildingmanagement.entities.Room;
 import com.example.buildingmanagement.enums.StatusType;
 import com.example.buildingmanagement.service.MaintenanceService;
 import com.example.buildingmanagement.service.PersonService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -96,12 +97,12 @@ public class MaintenanceRequestController {
   }
 
   @PostMapping
-  public ResponseEntity<MaintenanceRequest> createMaintenanceRequest(@RequestBody MaintenanceRequestDTO dto) {
+  public ResponseEntity<MaintenanceResponseDTO> createMaintenanceRequest(@Valid @RequestBody MaintenanceRequestDTO maintenanceRequestDTO) {
     try {
-      MaintenanceRequest createdRequest = maintenanceService.createMaintenanceRequest(dto);
-      return new ResponseEntity<>(createdRequest, HttpStatus.CREATED);
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+      MaintenanceResponseDTO createdRequest = maintenanceService.createMaintenanceRequest(maintenanceRequestDTO);
+      return ResponseEntity.ok(createdRequest);
+    } catch (RuntimeException e) {
+      return ResponseEntity.badRequest().body(null); // Return appropriate error response
     }
   }
 }

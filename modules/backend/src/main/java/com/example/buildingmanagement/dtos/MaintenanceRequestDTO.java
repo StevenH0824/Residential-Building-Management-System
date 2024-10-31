@@ -1,7 +1,4 @@
 package com.example.buildingmanagement.dtos;
-
-import com.example.buildingmanagement.entities.Person;
-import com.example.buildingmanagement.entities.Room;
 import com.example.buildingmanagement.enums.StatusType;
 import lombok.*;
 
