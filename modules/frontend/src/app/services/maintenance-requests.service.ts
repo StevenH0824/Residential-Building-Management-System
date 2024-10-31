@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
-import { MaintenanceRequest, MaintenanceResponse } from '../types';
+import { MaintenanceRequest, MaintenanceResponse, StatusType } from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +26,15 @@ export class MaintenanceRequestsService {
   deleteMaintenanceRequest(id: number): Observable<void> {
     return this.apiService.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  searchMaintenanceRequests(criteria: {
+    id?: number;
+    issue?: string;
+    status?: StatusType;
+    roomId?: number;
+    personId?: number;
+  }): Observable<MaintenanceResponse[]> {
+    return this.apiService.post<MaintenanceResponse[]>(`${this.apiUrl}/search`, criteria);
+  }
+  
 }

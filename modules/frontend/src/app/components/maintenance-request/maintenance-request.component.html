@@ -33,14 +33,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let request of requests">
+      <tr *ngFor="let request of filteredRequests">
         <td>{{ request.maintenanceRequestId }}</td>
         <td>{{ request.createdDate | date: 'short' }}</td>
         <td>{{ request.endDate | date: 'short' }}</td>
         <td>{{ request.issue }}</td>
         <td>{{ request.status }}</td>
-        <td>{{ request.personFullName }}</td>
-        <td>{{ request.roomNumber }}</td>
+        <td>{{ request.personId }}</td>
+        <td>{{ request.roomId }}</td>
         <td>
           <button type="button" pButton icon="pi pi-pencil" label="Edit"></button>
           <button type="button" pButton icon="pi pi-trash" label="Delete" class="p-button-danger"></button>
@@ -49,6 +49,10 @@
     </tbody>
   </table>
 
+  <div *ngIf="filteredRequests.length === 0 && searchTerm">
+    <p>No results found for "{{ searchTerm }}"</p>
+  </div>
+  
   <p-confirmPopup #confirmPopup></p-confirmPopup>
 
   <div *ngIf="requests.length === 0 && searchTerm">

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -10,7 +10,7 @@ import {
   MaintenanceRequest,
   MaintenanceResponse,
   StatusType,
-} from '../../types'; // Import your types
+} from '../../types';
 import { MaintenanceRequestsService } from '../../services/maintenance-requests.service';
 import { EditPopupComponent } from '../edit-popup/edit-popup.component';
 
@@ -33,8 +33,11 @@ import { EditPopupComponent } from '../edit-popup/edit-popup.component';
 })
 export class MaintenancerequestComponent implements OnInit {
   requests: MaintenanceResponse[] = [];
+  filteredRequests: MaintenanceRequest[] = []; 
+  statusTypes = StatusType;
   selectedRequest?: MaintenanceRequest;
   editPopup = { display: false };
+
   searchTerm: string = '';
   issueInput: string = '';
   statusInput: StatusType = StatusType.PENDING;
@@ -45,15 +48,14 @@ export class MaintenancerequestComponent implements OnInit {
     createdDate: new Date(),
     endDate: null,
     issue: '',
-    status: 'PENDING' as StatusType,
+    status: StatusType.PENDING,
     personId: 0,
     roomId: 0,
   };
 
   constructor(
     private confirmationService: ConfirmationService,
-    private maintenanceRequestsService: MaintenanceRequestsService,
-    private cdr: ChangeDetectorRef
+    private maintenanceRequestsService: MaintenanceRequestsService
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +66,7 @@ export class MaintenancerequestComponent implements OnInit {
     this.maintenanceRequestsService.getMaintenanceRequests().subscribe(
       (data) => {
         this.requests = data;
+         this.filteredRequests = data; 
         console.log('Fetched requests:', data);
       },
       (error) => {
@@ -175,5 +178,22 @@ export class MaintenancerequestComponent implements OnInit {
     this.editPopup.display = false;
   }
 
-  searchMaintenanceRequests(): void {}
+  searchMaintenanceRequests(): void {
+    if (!this.searchTerm) {
+      this.filteredRequests = this.requests; 
+      return;
+    }
+
+    const lowerCaseTerm = this.searchTerm.toLowerCase();
+
+    this.filteredRequests = this.requests.filter(request => {
+      return (
+        request.maintenanceRequestId?.toString().includes(lowerCaseTerm) ||
+        request.issue.toLowerCase().includes(lowerCaseTerm) ||
+        request.status.toLowerCase().includes(lowerCaseTerm) ||
+        request.roomId?.toString().includes(lowerCaseTerm) ||
+        request.personId?.toString().includes(lowerCaseTerm)
+      );
+    });
+  }
 }
