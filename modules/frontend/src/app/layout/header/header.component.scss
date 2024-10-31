@@ -7,6 +7,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: margin-left 0.4s ease-in-out;
 }
 
 header {
@@ -28,6 +29,7 @@ header {
 .menu-container {
   flex: 0 0 auto;
   text-align: right;
+  position: relative;
 }
 
 .logo {
@@ -41,6 +43,8 @@ header {
 .desktop_menu {
   margin-top: 24px;
   z-index: 2;
+
+
 }
 
 .sidebar {
@@ -70,6 +74,7 @@ header {
 .desktop_menu ul {
   padding: 0;
   margin: 0;
+  list-style: none;
 }
 
 .desktop_menu ul li {
@@ -116,7 +121,11 @@ header {
     width: 280px;
     height: 100%;
     margin-top: 24px;
-    z-index: 2;
+    z-index: 1000;
+  }
+
+  .wrapper-shifted {
+    margin-left: 200px;
   }
 
   .desktop_menu ul li {
@@ -135,7 +144,7 @@ header {
     cursor: pointer;
   }
 
-  .mobile_menu {
+  .desktop_menu.mobile_menu {
     right: 0;
     transition: 0.4s ease-in-out;
   }
