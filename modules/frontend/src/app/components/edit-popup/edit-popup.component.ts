@@ -7,8 +7,6 @@ import { ButtonModule } from 'primeng/button';
 import { PersonService } from '../../services/person.service'; // Import your service
 import { BuildingsService } from '../../services/buildings.service'; // Import your service
 
-
-
 @Component({
   selector: 'app-edit-popup',
   standalone: true,
@@ -31,20 +29,15 @@ export class EditPopupComponent {
 
   public _building: Building | null = null;
   public _person: Person | null = null;
-  persons: Person[] = []; // Declare persons array
-  buildings: Building[] = []; // Declare buildings array
-  personService: PersonService; // Declare person service
-  buildingService: BuildingsService; // Declare building service
-
+  
   // Input properties for person and building
   @Input()
   set person(value: Person | null) {
     if (value) {
       this._person = value;
-      this.editingPerson = { ...value };
+      this.editingPerson = { ...value }; // Create a copy for editing
     } else {
-      this._person = null;
-      this.editingPerson = { personId: 0, firstName: '', lastName: '', email: '', phoneNumber: '' };
+      this.resetPerson(); // Reset if no person provided
     }
   }
 
@@ -52,27 +45,25 @@ export class EditPopupComponent {
   set building(value: Building | null) {
     if (value) {
       this._building = value;
-      this.editingBuilding = { ...value };
+      this.editingBuilding = { ...value }; // Create a copy for editing
     } else {
-      this._building = null;
-      this.editingBuilding = { buildingId: 0, name: '', address: '', floors: [] };
+      this.resetBuilding(); // Reset if no building provided
     }
   }
 
   editingPerson: Person = { personId: 0, firstName: '', lastName: '', email: '', phoneNumber: '' };
   editingBuilding: Building = { buildingId: 0, name: '', address: '', floors: [] };
 
-  constructor(personService: PersonService, buildingService: BuildingsService) {
-    this.personService = personService; // Initialize person service
-    this.buildingService = buildingService; // Initialize building service
-  }
+  constructor(private personService: PersonService, private buildingService: BuildingsService) {}
 
   onConfirm() {
-    const editedEntity: EditEntity = this._person ? this.editingPerson : this.editingBuilding;
-    this.confirm.emit(editedEntity);
+    if (this._person) {
+      this.confirm.emit(this.editingPerson); // Emit the edited person
+    } else if (this._building) {
+      this.confirm.emit(this.editingBuilding); // Emit the edited building
+    }
     this.closeDialog();
   }
-
 
   onCancel() {
     this.cancel.emit();
@@ -82,5 +73,13 @@ export class EditPopupComponent {
   private closeDialog() {
     this.display = false;
     this.displayChange.emit(this.display);
+  }
+
+  private resetPerson() {
+    this.editingPerson = { personId: 0, firstName: '', lastName: '', email: '', phoneNumber: '' };
+  }
+
+  private resetBuilding() {
+    this.editingBuilding = { buildingId: 0, name: '', address: '', floors: [] };
   }
 }

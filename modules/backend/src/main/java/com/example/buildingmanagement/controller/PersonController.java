@@ -1,9 +1,14 @@
 package com.example.buildingmanagement.controller;
 
 import com.example.buildingmanagement.dtos.PersonDTO;
+import com.example.buildingmanagement.dtos.RoomResponseDTO;
 import com.example.buildingmanagement.entities.Person;
+import com.example.buildingmanagement.entities.Room;
+import com.example.buildingmanagement.service.ControlGroupPersonService;
 import com.example.buildingmanagement.service.PersonService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,20 +17,24 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/persons")
-@CrossOrigin
+//@CrossOrigin(origins = "http://localhost:4200")
 public class PersonController {
 
   @Autowired
   private PersonService personService;
+
+  @Autowired
+  private ControlGroupPersonService controlGroupPersonService;
+
 
   @GetMapping
   public List <Person> getAllPersons() {
     List <Person> person = personService.getAllPersons();
     return person;
   }
-  @GetMapping("/{id}")
-  public Optional<Person> getPersonByID(@PathVariable Long id) {
-    Optional<Person> person = personService.getPersonById(id);
+  @GetMapping("/by-person")
+  public Optional<Person> getPersonByID(@RequestParam Long personId) {
+    Optional<Person> person = personService.getPersonById(personId);
     return person;
   }
   @GetMapping("/searchnum/{phoneNumber}")
@@ -59,7 +68,17 @@ public class PersonController {
     Person personEntity = personService.createPerson(person);
     return personEntity;
   }
-
+  @GetMapping("/{id}/spaces")
+  public ResponseEntity<List<RoomResponseDTO>> getAccessibleRooms(@PathVariable Long id) {
+    try {
+      List<RoomResponseDTO> rooms = controlGroupPersonService.getAccessibleRoomsByPersonId(id);
+      return ResponseEntity.ok(rooms);
+    } catch (EntityNotFoundException e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+  }
   @PutMapping("/{id}")
   public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody PersonDTO request) {
     Optional<Person> updatedPerson = personService.updatePerson(id, request);

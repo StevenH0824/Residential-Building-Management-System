@@ -22,14 +22,7 @@ public class Room {
     @Column(name="description")
     private String description;
 
-    // @ManyToOne(fetch = FetchType.LAZY) // is this needed at all? Will have to read docs later.
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "floor_id", nullable = false)
     private Floor floor;
-////
-////    @ManyToOne(fetch = FetchType.EAGER)
-////    @JoinColumn(name = "description", nullable = false)
-//    @Column(name = "description")
-//    private Floor floorDescription;
-
 }

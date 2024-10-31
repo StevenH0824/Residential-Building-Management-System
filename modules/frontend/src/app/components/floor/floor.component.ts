@@ -8,6 +8,8 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService } from 'primeng/api';
 import { TruncateNamePipe } from '../../pipes/truncate-name.pipe';
+import { FloorsService } from '../../services/floors.service';
+import { BuildingsService } from '../../services/buildings.service';
 
 @Component({
   selector: 'app-floor',
@@ -19,7 +21,7 @@ import { TruncateNamePipe } from '../../pipes/truncate-name.pipe';
 })
 export class FloorComponent {
   buildings: Building[] = []; // Store the list of buildings
-  newFloor: Floor = { number: '', description: '', buildingId: [], roomIds: []}; // Initialize newBuilding
+  newFloor: Floor = { number: '', description: '', building: { buildingId: 0, name: '', address: '' }, roomIds: [] }; // Initialize with a valid building object
   floors: Floor[] = []; // Store the list of buildings
   total: number = 0; // Total number of buildings
   page: number = 1; // Current page for pagination
@@ -27,7 +29,9 @@ export class FloorComponent {
 
   constructor(
     private confirmationService: ConfirmationService,
-    private http: HttpClient // Inject HttpClient for HTTP requests
+    private http: HttpClient, // Inject HttpClient for HTTP requests
+    private floorsService: FloorsService,
+    private buildingsService: BuildingsService
   ) { }
 
   @Input() floor!: Floor;
@@ -68,15 +72,30 @@ export class FloorComponent {
   }
 
   resetNewFloor() {
-    this.newFloor = { number: '', description: '', buildingId: [], roomIds: [] }; // Reset newBuilding after adding
+    this.newFloor = { number: '', description: '', building: { buildingId: 0, name: '', address: '' }, roomIds: [] }; // Reset to a valid state
   }
 
   fetchFloors(page: number, perPage: number) {
-    this.http.get<Floor[]>('http://localhost:8080/api/floors').subscribe(response => {
-      this.floors = response;
-      this.total = response.length; 
+  //   this.http.get<Floor[]>('http://localhost:8080/api/floors').subscribe(response => {
+  //     this.floors = response;
+  //     this.total = response.length; 
+  // });
+  this.floorsService.getFloors('http://localhost:8080/api/floors', { page: 1, perPage: 10 })
+  .subscribe(floors => {
+      this.floors = floors;
+      this.fetchBuildingForFloors(); // Fetch buildings after getting floors
   });
   }
+
+  fetchBuildingForFloors() {
+    this.floors.forEach(floor => {
+        if (floor.building.buildingId) {
+            this.buildingsService.getBuildingById(floor.building.buildingId).subscribe(building => {
+                floor.building = building; // Assign the fetched building to the floor
+            });
+        }
+    });
+}
 
   ngOnInit() {
     this.fetchFloors(this.page, this.perPage); // Fetch buildings on component init

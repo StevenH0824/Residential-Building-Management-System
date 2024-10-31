@@ -1,6 +1,6 @@
 .container {
   position: relative; 
-  z-index: 1; 
+  z-index: 3; 
   padding: 20px; 
 }
 
@@ -12,7 +12,7 @@
 
 .add-person-container {
   position: relative; 
-  z-index: 2; 
+  z-index: 1; 
   margin-bottom: 20px; 
 }
 
@@ -23,7 +23,7 @@
 
 button {
   position: relative; 
-  z-index: 3; 
+  z-index: 1; 
 }
 
 input {

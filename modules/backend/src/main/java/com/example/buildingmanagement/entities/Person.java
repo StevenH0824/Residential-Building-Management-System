@@ -15,7 +15,7 @@ import java.util.List;
 public class Person {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "person_id", nullable = false)
+  @Column(name = "person_id") // Ensure this matches the DB column name
   private Long personId;
 
   @Column(name = "email", nullable = false)
@@ -30,7 +30,5 @@ public class Person {
   @Column(name = "phone_number", nullable = false)
   private String phoneNumber;
 
-  //public void setPersonId(Long personId) {
- //   this.personId = personId;
- // }
+  // Add any additional relationships if needed
 }

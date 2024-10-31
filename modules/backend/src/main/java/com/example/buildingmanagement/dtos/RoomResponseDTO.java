@@ -1,14 +1,9 @@
 package com.example.buildingmanagement.dtos;
 
-
-import com.example.buildingmanagement.entities.Floor;
-import com.example.buildingmanagement.enums.StatusType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,13 +11,13 @@ import java.time.LocalDateTime;
 @Setter
 public class RoomResponseDTO {
   private Long roomId;
-  private String number;
-  private String description;
+  private String roomNumber;
+  private String roomDescription;
   private Long floorId;
   private String floorDescription;
-
-  public RoomResponseDTO(Long roomId, String number, String description, Floor floor) {
-  }
+  private Long buildingId;
+  private String buildingName;
+  private String buildingAddress;
 
 
 }

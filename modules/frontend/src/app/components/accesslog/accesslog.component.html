@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="search-container">
+    </div>
+
+    <div class="add-access-log-container">
+        <h3>Add New Access Log</h3>
+        <input [(ngModel)]="newAccessLog.cardScannerId" placeholder="Card Scanner ID" />
+        <input [(ngModel)]="newAccessLog.badgeId" placeholder="Badge ID" />
+        <input [(ngModel)]="newAccessLog.timestamp" placeholder="Timestamp" type="datetime-local" />
+        <button type="button" pButton icon="pi pi-plus" (click)="logAccess()" label="Add"></button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Access Log ID</th>
+                <th>Card Scanner ID</th>
+                <th>Badge ID</th>
+                <th>Timestamp</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let log of accesslogs">
+                <td>{{ log.accessLogId }}</td>
+                <td>{{ log.cardScannerId }}</td>
+                <td>{{ log.badgeId }}</td>
+                <td>{{ log.timestamp }}</td>
+                <td>
+                    <!-- <button type="button" pButton icon="pi pi-trash" (click)="confirmDelete(log.accessLogId)" label="Delete" class="p-button-danger"></button> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p-confirmPopup #confirmPopup></p-confirmPopup>
+</div>

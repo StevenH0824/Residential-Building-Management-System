@@ -85,7 +85,20 @@ public class BuildingService {
     // Map each Floor to a FloorResponseDTO if floors exist
     if (building.getFloors() != null) {
       List<FloorResponseDTO> floorResponseDto = building.getFloors().stream()
-        .map(floor -> new FloorResponseDTO(floor.getFloorId(), floor.getNumber(), floor.getDescription()))
+        .map(floor -> {
+          // Assuming you want to include the building in the FloorResponseDTO
+          BuildingResponseDTO floorBuilding = new BuildingResponseDTO();
+          floorBuilding.setBuildingId(floor.getBuilding().getBuildingId());
+          floorBuilding.setName(floor.getBuilding().getName());
+          floorBuilding.setAddress(floor.getBuilding().getAddress());
+
+          return new FloorResponseDTO(
+            floor.getFloorId(),
+            floor.getNumber(),
+            floor.getDescription(),
+            floorBuilding // Pass the building to the DTO
+          );
+        })
         .collect(Collectors.toList());
       response.setFloors(floorResponseDto); // Set the floors as FloorResponseDTO list
     } else {

@@ -1,11 +1,7 @@
 package com.example.buildingmanagement.service;
 
-import com.example.buildingmanagement.dtos.MaintenanceResponseDTO;
-import com.example.buildingmanagement.dtos.RoomDTO;
 import com.example.buildingmanagement.dtos.RoomResponseDTO;
 import com.example.buildingmanagement.entities.Floor;
-import com.example.buildingmanagement.entities.MaintenanceRequest;
-import com.example.buildingmanagement.entities.Person;
 import com.example.buildingmanagement.entities.Room;
 import com.example.buildingmanagement.repository.FloorRepository;
 import com.example.buildingmanagement.repository.RoomRepository;
@@ -16,106 +12,71 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class RoomService {
-  private final RoomRepository apartmentRepository;
+  private final RoomRepository roomRepository;
   private final FloorRepository floorRepository;
   private final ModelMapper modelMapper;
 
   @Autowired
-  public RoomService(RoomRepository apartmentRepository, FloorRepository floorRepository, ModelMapper modelMapper) {
-    this.apartmentRepository = apartmentRepository;
+  public RoomService(RoomRepository roomRepository, FloorRepository floorRepository, ModelMapper modelMapper) {
+    this.roomRepository = roomRepository;
     this.floorRepository = floorRepository;
     this.modelMapper = modelMapper;
   }
 
-//  public List<RoomResponseDTO> getAllRooms() {
-//    return apartmentRepository.findAll();
-//  }
-
+  @Transactional
+  public RoomResponseDTO getRoomById(Long id) {
+    Room roomEntity = roomRepository.findByRoomId(id);
+    assert roomEntity != null;
+    return convertToRoomResponseDTO(roomEntity);
+  }
 
   @Transactional
-  public RoomResponseDTO getRoomById(Long Id) {
+  public List<RoomResponseDTO> getRoomByNumber(String number) {
+    List<Room> roomEntities = roomRepository.findByNumber(number);
+    assert roomEntities != null;
+    return convertToRoomResponseDTOList(roomEntities);
+  }
 
-    Room roomEntity = apartmentRepository.findByRoomId(Id);
-    assert roomEntity != null;
-    return new RoomResponseDTO(roomEntity.getRoomId(), roomEntity.getDescription(), roomEntity.getNumber(), roomEntity.getFloor().getFloorId(), roomEntity.getFloor().getDescription()
+  @Transactional
+  public List<RoomResponseDTO> getRoomByDescription(String description) {
+    List<Room> roomEntities = roomRepository.findByDescription(description);
+    assert roomEntities != null;
+    return convertToRoomResponseDTOList(roomEntities);
+  }
+
+  @Transactional
+  public List<RoomResponseDTO> getRoomByFloorId(Long id) {
+    Floor floor = floorRepository.findByFloorId(id);
+    List<Room> roomEntities = roomRepository.findByFloor(floor);
+    assert roomEntities != null;
+    return convertToRoomResponseDTOList(roomEntities);
+  }
+
+  public List<RoomResponseDTO> getRoomsWithBuildingInfo() {
+    return roomRepository.findRoomsWithBuildingInfo();
+  }
+
+  private RoomResponseDTO convertToRoomResponseDTO(Room room) {
+    return new RoomResponseDTO(
+      room.getRoomId(),
+      room.getNumber(),
+      room.getDescription(),
+      room.getFloor() != null ? room.getFloor().getFloorId() : null,
+      room.getFloor() != null ? room.getFloor().getDescription() : null,
+      room.getFloor() != null && room.getFloor().getBuilding() != null ? room.getFloor().getBuilding().getBuildingId() : null,
+      room.getFloor() != null && room.getFloor().getBuilding() != null ? room.getFloor().getBuilding().getName() : null,
+      room.getFloor() != null && room.getFloor().getBuilding() != null ? room.getFloor().getBuilding().getAddress() : null
     );
   }
 
-  @Transactional
-  public List<RoomResponseDTO> getRoomByNumber(String Number) {
-    List<Room> roomEntity = apartmentRepository.findByNumber(Number);
-    assert roomEntity != null;
+  private List<RoomResponseDTO> convertToRoomResponseDTOList(List<Room> rooms) {
     List<RoomResponseDTO> responseDTOs = new ArrayList<>();
-    for (Room entity : roomEntity) {
-      RoomResponseDTO dto = new RoomResponseDTO(
-        entity.getRoomId(),
-        entity.getNumber(),
-        entity.getDescription(),
-        entity.getFloor().getFloorId(),
-        entity.getFloor().getDescription()
-
-      );
-      responseDTOs.add(dto);
+    for (Room entity : rooms) {
+      responseDTOs.add(convertToRoomResponseDTO(entity));
     }
-
     return responseDTOs;
   }
-
-
-  @Transactional
-  public List<RoomResponseDTO> getRoomByDescription(String Description) {
-    List<Room> roomEntity = apartmentRepository.findByDescription(Description);
-    assert roomEntity != null;
-    List<RoomResponseDTO> responseDTOs = new ArrayList<>();
-    for (Room entity : roomEntity) {
-      RoomResponseDTO dto = new RoomResponseDTO(
-        entity.getRoomId(),
-        entity.getNumber(),
-        entity.getDescription(),
-        entity.getFloor().getFloorId(),
-        entity.getFloor().getDescription()
-
-      );
-      responseDTOs.add(dto);
-    }
-
-    return responseDTOs;
-  }
-
-
-
-
-  @Transactional
-  public List<RoomResponseDTO> getRoomByFloorId(Long Id) {
-    Floor floor = floorRepository.findByFloorId(Id);
-    List<Room> roomEntity = apartmentRepository.findByFloor(floor);
-    assert roomEntity != null;
-    List<RoomResponseDTO> responseDTOs = new ArrayList<>();
-    for (Room entity : roomEntity) {
-      RoomResponseDTO dto = new RoomResponseDTO(
-        entity.getRoomId(),
-        entity.getNumber(),
-        entity.getDescription(),
-        entity.getFloor().getFloorId(),
-        entity.getFloor().getDescription()
-
-      );
-         responseDTOs.add(dto);
-     }
-
-      return responseDTOs;
-
-
-//    return roomEntity.stream().map(room -> modelMapper.map(room, RoomResponseDTO.class)).collect(Collectors.toList());
-  }
-//    Room roomEntity = apartmentRepository.findByFloor(floor);
-//    assert roomEntity != null;
-//    return new RoomResponseDTO(roomEntity.getRoomId(),roomEntity.getNumber(),roomEntity.getDescription(), roomEntity.getFloor().getFloorId(), roomEntity.getFloor().getDescription());
-//    return modelMapper.map(roomEntity, RoomResponseDTO.class);
-
 }
