@@ -20,4 +20,7 @@ public class Building {
   @OneToMany(mappedBy = "building", cascade = CascadeType.ALL,orphanRemoval = true)
   @JsonIgnore // Prevents infinite recursion @JsonIgnore on the fields that create the circular reference.
   private List<Floor> floors;
+
+  public Building(Long buildingId) {
+  }
 }

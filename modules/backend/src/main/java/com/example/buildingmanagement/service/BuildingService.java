@@ -1,8 +1,6 @@
 package com.example.buildingmanagement.service;
 
-import com.example.buildingmanagement.dtos.BuildingRequestDTO;
-import com.example.buildingmanagement.dtos.BuildingResponseDTO;
-import com.example.buildingmanagement.dtos.FloorResponseDTO;
+import com.example.buildingmanagement.dtos.*;
 import com.example.buildingmanagement.entities.Building;
 import com.example.buildingmanagement.entities.Floor;
 import com.example.buildingmanagement.repository.BuildingRepository;
@@ -86,24 +84,39 @@ public class BuildingService {
     if (building.getFloors() != null) {
       List<FloorResponseDTO> floorResponseDto = building.getFloors().stream()
         .map(floor -> {
-          // Assuming you want to include the building in the FloorResponseDTO
-          BuildingResponseDTO floorBuilding = new BuildingResponseDTO();
+          // Create a BuildingDTO for the floor
+          BuildingDTO floorBuilding = new BuildingDTO();
           floorBuilding.setBuildingId(floor.getBuilding().getBuildingId());
           floorBuilding.setName(floor.getBuilding().getName());
           floorBuilding.setAddress(floor.getBuilding().getAddress());
+
+          // Optionally, gather room details if rooms exist
+          String roomNumber = null;
+          String roomDescription = null;
+
+          // If you have a method to get rooms from the floor
+          if (floor.getRooms() != null && !floor.getRooms().isEmpty()) {
+            // Assuming you want to set the first room details (or modify this logic as needed)
+            roomNumber = floor.getRooms().get(0).getRoomNumber();
+            roomDescription = floor.getRooms().get(0).getRoomDescription();
+          }
 
           return new FloorResponseDTO(
             floor.getFloorId(),
             floor.getNumber(),
             floor.getDescription(),
-            floorBuilding // Pass the building to the DTO
+            floorBuilding,
+            roomNumber,      // Pass roomNumber to the DTO
+            roomDescription   // Pass roomDescription to the DTO
           );
         })
         .collect(Collectors.toList());
+
       response.setFloors(floorResponseDto); // Set the floors as FloorResponseDTO list
     } else {
       response.setFloors(new ArrayList<>()); // Ensure you don't return null
     }
     return response;
   }
+
 }

@@ -46,7 +46,7 @@ public class RoomController {
     }
   }
 
-  @GetMapping("/flo/{floorId}")
+  @GetMapping("/by-floor/{floorId}")
   public ResponseEntity<List<RoomResponseDTO>> getRoomByFloorId(@PathVariable Long floorId) {
     try {
       List<RoomResponseDTO> room = roomService.getRoomByFloorId(floorId);

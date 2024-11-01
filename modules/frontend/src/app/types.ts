@@ -56,20 +56,20 @@ export interface Room {
 }
 
 export interface Floor {
-  floorId?: number;
-  number: string;
-  description: string;
-  building: Building;
-  roomIds: Room[];
+    floorId?: number;
+    number: string;
+    description: string;
+    building: Building;
+    roomIds: Room[];
 }
 
 export interface Person {
-  personId: number;
-  floorId?: number;
-  email: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
+    personId: number;
+    floorId?: number;
+    email: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
 }
 
 export interface ControlGroup {
@@ -165,3 +165,13 @@ export interface PaginatedMaintenanceRequests {
   perPage: number;
   totalPages: number;
 }
+
+export interface FloorRequestDTO {
+    updateForm?: any;
+    floorId?: number;
+    number: string;
+    description: string;
+    buildingId: number;
+    roomIds?: number[]
+}
+

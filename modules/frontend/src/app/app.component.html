@@ -1,17 +1,10 @@
 <!-- Header -->
-<app-header (menuToggle)="onMenuToggle($event)"></app-header>
+<app-header (menuToggle)="toggleMenu($event)"></app-header>
 
-<!-- Wrapper -->
-<!-- <div class="wrapper" [class.menu-open]="menuValue">
-  <div class="container" [class.menu-open]="menuValue"> -->
-<!-- Your existing content -->
-<!-- <router-outlet></router-outlet>
+<div class="wrapper" [class.menu-open]="menuValue">
+  <div class="container" [class.menu-open]="menuValue">
+    <router-outlet></router-outlet>
   </div>
-</div> -->
-
-<div class="page-wrapper" [class.shifted]="isMenuOpen" [style.left]="isMenuOpen ? contentShift : '0'">
-  <router-outlet></router-outlet>
 </div>
 
-<!-- Footer -->
 <app-footer></app-footer>

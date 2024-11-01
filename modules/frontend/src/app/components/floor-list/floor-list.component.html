@@ -1,27 +1,50 @@
-<div class="column gap-1">
-    <h2>Floors for Building ID: {{ buildingId }}</h2>
-    <div class="row wrap gap-2">
-        <div *ngFor="let floor of floors" class="floor-card">
-            <h3>{{ floor.number }}</h3>
-            <p>{{ floor.description }}</p>
-            <button (click)="toggleRooms(floor.floorId!)">
-                {{ showRooms[floor.floorId!] ? 'Hide Rooms' : 'Show Rooms' }}
-            </button>
+<div class="container">
+    <div class="building-info">
+        <h2>Building ID: {{ buildingId }}</h2>
+        <h2>Name: {{ buildingName }}</h2>
+    </div>
 
-            <table *ngIf="showRooms[floor.floorId!] && rooms[floor.floorId!]" class="room-table">
-                <thead>
-                    <tr>
-                        <th>Room Number</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let room of rooms[floor.floorId!]">
-                        <td>{{ room.roomNumber }}</td>
-                        <td>{{ room.roomDescription }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <form [formGroup]="floorForm" (ngSubmit)="addFloor()" class="add-floor-form">
+        <input formControlName="number" placeholder="Floor Number" required />
+        <input formControlName="description" placeholder="Description" required />
+        <button type="submit" class="add-button" pButton label="Add Floor" icon="pi pi-plus"></button>
+    </form>
+
+    <div class="floor-list">
+        <table>
+            <thead>
+                <tr>
+                    <th>Floor Number</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let floor of floors">
+                    <td>{{ floor.number }}</td>
+                    <td>{{ floor.description }}</td>
+                    <td>
+                        <button (click)="toggleRooms(floor.floorId!)" class="action-button">
+                            {{ showRooms[floor.floorId!] ? 'Hide Rooms' : 'Show Rooms' }}
+                        </button>
+                        <button type="button"  pButton icon="pi pi-trash" (click)="deleteFloor(floor.floorId!)" class="p-button-danger" label="Delete" #deleteButton></button>
+                        <form *ngIf="showRooms[floor.floorId!]" (ngSubmit)="updateFloor(floor.floorId!)" class="update-floor-form">
+                            <input formControlName="number" placeholder="Update Floor Number" required />
+                            <input formControlName="description" placeholder="Update Description" required />
+                            <button type="submit" class="update-button" pButton label="Update Floor" icon="pi pi-pencil"></button>
+                        </form>
+
+                        <div *ngIf="showRooms[floor.floorId!]">
+                            <h3>Rooms</h3>
+                            <ul>
+                                <li *ngFor="let room of rooms[floor.floorId!]">
+                                    {{ room.roomDescription}}
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

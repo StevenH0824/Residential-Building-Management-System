@@ -1,6 +1,5 @@
 package com.example.buildingmanagement.entities;
 
-import aj.org.objectweb.asm.ConstantDynamic;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,12 +26,16 @@ public class Room {
     @JoinColumn(name = "floor_id", nullable = false)
     private Floor floor;
 
-    public String getRoomNumber() {
-      return number;
-    }
-
   // a method to get the associated building through the floor
   public Building getBuilding() {
     return floor != null ? floor.getBuilding() : null;
+  }
+
+  public String getRoomNumber() {
+    return number;
+  }
+
+  public String getRoomDescription() {
+    return description;
   }
 }
