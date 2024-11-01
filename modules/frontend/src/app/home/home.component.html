@@ -1,13 +1,7 @@
 <div class="column gap-1" [class.small-button]="menuValue">
   <!-- Add Building Button -->
-  <button
-    type="button"
-    pButton
-    icon="pi pi-plus"
-    (click)="toggleAddPopup()"
-    label="Add Building"
-    class="add-building-btn"
-  ></button>
+  <button type="button" pButton icon="pi pi-plus" (click)="toggleAddPopup()" label="Add Building"
+    class="add-building-btn"></button>
 
   <!-- Edit Person Button -->
   <!-- <button
@@ -31,47 +25,24 @@
 
   <!-- Building Section -->
   <div class="row wrap gap-2 space-between">
-    <app-building
-      *ngFor="let building of buildings"
-      [building]="building"
-      (edit)="toggleEditPopupBuilding(building)"
-      (delete)="deleteBuilding(building)"
-    ></app-building>
+    <app-building *ngFor="let building of buildings" [building]="building" (edit)="toggleEditPopupBuilding(building)"
+      (delete)="deleteBuilding(building)"></app-building>
   </div>
 
   <!-- Edit Building Popup -->
-  <app-edit-popup
-    [building]="selectedBuilding"
-    [(display)]="displayEditPopup"
-    (confirm)="onConfirmEdit($event)"
-    (cancel)="onCancelEdit()"
-    [header]="'Edit Building'"
-    (displayChange)="displayEditPopup = $event"
-  ></app-edit-popup>
+  <app-edit-popup [building]="selectedBuilding" [(display)]="displayEditPopup" (confirm)="onConfirmEdit($event)"
+    (cancel)="onCancelEdit()" [header]="'Edit Building'" (displayChange)="displayEditPopup = $event"></app-edit-popup>
 
   <!-- Add Building Popup -->
-  <app-edit-popup
-    [(display)]="displayAddPopup"
-    (confirm)="onConfirmAdd($event)"
-    header="Add Building"
-    [building]="selectedBuilding"
-  ></app-edit-popup>
+  <app-edit-popup [(display)]="displayAddPopup" (confirm)="onConfirmAdd($event)" header="Add Building"
+    [building]="selectedBuilding"></app-edit-popup>
 
   <!-- Edit Person Popup -->
-  <app-edit-popup
-    [person]="selectedPerson"
-    [(display)]="displayEditPersonPopup"
-    (confirm)="onConfirmEdit($event)"
-    (cancel)="displayEditPersonPopup = false"
-    [header]="'Edit Person'"
-  ></app-edit-popup>
+  <app-edit-popup [person]="selectedPerson" [(display)]="displayEditPersonPopup" (confirm)="onConfirmEdit($event)"
+    (cancel)="displayEditPersonPopup = false" [header]="'Edit Person'"></app-edit-popup>
 
   <!-- Edit Maintenance Popup -->
-  <app-edit-popup
-  [(display)]="displayEditMaintenancePopup"
-  [header]="'Edit Maintenance Request'"
-  [maintenanceRequest]="selectedMaintenanceRequest"
-  (confirm)="onConfirmEdit($event)"
-  (cancel)="onCancelEdit()">
-  ></app-edit-popup>
+  <app-edit-popup [(display)]="displayEditMaintenancePopup" [header]="'Edit Maintenance Request'"
+    [maintenanceRequest]="selectedMaintenanceRequest" (confirm)="onConfirmEdit($event)" (cancel)="onCancelEdit()">
+    ></app-edit-popup>
 </div>
