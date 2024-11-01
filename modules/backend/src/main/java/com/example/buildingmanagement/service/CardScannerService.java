@@ -1,11 +1,13 @@
 package com.example.buildingmanagement.service;
 
+import com.example.buildingmanagement.dtos.AccessLogRequestDTO;
 import com.example.buildingmanagement.entities.CardScanner;
 import com.example.buildingmanagement.entities.Person;
 import com.example.buildingmanagement.repository.CardScannerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +42,12 @@ public class CardScannerService {
     CardScanner cardScanner = cardScannerRepository.findById(scannerId)
       .orElseThrow(() -> new RuntimeException("CardScanner not found"));
 
-    accessLogService.createAccessLog(cardScanner, person);  // Log the access
+    // Create an AccessLogRequestDTO
+    AccessLogRequestDTO requestDTO = new AccessLogRequestDTO();
+    requestDTO.setCardScannerId(cardScanner.getCardScannerId());
+    requestDTO.setPersonId(person.getPersonId());
+    requestDTO.setTimestamp(LocalDateTime.now());
+
+    accessLogService.createAccessLog(requestDTO);
   }
 }
