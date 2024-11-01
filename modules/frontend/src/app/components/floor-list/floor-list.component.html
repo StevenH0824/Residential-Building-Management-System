@@ -7,13 +7,12 @@
     <form [formGroup]="floorForm" (ngSubmit)="addFloor()" class="add-floor-form">
         <input formControlName="number" placeholder="Floor Number" required />
         <input formControlName="description" placeholder="Description" required />
-      
-        <button type="submit" pButton icon="pi pi-plus" 
-                class="p-button p-button-success">
-          Add Floor  
-        </button> 
-      
-      </form>
+
+        <button type="submit" pButton icon="pi pi-plus" class="p-button p-button-success">
+            Add Floor
+        </button>
+
+    </form>
 
     <div class="floor-list">
         <table>
@@ -43,13 +42,13 @@
                                 Loading rooms...
                             </div>
 
-                            <form *ngIf="showRooms[floor.floorId!]" (ngSubmit)="updateFloor(floor.floorId!)"
+                            <!-- <form *ngIf="showRooms[floor.floorId!]" (ngSubmit)="updateFloor(floor.floorId!)"
                                 class="update-floor-form">
                                 <input formControlName="number" placeholder="Update Floor Number" required />
                                 <input formControlName="description" placeholder="Update Description" required />
                                 <button type="submit" class="update-button p-button" pButton label="Update Floor"
                                     icon="pi pi-pencil"></button>
-                            </form>
+                            </form> -->
                         </div>
 
                         <div *ngIf="showRooms[floor.floorId!]">
