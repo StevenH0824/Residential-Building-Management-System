@@ -6,17 +6,18 @@
 
   <div class="add-maintenance-container">
     <h3>Add New Maintenance Request</h3>
-    <input [(ngModel)]="issueInput" placeholder="Issue" />
-    <select [(ngModel)]="statusInput">
-      <option value="PENDING">Pending</option>
-      <option value="APPROVED">Approved</option>
-      <option value="COMPLETED">Done</option>
-      <option value="COMPLETED">Denied</option>
-    </select>
-    <input type="number" [(ngModel)]="selectedPersonId" placeholder="Person ID" />
-    <input type="number" [(ngModel)]="selectedRoomId" placeholder="Room ID" />
-
-    <button type="button" pButton icon="pi pi-plus" (click)="createMaintenanceRequest()" label="Add"></button>
+    <div class="input-button-container">
+      <input [(ngModel)]="issueInput" placeholder="Issue" />
+      <select [(ngModel)]="statusInput" class="select-input">
+        <option value="PENDING">Pending</option>
+        <option value="APPROVED">Approved</option>
+        <option value="COMPLETED">Done</option>
+        <option value="DENIED">Denied</option>
+      </select>
+      <input type="number" [(ngModel)]="selectedPersonId" placeholder="Person ID" />
+      <input type="number" [(ngModel)]="selectedRoomId" placeholder="Room ID" />
+      <button type="button" pButton icon="pi pi-plus" (click)="createMaintenanceRequest()" label="Add"></button>
+    </div>
   </div>
 
   <table>
@@ -42,8 +43,8 @@
         <td>{{ request.personId }}</td>
         <td>{{ request.roomId }}</td>
         <td>
-          <button type="button" pButton icon="pi pi-pencil" label="Edit"></button>
-          <button type="button" pButton icon="pi pi-trash" label="Delete" class="p-button-danger"></button>
+          <button type="button" pButton icon="pi pi-pencil" label="Edit" (click)="startEdit(request)"></button>
+          <button type="button" pButton icon="pi pi-trash" label="Delete" class="p-button-danger" (click)="confirmDelete(request)"></button>
         </td>
       </tr>
     </tbody>
@@ -52,20 +53,16 @@
   <div *ngIf="filteredRequests.length === 0 && searchTerm">
     <p>No results found for "{{ searchTerm }}"</p>
   </div>
-  
+
   <p-confirmPopup #confirmPopup></p-confirmPopup>
 
   <div *ngIf="requests.length === 0 && searchTerm">
     <p>No results found for "{{ searchTerm }}"</p>
   </div>
 
-  <!-- <p-dialog [(visible)]="editPopup.display" [modal]="true" [closable]="false" (displayChange)="editPopup.display = $event">
-    <app-edit-popup
-      [display]="editPopup.display"
-      [header]="'Edit Maintenance Request'"
-      [maintenanceRequest]="selectedRequest"
-      (confirm)="saveMaintenanceRequest($event)"  
-      (cancel)="resetSelectedMaintenanceRequest()">
+  <p-dialog [(visible)]="editPopup.display" [modal]="true" [closable]="false" (onHide)="resetNewMaintenanceRequest()">
+    <app-edit-popup [maintenanceRequest]="selectedRequest" [display]="editPopup.display"
+      (confirm)="handleConfirm($event)" (cancel)="handleCancel()">
     </app-edit-popup>
-  </p-dialog> -->
+  </p-dialog>
 </div>

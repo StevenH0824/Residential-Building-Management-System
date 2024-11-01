@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -6,9 +6,14 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService } from 'primeng/api';
 import { RouterModule } from '@angular/router';
+import { DialogModule } from 'primeng/dialog';
+
 import {
+  Building,
+  EditEntity,
   MaintenanceRequest,
   MaintenanceResponse,
+  Person,
   StatusType,
 } from '../../types';
 import { MaintenanceRequestsService } from '../../services/maintenance-requests.service';
@@ -18,6 +23,7 @@ import { EditPopupComponent } from '../edit-popup/edit-popup.component';
   selector: 'app-maintenancerequest',
   standalone: true,
   imports: [
+    DialogModule,
     RouterModule,
     FormsModule,
     ButtonModule,
@@ -27,6 +33,7 @@ import { EditPopupComponent } from '../edit-popup/edit-popup.component';
     CommonModule,
     EditPopupComponent,
   ],
+  schemas: [NO_ERRORS_SCHEMA], 
   providers: [ConfirmationService],
   templateUrl: './maintenance-request.component.html',
   styleUrls: ['./maintenance-request.component.css'],
@@ -34,8 +41,9 @@ import { EditPopupComponent } from '../edit-popup/edit-popup.component';
 export class MaintenancerequestComponent implements OnInit {
   requests: MaintenanceResponse[] = [];
   filteredRequests: MaintenanceRequest[] = []; 
+
   statusTypes = StatusType;
-  selectedRequest?: MaintenanceRequest;
+  selectedRequest: MaintenanceRequest | null = null;
   editPopup = { display: false };
 
   searchTerm: string = '';
@@ -43,6 +51,7 @@ export class MaintenancerequestComponent implements OnInit {
   statusInput: StatusType = StatusType.PENDING;
   selectedPersonId: number | null = null;
   selectedRoomId: number | null = null;
+  // selectedMaintenanceRequest: MaintenanceRequest | null = null;
 
   newMaintenanceRequest: MaintenanceRequest = {
     createdDate: new Date(),
@@ -113,50 +122,57 @@ export class MaintenancerequestComponent implements OnInit {
   }
 
   startEdit(request: MaintenanceRequest): void {
+    console.log('Editing request:', request); 
     this.selectedRequest = request;
     this.editPopup.display = true;
   }
 
-  saveMaintenanceRequest(maintenanceRequest: MaintenanceRequest): void {
-    if (maintenanceRequest) {
-      this.maintenanceRequestsService
-        .updateMaintenanceRequest(maintenanceRequest)
-        .subscribe({
-          next: (updatedRequest) => {
-            const index = this.requests.findIndex(
-              (req) =>
-                req.maintenanceRequestId === updatedRequest.maintenanceRequestId
-            );
-            if (index !== -1) {
-              this.requests[index] = updatedRequest;
-            }
-            this.resetSelectedMaintenanceRequest();
-          },
-          error: (error) =>
-            console.error('Error saving maintenance request:', error),
-        });
+  saveMaintenanceRequest(editedEntity: EditEntity | MaintenanceRequest) {
+    if (this.isMaintenanceRequest(editedEntity)) {
+      this.maintenanceRequestsService.updateMaintenanceRequest(editedEntity).subscribe({
+        next: (updatedRequest) => {
+        },
+        error: (error) => console.error('Error updating maintenance request:', error),
+      });
     } else {
-      console.error('No maintenance request provided');
+      console.error('Expected MaintenanceRequest, but got:', editedEntity);
     }
   }
+  
+  private isMaintenanceRequest(entity: any): entity is MaintenanceRequest {
+    return 'maintenanceRequestId' in entity; 
+  }
 
-  deleteMaintenanceRequest(id: number): void {
+  confirmDelete(request: MaintenanceRequest) {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete this maintenance request?',
+      message: 'Are you sure that you want to delete this maintenance request?',
       accept: () => {
-        this.maintenanceRequestsService.deleteMaintenanceRequest(id).subscribe({
-          next: () => {
-            this.requests = this.requests.filter(
-              (request) => request.maintenanceRequestId !== id
-            );
-          },
-          error: (error) => {
-            console.error('Error deleting maintenance request:', error);
-          },
-        });
-      },
+        this.deleteMaintenanceRequest(request); 
+      }
     });
   }
+
+  deleteMaintenanceRequest(request: MaintenanceRequest) {
+    
+    const id = request.maintenanceRequestId; 
+    if (id !== undefined) {
+      console.log(`Attempting to delete request with ID: ${id}`);
+
+      this.maintenanceRequestsService.deleteMaintenanceRequest(id).subscribe({
+        next: () => {
+          this.filteredRequests = this.filteredRequests.filter(req => req.maintenanceRequestId !== id);
+          this.requests = this.requests.filter(req => req.maintenanceRequestId !== id);
+          console.log('Maintenance request deleted successfully');
+        },
+        error: (error) => {
+          console.error('Error deleting maintenance request:', error);
+        }
+      });
+    } else {
+      console.error('Invalid maintenance request ID');
+    }
+  }
+  
 
   resetNewMaintenanceRequest(): void {
     this.issueInput = '';
@@ -174,8 +190,35 @@ export class MaintenancerequestComponent implements OnInit {
   }
 
   resetSelectedMaintenanceRequest(): void {
-    this.selectedRequest = undefined;
+    this.selectedRequest = null;
     this.editPopup.display = false;
+  }
+
+  handleCancel(): void {
+    this.resetSelectedMaintenanceRequest(); 
+  }
+
+  handleConfirm(updatedEntity: Person | Building | MaintenanceRequest): void {
+    if ('maintenanceRequestId' in updatedEntity) {
+      this.selectedRequest = updatedEntity;
+        this.maintenanceRequestsService.updateMaintenanceRequest(updatedEntity).subscribe({
+        next: (response) => {
+          const index = this.filteredRequests.findIndex(request => request.maintenanceRequestId === updatedEntity.maintenanceRequestId);
+          if (index !== -1) {
+            this.filteredRequests[index] = response; 
+          }
+        },
+        error: (err) => {
+          console.error('Update failed:', err);
+        }
+      });
+    } else if ('personId' in updatedEntity) {
+    } else if ('buildingId' in updatedEntity) {
+    } else {
+      console.error('Unhandled entity type');
+    }
+  
+    this.resetSelectedMaintenanceRequest();
   }
 
   searchMaintenanceRequests(): void {

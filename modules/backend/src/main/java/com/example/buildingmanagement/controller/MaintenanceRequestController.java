@@ -2,12 +2,10 @@ package com.example.buildingmanagement.controller;
 
 import com.example.buildingmanagement.dtos.MaintenanceRequestDTO;
 import com.example.buildingmanagement.dtos.MaintenanceResponseDTO;
-import com.example.buildingmanagement.entities.MaintenanceRequest;
-import com.example.buildingmanagement.entities.Person;
-import com.example.buildingmanagement.entities.Room;
 import com.example.buildingmanagement.enums.StatusType;
 import com.example.buildingmanagement.service.MaintenanceService;
 import com.example.buildingmanagement.service.PersonService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -25,7 +22,6 @@ public class MaintenanceRequestController {
 
   private final MaintenanceService maintenanceService;
   private final PersonService personService;
-
 
   public MaintenanceRequestController(MaintenanceService maintenanceService, PersonService personService) {
     this.maintenanceService = maintenanceService;
@@ -102,21 +98,27 @@ public class MaintenanceRequestController {
       MaintenanceResponseDTO createdRequest = maintenanceService.createMaintenanceRequest(maintenanceRequestDTO);
       return ResponseEntity.ok(createdRequest);
     } catch (RuntimeException e) {
-      return ResponseEntity.badRequest().body(null); // Return appropriate error response
+      return ResponseEntity.badRequest().body(null);
     }
   }
 
-  @DeleteMapping("/delete/{requestId}")
-  public ResponseEntity<Void> deleteRequest(@PathVariable Long requestId) {
-    maintenanceService.deleteRequest(requestId);
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteRequest(@PathVariable Long id) {
+    try {
+      maintenanceService.deleteRequest(id);
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    } catch (EntityNotFoundException e) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Return 404 if not found
+    } catch (Exception e) {
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // Handle other errors
+    }
   }
 
-  @PutMapping("/update/{requestId}")
+  @PutMapping("/{id}")
   public ResponseEntity<MaintenanceResponseDTO> updateMaintenanceRequest(
-    @PathVariable Long requestId,
+    @PathVariable("id") Long requestId,
     @RequestBody MaintenanceRequestDTO requestDTO) {
     MaintenanceResponseDTO updatedRequest = maintenanceService.updateMaintenanceRequest(requestId, requestDTO);
-    return new ResponseEntity<>(updatedRequest, HttpStatus.OK);
+    return ResponseEntity.ok(updatedRequest);
   }
 }
