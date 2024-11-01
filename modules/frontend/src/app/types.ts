@@ -144,6 +144,7 @@ export interface PaginatedMaintenanceRequests {
 }
 
 export interface FloorRequestDTO {
+    updateForm?: any;
     floorId?: number;
     number: string;
     description: string;

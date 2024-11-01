@@ -27,13 +27,21 @@
                         <button (click)="toggleRooms(floor.floorId!)" class="action-button">
                             {{ showRooms[floor.floorId!] ? 'Hide Rooms' : 'Show Rooms' }}
                         </button>
-                        <button (click)="deleteFloor(floor.floorId!)" class="action-button" pButton icon="pi pi-trash" label="Delete"></button>
-
+                        <button type="button"  pButton icon="pi pi-trash" (click)="deleteFloor(floor.floorId!)" class="p-button-danger" label="Delete" #deleteButton></button>
                         <form *ngIf="showRooms[floor.floorId!]" (ngSubmit)="updateFloor(floor.floorId!)" class="update-floor-form">
                             <input formControlName="number" placeholder="Update Floor Number" required />
                             <input formControlName="description" placeholder="Update Description" required />
                             <button type="submit" class="update-button" pButton label="Update Floor" icon="pi pi-pencil"></button>
                         </form>
+
+                        <div *ngIf="showRooms[floor.floorId!]">
+                            <h3>Rooms</h3>
+                            <ul>
+                                <li *ngFor="let room of rooms[floor.floorId!]">
+                                    {{ room.roomDescription}}
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             </tbody>

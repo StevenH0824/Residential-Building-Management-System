@@ -10,7 +10,7 @@ import { MaintenancerequestComponent } from './components/maintenance-request/ma
 export const routes: Routes = [
     { path: '', redirectTo: '', pathMatch: 'full' }, // Redirect empty path to /home
     { path: '', component: HomeComponent },
-    { path: 'floors/:buildingId', component: FloorListComponent },
+    { path: 'floors/:buildingId/:name', component: FloorListComponent },
     { path: 'person', component: PersonComponent },
     { path: 'person/:id/spaces', component: AccessibleRoomsComponent },
     { path: 'accesslog', component: AccesslogComponent },

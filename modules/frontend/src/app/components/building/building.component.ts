@@ -10,7 +10,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService } from 'primeng/api';
 import { TruncateNamePipe } from '../../pipes/truncate-name.pipe';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 
 @Component({
@@ -29,6 +29,7 @@ export class BuildingComponent {
   perPage: number = 10; // Items per page
 
   constructor(
+    private router: Router,
     private confirmationService: ConfirmationService,
     private http: HttpClient // Inject HttpClient for HTTP requests
   ) { }
@@ -92,6 +93,10 @@ export class BuildingComponent {
   numberOfFloors(): number {
     return (this.building.floors && this.building.floors.length) ? this.building.floors.length - 1 : 0
   }
+
+  viewFloor(building: Building) {
+    this.router.navigate(['/floor/', building.buildingId]);
+    }
 
 }
 

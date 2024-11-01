@@ -1,8 +1,9 @@
 <div class="column gap-1 wrapper">
   <!-- Building Name -->
   <h2 class="title">
-    <a [routerLink]="['/floors', building.buildingId]">{{ building.name | truncateName : 16 : '...' }}</a>
-  </h2>
+    <a [routerLink]="['/floors', building.buildingId, building.name]">
+      {{ building.name | truncateName : 16 : '...' }}
+  </a>  </h2>
 
   <!-- Building Address -->
   <div class="column gap-05">

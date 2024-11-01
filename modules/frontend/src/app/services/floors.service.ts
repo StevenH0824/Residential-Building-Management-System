@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FloorsService {
-  private apiUrl = 'http://localhost:8080/api'; // Base URL for your API
+  private apiUrl = 'http://localhost:8080/api/floors'; // Base URL for your API
 
   constructor(private apiService: ApiService) { }
 
@@ -27,8 +27,8 @@ export class FloorsService {
 
   // Fetch floors by building ID
   getFloorsByBuildingId(buildingId: number): Observable<Floor[]> {
-    return this.apiService.get<Floor[]>(`${this.apiUrl}/floors/by-building?buildingId=${buildingId}`, {
-      responseType: 'json'
+    return this.apiService.get<Floor[]>(`${this.apiUrl}/by-building?buildingId=${buildingId}`, {
+        responseType: 'json'
     });
   }
 
@@ -41,7 +41,7 @@ export class FloorsService {
 
   // Delete a floor by ID
   deleteFloor(floorId: number): Observable<void> {
-    return this.apiService.delete<void>(`${this.apiUrl}/floors/${floorId}`, {
+    return this.apiService.delete<void>(`${this.apiUrl}/${floorId}`, {
       responseType: 'json'
     });
   }
