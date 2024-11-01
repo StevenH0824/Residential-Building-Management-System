@@ -18,4 +18,7 @@ public class Building {
   private String address;
   @OneToMany(mappedBy = "building", cascade = CascadeType.ALL,orphanRemoval = true)
   private List<Floor> floors;
+
+  public Building(Long buildingId) {
+  }
 }

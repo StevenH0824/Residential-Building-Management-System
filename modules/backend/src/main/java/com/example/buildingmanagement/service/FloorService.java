@@ -1,5 +1,6 @@
 package com.example.buildingmanagement.service;
 
+import com.example.buildingmanagement.dtos.BuildingDTO;
 import com.example.buildingmanagement.dtos.FloorRequestDTO;
 import com.example.buildingmanagement.dtos.FloorResponseDTO;
 import com.example.buildingmanagement.entities.Building;
@@ -14,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,82 +28,98 @@ public class FloorService {
   private final FloorRepository floorRepository;
   private final BuildingRepository buildingRepository;
   private final RoomRepository roomRepository;
+  private final ModelMapper modelMapper;
 
   @Autowired
-  private ModelMapper modelMapper;
-
-  @Autowired
-  public FloorService(FloorRepository floorRepository, BuildingRepository buildingRepository, RoomRepository roomRepository){
+  public FloorService(FloorRepository floorRepository, BuildingRepository buildingRepository,
+                      RoomRepository roomRepository, ModelMapper modelMapper) {
     this.floorRepository = floorRepository;
-    this.buildingRepository =buildingRepository;
-    this.roomRepository=roomRepository;
+    this.buildingRepository = buildingRepository;
+    this.roomRepository = roomRepository;
+    this.modelMapper = modelMapper;
   }
 
   // Get all floors
-  public List<FloorRequestDTO> getAllFloors() {
+  public List<FloorResponseDTO> getAllFloors() {
     return floorRepository.findAll().stream()
       .map(this::convertToDTO)
       .collect(Collectors.toList());
   }
 
   // Get floor by ID
-  public FloorRequestDTO getFloorById(Long id) {
+  public ResponseEntity<FloorResponseDTO> getFloorById(Long id) {
     return floorRepository.findById(id)
       .map(this::convertToDTO)
-      .orElse(null);
+      .map(ResponseEntity::ok)
+      .orElse(ResponseEntity.notFound().build());
   }
 
   // Create or update a floor
-  public FloorRequestDTO saveFloor(FloorRequestDTO floorRequestDTO) {
-    if (floorRequestDTO.getNumber() == null || floorRequestDTO.getNumber().trim().isEmpty()) {
-      throw new IllegalArgumentException("Floor number cannot be null or empty");
-    }
+  public Floor saveFloor(FloorRequestDTO floorRequestDTO) {
+    validateFloorRequest(floorRequestDTO);
 
+    // Check if the building exists
     Building building = buildingRepository.findById(floorRequestDTO.getBuildingId())
-      .orElseThrow(() -> new IllegalArgumentException("Building not found"));
+      .orElseThrow(() -> new EntityNotFoundException("Building not found with ID: " + floorRequestDTO.getBuildingId()));
 
     Floor floor = new Floor();
-    if (floorRequestDTO.getFloorId() != null) {
-      floor = floorRepository.findById(floorRequestDTO.getFloorId()).orElse(new Floor());
-    }
     floor.setNumber(floorRequestDTO.getNumber());
     floor.setDescription(floorRequestDTO.getDescription());
     floor.setBuilding(building);
 
-    List<Room> rooms = roomRepository.findAllById(floorRequestDTO.getRoomIds());
-    floor.setRooms(rooms);
+    // Handle room IDs
+    if (floorRequestDTO.getRoomIds() != null) {
+      List<Room> rooms = roomRepository.findAllById(floorRequestDTO.getRoomIds());
+      if (rooms.size() != floorRequestDTO.getRoomIds().size()) {
+        throw new IllegalArgumentException("One or more room IDs are invalid.");
+      }
+      floor.setRooms(rooms);
+    }
 
-    Floor savedFloor = floorRepository.save(floor);
-    return convertToDTO(savedFloor);
+    return floorRepository.save(floor);
   }
-
 
   // Delete a floor
   public void deleteFloor(Long id) {
+    if (!floorRepository.existsById(id)) {
+      throw new EntityNotFoundException("Floor not found");
+    }
     floorRepository.deleteById(id);
   }
 
-  // Convert Floor entity to FloorDTO
-  private FloorRequestDTO convertToDTO(Floor floor) {
+  // Convert Floor entity to FloorResponseDTO
+  private FloorResponseDTO convertToDTO(Floor floor) {
     List<Long> roomIds = floor.getRooms().stream()
       .map(Room::getRoomId)
       .collect(Collectors.toList());
-    return new FloorRequestDTO(floor.getFloorId(), floor.getNumber(), floor.getDescription(), floor.getBuilding().getBuildingId(), roomIds);
+    return new FloorResponseDTO(
+      floor.getFloorId(),
+      floor.getNumber(),
+      floor.getDescription(),
+      new BuildingDTO(
+        floor.getBuilding().getBuildingId(),
+        floor.getBuilding().getName(),
+        floor.getBuilding().getAddress()),
+      null, // Optional: room number
+      null  // Optional: room description
+    );
   }
 
-  public List<FloorResponseDTO> getFloorsByBuildingId(Long buildingId) {
-    try {
-      Building building = buildingRepository.findById(buildingId)
-        .orElseThrow(() -> new EntityNotFoundException("Building not found"));
-
-      List<Floor> floors = floorRepository.findByBuildingId(buildingId);
-      return floors.stream()
-        .map(floor -> modelMapper.map(floor, FloorResponseDTO.class))
-        .collect(Collectors.toList());
-    } catch (Exception e) {
-      logger.error("Error fetching floors for building ID {}: {}", buildingId, e.getMessage());
-      throw e;
+  // Validate FloorRequestDTO
+  private void validateFloorRequest(FloorRequestDTO floorRequestDTO) {
+    if (floorRequestDTO.getNumber() == null || floorRequestDTO.getNumber().trim().isEmpty()) {
+      throw new IllegalArgumentException("Floor number cannot be null or empty");
     }
   }
-  }
 
+  // Get floors by building ID
+  public List<FloorResponseDTO> getFloorsByBuildingId(Long buildingId) {
+    Building building = buildingRepository.findById(buildingId)
+      .orElseThrow(() -> new EntityNotFoundException("Building not found"));
+
+    List<Floor> floors = floorRepository.findByBuildingId(buildingId);
+    return floors.stream()
+      .map(this::convertToDTO)
+      .collect(Collectors.toList());
+  }
+}

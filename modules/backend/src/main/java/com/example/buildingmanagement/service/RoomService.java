@@ -79,4 +79,9 @@ public class RoomService {
     }
     return responseDTOs;
   }
+
+  @Transactional
+  public Room findRoomById(Long id) {
+    return roomRepository.findById(id).orElse(null);
+  }
 }

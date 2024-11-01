@@ -25,4 +25,12 @@ public class Room {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "floor_id", nullable = false)
     private Floor floor;
+
+  public String getRoomNumber() {
+    return number;
+  }
+
+  public String getRoomDescription() {
+    return description;
+  }
 }

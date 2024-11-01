@@ -88,6 +88,11 @@ export class BuildingComponent {
   ngOnInit() {
     this.fetchBuildings(this.page, this.perPage); // Fetch buildings on component init
   }
+
+  numberOfFloors(): number {
+    return (this.building.floors && this.building.floors.length) ? this.building.floors.length - 1 : 0
+  }
+
 }
 
 

@@ -1,0 +1,44 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.building-info {
+    margin-bottom: 20px;
+}
+
+.add-floor-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.floor-list {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.action-button {
+    margin-right: 5px;
+}
+
+.update-floor-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}

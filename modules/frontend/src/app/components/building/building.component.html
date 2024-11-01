@@ -1,28 +1,28 @@
 <div class="column gap-1 wrapper">
-    <!-- Building Name -->
-    <h2 class="title">
-      <a [routerLink]="['/floors', building.buildingId]">{{ building.name | truncateName : 16 : '...' }}</a>
-    </h2>
-    
-    <!-- Building Address -->
-    <div class="column gap-05">
-      <div class="row gap-05">
-        <h2 class="info">Address:</h2>
-        <span class="label">{{ building.address }}</span>
-      </div>
-  
-      <div class="row gap-05">
-        <h2 class="info">Total Floors:</h2>
-        <p>{{ (building.floors && building.floors.length) ? building.floors.length : 0 }}</p>
-      </div>
-    </div>
-  
-    <!-- Action buttons -->
+  <!-- Building Name -->
+  <h2 class="title">
+    <a [routerLink]="['/floors', building.buildingId]">{{ building.name | truncateName : 16 : '...' }}</a>
+  </h2>
+
+  <!-- Building Address -->
+  <div class="column gap-05">
     <div class="row gap-05">
-      <button type="button" pButton icon="pi pi-pencil" (click)="editBuilding()" label="Edit"></button>
-      <button type="button" pButton icon="pi pi-trash" (click)="confirmDelete()" label="Delete" class="p-button-danger" #deleteButton></button>
+      <h2 class="info">Address:</h2>
+      <span class="label">{{ building.address }}</span>
+    </div>
+
+    <div class="row gap-05">
+      <h2 class="info">Total Floors:</h2>
+      <p>{{ numberOfFloors() }}</p>
     </div>
   </div>
-  
-  <p-confirmPopup></p-confirmPopup>
-  
+
+  <!-- Action buttons -->
+  <div class="row gap-05">
+    <button type="button" pButton icon="pi pi-pencil" (click)="editBuilding()" label="Edit"></button>
+    <button type="button" pButton icon="pi pi-trash" (click)="confirmDelete()" label="Delete" class="p-button-danger"
+      #deleteButton></button>
+  </div>
+</div>
+
+<p-confirmPopup></p-confirmPopup>

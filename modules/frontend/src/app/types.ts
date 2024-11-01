@@ -17,7 +17,7 @@ export interface Options {
     } | boolean;
 }
 
-export type EditEntity = Person | Building |  MaintenanceRequest;
+export type EditEntity = Person | Building | MaintenanceRequest;
 
 
 
@@ -36,16 +36,16 @@ export interface Building {
     floors?: Floor[];
 }
 
-    export interface Room {
-        roomId: number;
-        roomNumber: string;
-        roomDescription: string;
-        floorId: number;
-        floorDescription: string;
-        buildingId: number;
-        buildingName: string;
-        buildingAddress: string;
-    }
+export interface Room {
+    roomId: number;
+    roomNumber: string;
+    roomDescription: string;
+    floorId: number;
+    floorDescription: string;
+    buildingId: number;
+    buildingName: string;
+    buildingAddress: string;
+}
 
 export interface Floor {
     floorId?: number;
@@ -64,23 +64,23 @@ export interface Person {
     phoneNumber: string;
 }
 
-export interface ControlGroup{
-    controlGroupId: number; 
-    name: string;            
-    description: string;     
-    controlGroupAccessControls?: ControlGroupAccessControl[]; 
-    controlGroupPersons?: ControlGroupPerson[]; 
-  }
-  
-  export interface ControlGroupAccessControl {
+export interface ControlGroup {
+    controlGroupId: number;
+    name: string;
+    description: string;
+    controlGroupAccessControls?: ControlGroupAccessControl[];
+    controlGroupPersons?: ControlGroupPerson[];
+}
+
+export interface ControlGroupAccessControl {
     accessControlId: number;
-  }
-  
-  export interface ControlGroupPerson {
-    personId: number; 
-    startDate: Date;  
-    expirationDate: Date; 
-  }
+}
+
+export interface ControlGroupPerson {
+    personId: number;
+    startDate: Date;
+    expirationDate: Date;
+}
 
 export interface PaginationParams {
     [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
@@ -119,8 +119,8 @@ export interface MaintenanceResponse {
     endDate: Date;
     issue: string;
     status: StatusType;
-    roomId: number; 
-    personId: number; 
+    roomId: number;
+    personId: number;
     roomNumber: string;
     floorDescription: string;
     buildingName: string;
@@ -133,7 +133,7 @@ export enum StatusType {
     PENDING = 'PENDING',
     DENIED = 'DENIED',
     DONE = 'DONE',
-  }
+}
 
 export interface PaginatedMaintenanceRequests {
     items: MaintenanceRequest[];
@@ -141,5 +141,13 @@ export interface PaginatedMaintenanceRequests {
     page: number;
     perPage: number;
     totalPages: number;
+}
+
+export interface FloorRequestDTO {
+    floorId?: number;
+    number: string;
+    description: string;
+    buildingId: number; 
+    roomIds?: number[]
 }
 

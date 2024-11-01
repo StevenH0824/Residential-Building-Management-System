@@ -7,22 +7,21 @@ INSERT INTO building (name, address) VALUES
 -- Insert into Floor, referencing the correct building_id values from the building table
 INSERT INTO floor (number, description, building_id) VALUES
 ('1', 'First Floor', 1),
-('1A', 'First Floor', 1),
 ('2', 'Second Floor', 1),
 ('3', 'Third Floor', 1),
 ('4', 'Fourth Floor', 1),
 ('R', 'Roof', 1),
 ('1', 'First Floor', 2),
-('1', 'First Floor ', 2),
 ('2', 'Second Floor', 2),
+('3', 'Third Floor ', 2),
 ('R', 'Roof', 2),
-('1', 'First Floor', 3),
 ('1', 'First Floor', 3),
 ('2', 'Second Floor', 3),
 ('3', 'Third Floor', 3),
 ('4', 'Fourth Floor', 3),
 ('5', 'Fifth Floor', 3),
 ('6', 'Sixth Floor', 3),
+('7', 'Seventh Floor', 3),
 ('R', 'Roof', 3);
 
 -- Insert into Room
