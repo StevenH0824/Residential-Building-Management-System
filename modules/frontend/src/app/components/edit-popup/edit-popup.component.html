@@ -8,6 +8,7 @@
   [style]="{ 'min-height': '410px', 'min-width': '600px', 'max-width': '900px', 'border': '2px solid blue' }"
 >
   <div class="popup-content">
+    <!-- Person Input Fields -->
     <div *ngIf="_person">
       <div class="input-row">
         <label class="label" for="firstName">First Name</label>
@@ -30,6 +31,7 @@
       </div>
     </div>
 
+    <!-- Building Input Fields -->
     <div *ngIf="_building" class="building-context">
       <div class="input-row">
         <label class="label" for="buildingName">Name</label>
@@ -42,26 +44,28 @@
       </div>
     </div>
 
-    <div class="popup-content">
-      <div *ngIf="_maintenanceRequest">
-        <div class="input-row">
-          <label class="label" for="issue">Issue</label>
-          <input id="issue" [(ngModel)]="editingMaintenanceRequest.issue" />
-        </div>
-  
-        <div class="input-row">
-          <label class="label" for="status">Status</label>
-          <select id="status" [(ngModel)]="editingMaintenanceRequest.status">
-            <option value="PENDING">Pending</option>
-            <option value="APPROVED">Approved</option>
-            <option value="DENIED">Denied</option>
-            <option value="DONE">Done</option>
-          </select>
-        </div>
+    <!-- Maintenance Request Input Fields -->
+    <div *ngIf="_maintenanceRequest">
+      <div class="input-row">
+        <label class="label" for="issue">Issue</label>
+        <input id="issue" [(ngModel)]="editingMaintenanceRequest.issue" />
       </div>
 
+      <div class="input-row">
+        <label class="label" for="status">Status</label>
+        <select id="status" [(ngModel)]="editingMaintenanceRequest.status">
+          <option value="PENDING">Pending</option>
+          <option value="APPROVED">Approved</option>
+          <option value="DENIED">Denied</option>
+          <option value="DONE">Done</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Footer Buttons -->
     <div class="footer-buttons">
       <button type="button" pButton icon="pi pi-check" (click)="onConfirm()" label="Save"></button>
       <button type="button" pButton icon="pi pi-times" (click)="onCancel()" label="Cancel"></button>
     </div>
   </div>
+</p-dialog>

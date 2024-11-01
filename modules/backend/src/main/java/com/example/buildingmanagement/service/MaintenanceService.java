@@ -46,20 +46,20 @@ public class MaintenanceService {
   }
 
   private MaintenanceResponseDTO convertToResponseDTO(MaintenanceRequest request) {
-    return new MaintenanceResponseDTO(
-      request.getMaintenanceRequestId(),
-      request.getCreatedDate(),
-      request.getEndDate(),
-      request.getIssue(),
-      request.getStatus().name(),
-      request.getRoom().getNumber(),
-      request.getRoom().getFloor().getDescription(),
-      request.getRoom().getFloor().getBuilding().getName(),
-      request.getPerson().getFirstName() + " " + request.getPerson().getLastName(),
-      request.getPerson().getPhoneNumber(),
-      request.getPerson().getPersonId(),
-      request.getRoom().getRoomId()
-    );
+    MaintenanceResponseDTO dto = new MaintenanceResponseDTO();
+    dto.setMaintenanceRequestId(request.getMaintenanceRequestId());
+    dto.setCreatedDate(request.getCreatedDate());
+    dto.setEndDate(request.getEndDate());
+    dto.setIssue(request.getIssue());
+    dto.setStatus(request.getStatus().toString());
+    dto.setPersonId(request.getPerson().getPersonId());
+    dto.setRoomId(request.getRoom().getRoomId());
+    dto.setPersonFullName(request.getPerson().getFirstName() + " " + request.getPerson().getLastName());
+    dto.setRoomNumber(request.getRoom().getNumber());
+    dto.setFloorDescription(request.getRoom().getFloor().getDescription());
+    dto.setBuildingName(request.getRoom().getFloor().getBuilding().getName());
+    dto.setPhoneNumber(request.getPerson().getPhoneNumber());
+    return dto;
   }
 
 
@@ -113,7 +113,7 @@ public class MaintenanceService {
     return Duration.ofSeconds(totalTime / requests.size());
   }
 
-  public MaintenanceRequest createMaintenanceRequest(MaintenanceRequestDTO dto) {
+  public MaintenanceResponseDTO createMaintenanceRequest(MaintenanceRequestDTO dto) {
     Person person = personRepository.findById(dto.getPersonId())
       .orElseThrow(() -> new RuntimeException("Person not found"));
     Room room = roomRepository.findById(dto.getRoomId())
@@ -127,7 +127,9 @@ public class MaintenanceService {
     request.setPerson(person);
     request.setRoom(room);
 
-    return maintenanceRequestRepository.save(request);  }
+    MaintenanceRequest savedRequest = maintenanceRequestRepository.save(request);
+    return convertToResponseDTO(savedRequest);
+  }
 
   @Transactional
   public void deleteRequest(Long requestId) {

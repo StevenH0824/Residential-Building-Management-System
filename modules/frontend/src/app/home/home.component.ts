@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BuildingsService } from '../services/buildings.service';
 import { Building, Floor, EditEntity, MaintenanceRequest, Person } from '../types';
 import { CommonModule } from '@angular/common';
@@ -17,6 +17,8 @@ import { PersonService } from '../services/person.service';
   imports: [RouterModule, FloorComponent, BuildingComponent, CommonModule, EditPopupComponent, ButtonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  schemas: [NO_ERRORS_SCHEMA],
+
 })
 export class HomeComponent {
   buildings: Building[] = [];
@@ -141,26 +143,27 @@ export class HomeComponent {
     }
   }
 
+ 
+
   private isBuilding(entity: EditEntity): entity is Building {
     return (entity as Building).buildingId !== undefined;
   }
+  
   onConfirmEdit(updatedEntity: EditEntity) {
     if (this.isMaintenanceRequest(updatedEntity)) {
       const id = updatedEntity.maintenanceRequestId;
       if (id !== undefined) {
         this.editMaintenanceRequest(updatedEntity, id);
-      } else {
-        console.error('Maintenance request ID is undefined.');
       }
     } else if (this.isPerson(updatedEntity)) {
       this.editPerson(updatedEntity);
     } else if (this.isBuilding(updatedEntity)) {
-      const buildingId = updatedEntity.buildingId; 
+      const buildingId = updatedEntity.buildingId;
       if (buildingId !== undefined) {
-        this.editBuilding(updatedEntity as Building, buildingId); 
-      } else {
-        console.error('Building ID is undefined.');
+        this.editBuilding(updatedEntity as Building, buildingId);
       }
+    } else {
+      console.error('Unknown entity type:', updatedEntity);
     }
   }
 

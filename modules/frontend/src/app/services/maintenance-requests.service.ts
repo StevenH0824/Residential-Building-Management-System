@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { catchError, Observable, throwError } from 'rxjs';
-import { MaintenanceRequest, MaintenanceResponse } from '../types';
+import { Observable } from 'rxjs';
+import { MaintenanceRequest, MaintenanceResponse, StatusType } from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +11,12 @@ export class MaintenanceRequestsService {
 
   constructor(private apiService: ApiService) { }
 
+  createMaintenanceRequest(request: MaintenanceRequest): Observable<MaintenanceResponse> {
+    return this.apiService.post<MaintenanceResponse>(this.apiUrl, request); 
+}
+
   getMaintenanceRequests(): Observable<MaintenanceResponse[]> {
     return this.apiService.get<MaintenanceResponse[]>(this.apiUrl);
-  }
-
-  createMaintenanceRequest(request: MaintenanceRequest): Observable<MaintenanceResponse> {
-    return this.apiService.post<MaintenanceResponse>(this.apiUrl, request).pipe(
-        catchError(error => {
-            console.error('Error details:', error);
-            return throwError('Something went wrong; please try again later.');
-        })
-    );
   }
 
   updateMaintenanceRequest(request: MaintenanceRequest): Observable<MaintenanceResponse> {
@@ -31,4 +26,15 @@ export class MaintenanceRequestsService {
   deleteMaintenanceRequest(id: number): Observable<void> {
     return this.apiService.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  searchMaintenanceRequests(criteria: {
+    id?: number;
+    issue?: string;
+    status?: StatusType;
+    roomId?: number;
+    personId?: number;
+  }): Observable<MaintenanceResponse[]> {
+    return this.apiService.post<MaintenanceResponse[]>(`${this.apiUrl}/search`, criteria);
+  }
+  
 }

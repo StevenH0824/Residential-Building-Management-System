@@ -30,20 +30,21 @@ export class ApiService {
   }
   // Generic get method
   get<T>(url: string, options: Options = {}): Observable<T> {
-    return this.httpClient.get<T>(url, { ...options, headers: this.getHeaders() });
+    return this.httpClient.get<T>(url, { ...options, headers: this.getHeaders() }).pipe(
+      catchError(this.handleError)
+    );
   }
 
   // Helper to get headers (if needed)
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      // Add more headers here if needed
     });
   }
 
   // Error handling function
 private handleError(error: any) {
   console.error('API Error:', error);
-  return throwError(() => new Error('Something went wrong; please try again later.'));
-}
+  const errorMessage = error.error?.message || error.message || 'Something went wrong; please try again later.';
+  return throwError(() => new Error(errorMessage));}
 }
