@@ -10,6 +10,7 @@ import { FloorComponent } from '../components/floor/floor.component';
 import { RouterModule } from '@angular/router';
 import { MaintenanceRequestsService } from '../services/maintenance-requests.service';
 import { PersonService } from '../services/person.service';
+import { GeocodingService } from '../services/geocoding.service';
 
 @Component({
   selector: 'app-home',
@@ -39,7 +40,8 @@ export class HomeComponent {
   constructor(
     private buildingsService: BuildingsService,
     private personsService: PersonService,
-    private maintenanceRequestsService: MaintenanceRequestsService
+    private maintenanceRequestsService: MaintenanceRequestsService,
+    private geocodingService: GeocodingService
   ) {}
 
   @Input() menuValue: boolean = false;
@@ -92,14 +94,31 @@ export class HomeComponent {
   ngOnInit() {
     this.fetchBuildings();
     this.fetchMaintenanceRequests();
+
+    
   }
 
   fetchBuildings() {
     this.buildingsService.getBuildings('http://localhost:8080/api/buildings', { page: 0, perPage: 5 })
       .subscribe(data => {
         this.buildings = data;
+        this.buildings.forEach(building => {
+          this.getCoordinates(building.address);
+        });
       }, error => console.error('Error fetching buildings:', error));
   }
+
+
+  getCoordinates(address: string) {
+    this.geocodingService.getCoordinates(address)
+      .then(coords => {
+        console.log(`Coordinates for ${address}: Latitude: ${coords.latitude}, Longitude: ${coords.longitude}`);
+      })
+      .catch(error => {
+        console.error('Error getting coordinates:', error);
+      });
+  }
+
 
   addBuilding(building: Building) {
     this.buildingsService.addBuilding(`http://localhost:8080/api/buildings`, building).subscribe({
