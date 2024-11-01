@@ -36,13 +36,25 @@ public class CardScanner {
 
   public List<Long> getAccessLogIds() {
     return accessLogs.stream()
-      .map(AccessLog::getId) // Assuming AccessLog has a method getId()
+      .map(AccessLog::getId)
       .collect(Collectors.toList());
   }
 
   public List<Long> getAccessControlIds() {
     return accessControls.stream()
-      .map(AccessControl::getId) // Assuming AccessControl has a method getId()
+      .map(AccessControl::getId)
       .collect(Collectors.toList());
   }
+
+    public Long getId() {
+    return this.cardScannerId;
+    }
+
+  public Room getRoom() {
+    return accessControls.stream()
+      .map(AccessControl::getRoom)
+      .findFirst()
+      .orElse(null);
+  }
+
 }

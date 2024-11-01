@@ -12,8 +12,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class AccessLogResponseDTO {
-  private Long accessLogId; // ID of the access log
-  private Long cardScannerId; // ID of the associated card scanner
-  private Long badgeId; // ID of the associated badge (Person ID)
-  private LocalDateTime timestamp; // Timestamp of the access event
+  private Long accessLogId;
+  private Long cardScannerId;
+  private String floorDescription;
+  private String roomNumber;
+  private String buildingName;
+  private LocalDateTime accessTime;
+  private String fullName;
 }

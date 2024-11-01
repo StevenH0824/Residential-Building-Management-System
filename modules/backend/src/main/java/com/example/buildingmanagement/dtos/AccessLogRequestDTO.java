@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 public class AccessLogRequestDTO {
   private Long cardScannerId; // ID of the associated card scanner
-  private Long badgeId;       // ID of the associated badge (Person ID)
+  @Getter
+  private Long personId;       // ID of the associated badge (Person ID)
   private LocalDateTime timestamp; // Timestamp of the access event
 }

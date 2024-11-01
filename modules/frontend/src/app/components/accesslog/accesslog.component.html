@@ -1,37 +1,53 @@
 <div class="container">
-    <div class="search-container">
-    </div>
+  <div class="search-container">
+    <input type="text" placeholder="Search" [(ngModel)]="searchTerm" (keydown.enter)="searchAccessLogs()" />
+    <button type="button" pButton icon="pi pi-search" (click)="searchAccessLogs()" label="Search"></button>
+  </div>
 
-    <div class="add-access-log-container">
-        <h3>Add New Access Log</h3>
-        <input [(ngModel)]="newAccessLog.cardScannerId" placeholder="Card Scanner ID" />
-        <input [(ngModel)]="newAccessLog.badgeId" placeholder="Badge ID" />
-        <input [(ngModel)]="newAccessLog.timestamp" placeholder="Timestamp" type="datetime-local" />
-        <button type="button" pButton icon="pi pi-plus" (click)="logAccess()" label="Add"></button>
-    </div>
+  <div class="add-accesslog-container">
+    <h3>Add New Access Log</h3>
+    <input [(ngModel)]="newAccessLog.cardScannerId" placeholder="Card Scanner ID" />
+    <input [(ngModel)]="newAccessLog.personId" placeholder="Person ID" />
+    <input type="datetime-local" [(ngModel)]="newAccessLog.accessTime" placeholder="Timestamp" />
+    <button type="button" pButton icon="pi pi-plus" (click)="logAccess()" label="Add"></button>
+  </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Access Log ID</th>
-                <th>Card Scanner ID</th>
-                <th>Badge ID</th>
-                <th>Timestamp</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let log of accesslogs">
-                <td>{{ log.accessLogId }}</td>
-                <td>{{ log.cardScannerId }}</td>
-                <td>{{ log.badgeId }}</td>
-                <td>{{ log.timestamp }}</td>
-                <td>
-                    <!-- <button type="button" pButton icon="pi pi-trash" (click)="confirmDelete(log.accessLogId)" label="Delete" class="p-button-danger"></button> -->
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <table>
+    <thead>
+      <tr>
+        <th>Access Log ID</th>
+        <th>Card Scanner ID</th>
+        <th>Floor Description</th>
+        <th>Room Number</th>
+        <th>Building Name</th>
+        <th>Access Time</th>
+        <th>Full Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="filteredLogs.length > 0; else noLogsTemplate">
+        <tr *ngFor="let log of filteredLogs">
+          <td>{{ log.accessLogId }}</td>
+          <td>{{ log.cardScannerId }}</td>
+          <td>{{ log.floorDescription }}</td>
+          <td>{{ log.roomNumber }}</td>
+          <td>{{ log.buildingName }}</td>
+          <td>{{ log.accessTime | date:'short' }}</td>
+          <td>{{ log.fullName }}</td>
+          <td>
+            <button type="button" class="p-button-danger" pButton icon="pi pi-trash" (click)="deleteAccessLog(log)" label="Delete"></button>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #noLogsTemplate>
+        <tr>
+          <td colspan="7">No access logs available.</td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
 
-    <p-confirmPopup #confirmPopup></p-confirmPopup>
-</div>
+  <div *ngIf="filteredLogs.length === 0 && searchTerm">
+    <p>No results found for "{{ searchTerm }}"</p>
+  </div>

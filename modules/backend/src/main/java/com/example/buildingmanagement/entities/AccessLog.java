@@ -39,4 +39,16 @@ public class AccessLog {
   public LocalDateTime getAccessTime() {
     return access_time;
   }
+
+  // Retrieve the associated room from the card scanner
+  public Room getRoom() {
+    if (cardScanner != null && cardScanner.getAccessControls() != null) {
+      for (AccessControl accessControl : cardScanner.getAccessControls()) {
+        if (accessControl.getRoom() != null) {
+          return accessControl.getRoom();
+        }
+      }
+    }
+    return null;
+  }
 }
