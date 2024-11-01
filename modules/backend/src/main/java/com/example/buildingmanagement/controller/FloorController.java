@@ -47,7 +47,7 @@ public class FloorController {
   }
 
   // Create a new floor
-  @PostMapping
+  @PostMapping("/floors")
   public ResponseEntity<FloorResponseDTO> createFloor(@RequestBody FloorRequestDTO floorRequestDTO) {
     Floor savedFloor = floorService.saveFloor(floorRequestDTO);
 
