@@ -11,10 +11,14 @@ INSERT INTO floor (number, description, building_id) VALUES
 ('3', 'Third Floor', 1),
 ('4', 'Fourth Floor', 1),
 ('R', 'Roof', 1),
+
+
 ('1', 'First Floor', 2),
 ('2', 'Second Floor', 2),
 ('3', 'Third Floor ', 2),
 ('R', 'Roof', 2),
+
+
 ('1', 'First Floor', 3),
 ('2', 'Second Floor', 3),
 ('3', 'Third Floor', 3),
@@ -58,6 +62,7 @@ INSERT INTO room (number, description, floor_id) VALUES
 
 -- Insert into Person
 INSERT INTO person (email, first_name, last_name, phone_number) VALUES
+--Marvel Residents
 ('tony.stark@marvel.com', 'Tony', 'Stark', '9876543210'),
 ('steve.rogers@marvel.com', 'Steve', 'Rogers', '9876543211'),
 ('natasha.romanoff@marvel.com', 'Natasha', 'Romanoff', '9876543212'),
@@ -66,8 +71,15 @@ INSERT INTO person (email, first_name, last_name, phone_number) VALUES
 ('peter.parker@marvel.com', 'Peter', 'Parker', '9876543215'),
 ('wanda.maximoff@marvel.com', 'Wanda', 'Maximoff', '9876543216'),
 ('clint.barton@marvel.com', 'Clint', 'Barton', '9876543217'),
-('stephen.strange@marvel.com', 'Stephen', 'Strange', '9876543218'),
-('carol.danvers@marvel.com', 'Carol', 'Danvers', '9876543219');
+
+-- DC Residents
+('bruce.wayne@wayneenterprises.com', 'Bruce', 'Wayne', '202-555-9012'),
+('diana.prince@themuseum.org', 'Diana', 'Prince', '202-555-3456'),
+('hal.jordan@usaf.mil', 'Hal', 'Jordan', '202-555-2345'),
+('arthur.curry@atlantis.gov', 'Arthur', 'Curry', '202-555-6789'),
+('victor.stone@titans.com', 'Victor', 'Stone', '202-555-0123'),
+('garfield.logan@titans.com', 'Garfield', 'Logan', '202-555-4567'),
+('rachel.roth@titans.com', 'Rachel', 'Roth', '202-555-8901');
 
 -- Insert into CardScanner
 INSERT INTO card_scanner (serial_no, make, model, room_id) VALUES
@@ -136,7 +148,17 @@ INSERT INTO control_group_person (control_group_id, person_id, start_date, expir
 (3, 7, '2024-07-01', '2025-07-01'),
 (3, 8, '2024-08-01', '2025-08-01'),
 (3, 9, '2024-09-01', '2025-09-01'),
-(4, 10, '2024-10-01', '2025-10-01');
+(4, 10, '2024-10-01', '2025-10-01'),
+(5, 9, '2024-01-01', '2025-01-01'),   -- Clark Kent: Access to Fifth Floor, Lobby
+(6, 10, '2024-02-01', '2025-02-01'),  -- Lois Lane: Access to Sixth Floor, Gym, Roof
+(7, 11, '2024-03-01', '2025-03-01'),  -- Bruce Wayne: Access to Seventh Floor, Roof
+(8, 12, '2024-04-01', '2025-04-01'),  -- Diana Prince: Access to Eighth Floor, Lobby
+(9, 13, '2024-05-01', '2025-05-01'),  -- Barry Allen: Access to Ninth Floor, Gym
+(10, 14, '2024-06-01', '2025-06-01'), -- Hal Jordan: Access to all floors in Building C
+(5, 15, '2024-07-01', '2025-07-01'),  -- Arthur Curry: Access to Fifth Floor, Lobby
+(6, 16, '2024-08-01', '2025-08-01'),  -- Victor Stone: Access to Sixth Floor, Gym, Roof
+(7, 17, '2024-09-01', '2025-09-01'),  -- Garfield Logan: Access to Seventh Floor, Roof
+(8, 18, '2024-10-01', '2025-10-01');  -- Rachel Roth: Access to Eighth Floor, Lobby
 
 -- Insert into AccessLog
 INSERT INTO access_log (scanner_id, person_id, access_time) VALUES
@@ -149,7 +171,15 @@ INSERT INTO access_log (scanner_id, person_id, access_time) VALUES
 (7, 7, '2024-01-07T16:00:00'),
 (8, 8, '2024-01-08T17:00:00'),
 (9, 9, '2024-01-09T18:00:00'),
-(10, 10, '2024-01-10T19:00:00');
+(10, 10, '2024-01-10T19:00:00'),
+
+(7, 11, '2024-01-13T09:00:00'),  -- Bruce Wayne accessed using scanner 7
+(8, 12, '2024-01-14T11:00:00'),  -- Diana Prince accessed using scanner 8
+(1, 14, '2024-01-16T08:30:00'),  -- Hal Jordan accessed using scanner 1
+(2, 15, '2024-01-17T12:15:00'),  -- Arthur Curry accessed using scanner 2
+(3, 16, '2024-01-18T10:00:00'),  -- Victor Stone accessed using scanner 3
+(4, 17, '2024-01-19T15:30:00'),  -- Garfield Logan accessed using scanner 4
+(5, 18, '2024-01-20T09:45:00');  -- Rachel Roth accessed using scanner 5
 
 -- Insert into AccessRequest
 INSERT INTO access_request (access_control_id, person_id, request_time, approved, scanner_id) VALUES
@@ -162,7 +192,17 @@ INSERT INTO access_request (access_control_id, person_id, request_time, approved
 (2, 7, '2024-01-07T15:00:00', TRUE, 7),
 (3, 8, '2024-01-08T16:00:00', FALSE, 8),
 (1, 9, '2024-01-09T17:00:00', TRUE, 9),
-(1, 10, '2024-01-10T18:00:00', FALSE, 10);
+(1, 10, '2024-01-10T18:00:00', FALSE, 10),
+(5, 9, '2024-01-11T10:10:00', TRUE, 5),   -- Clark Kent requested access (approved)
+(6, 10, '2024-01-12T14:20:00', TRUE, 6),  -- Lois Lane requested access (approved)
+(7, 11, '2024-01-13T08:50:00', TRUE, 7),  -- Bruce Wayne requested access (approved)
+(5, 12, '2024-01-14T11:00:00', TRUE, 5),  -- Diana Prince requested access
+(6, 13, '2024-01-15T16:45:00', FALSE, 6), -- Barry Allen requested access
+(7, 14, '2024-01-16T08:00:00', TRUE, 7),  -- Hal Jordan requested access
+(8, 15, '2024-01-17T10:30:00', FALSE, 8), -- Arthur Curry requested access
+(1, 16, '2024-01-18T12:00:00', TRUE, 1),  -- Victor Stone requested access
+(2, 17, '2024-01-19T14:00:00', TRUE, 2),  -- Garfield Logan requested access
+(3, 18, '2024-01-20T09:00:00', FALSE, 3); -- Rachel Roth requested access
 
 
 -- Insert into MaintenanceRequest
@@ -176,4 +216,10 @@ INSERT INTO maintenance_request (created_date, end_date, issue, status, person_i
 ('2024-01-13T14:00:00', '2024-01-14T14:00:00', 'Clogged Drain', 'DENIED', 7, 7),
 ('2024-01-15T15:00:00', '2024-01-16T15:00:00', 'Broken Door', 'PENDING', 8, 8),
 ('2024-01-17T16:00:00', '2024-01-22T16:00:00', 'Cracked Wall', 'DONE', 9, 9),
-('2024-01-19T17:00:00', '2024-01-20T17:00:00', 'Noisy HVAC', 'PENDING', 10, 10);
+('2024-01-19T17:00:00', '2024-01-20T17:00:00', 'Noisy HVAC', 'PENDING', 10, 10),
+
+('2024-01-20T10:00:00', '2024-01-22T10:00:00', 'Faulty Light Switch', 'DONE', 14, 7), -- Hal Jordan
+('2024-01-21T14:30:00', NULL, 'Leaking Faucet', 'PENDING', 15, 5), -- Arthur Curry
+('2024-01-22T09:15:00', '2024-01-23T09:15:00', 'Broken Window', 'DONE', 16, 6), -- Victor Stone
+('2024-01-23T11:00:00', NULL, 'Clogged Toilet', 'PENDING', 17, 7), -- Garfield Logan
+('2024-01-24T16:30:00', '2024-01-25T16:30:00', 'Door Not Closing', 'DONE', 18, 8); -- Rachel Roth
