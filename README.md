@@ -38,3 +38,10 @@ Project that involves different floors,apartments, card scanners (QR codes) alon
 There will be allocation of people to apartments along with access and maintainance requests. 
 Audits will be generated to show information involving the space, person, access, and the average time it takes to
 solve maintenance issues
+
+
+## Additional notes
+This was a project that had a 3 week deadline, we did not accomplish everything that we wanted but I feel that we made
+good headway as a 5 person group. As a team we learned a lot and were able to use springboot and angular to provide
+some of the functionalities for a building management system. Will definitely revisit this project in the future, it was
+good practice and left me with a lot of valuable experiences on how the real world works along with how agile spikes are. 
